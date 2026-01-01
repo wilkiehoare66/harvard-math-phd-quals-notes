@@ -1,0 +1,550 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[sorting=none]{biblatex}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{pdfpages}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{minted}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage[table]{xcolor}
+\addbibresource{references.bib}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arsinh}{arsinh}
+\DeclareMathOperator{\arcosh}{arcosh}
+\DeclareMathOperator{\artanh}{artanh}
+\DeclareMathOperator{\arcsch}{arcsch}
+\DeclareMathOperator{\arsech}{arsech}
+\DeclareMathOperator{\arcoth}{arcoth}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\N}{N}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Cent}{Cent}
+\DeclareMathOperator{\Rad}{Rad}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\NS}{NS}
+\DeclareMathOperator{\Res}{Res}
+\newcommand{\characteristic}{\mathrel{\textrm{char}}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{exmp}[theorem]{Example}
+\newtheorem{defn}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\lf{\left\lfloor}   
+\def\rf{\right\rfloor}
+
+\title{Complex Analysis}
+\author{Wilkie Hoare}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+%%CONTENT STARTS HERE
+
+\newpage
+\section{Ahlfors: Complex Analysis}
+\subsection{Complex Functions}
+\subsubsection{Introduction to the Concept of Analytic Function}
+\begin{defn}(Limit).
+    The function $f(x)$ is said to have the limit $A$ as $x$ tends to $a$, \[\lim_{x\rightarrow a}f(x)=A\] if and only if the following is true: for every $\varepsilon>0$ there exists a number $\delta>0$ with the property that $|f(x)-A|<\varepsilon$ for all values of $x$ such that $|x-a|<\delta$ and $x\neq a$.
+\end{defn}
+\begin{theorem}(Lucas).
+    If all zeros of a polynomial $P(z)$ lies in a half plane, then all zeros of the derivative $P'(z)$ lie in the same half plane.
+\end{theorem}
+\subsubsection{Elementary Theory of Power Series}
+\begin{theorem}(Abel).
+    For every power series $a_0+a_1z+a_2z^2+\cdots+a_nz^n+\cdots$ there exists a number $R$, $0\leq R\leq\infty$, called the radius of convergence, with the following properties:
+    \begin{enumerate}
+        \item The series converges absolutely for every $z$ with $|z|<R$. If $0\leq\rho<R$ the convergence is uniform for $|z|\leq\rho$.
+        \item If $|z|>R$ the terms of the series are unbounded, and the series is consequently divergent.
+        \item In $|z|<R$ the sum of the series is an analytic function. The derivative can be obtained by termwise differentiation, and the derived series has the same radius of convergence.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    If $\sum_{n=0}^{\infty}a_n$ converges, then $f(z)=\sum_{n=0}^{\infty}a_nz^n$ tends to $f(1)$ as $z$ approaches 1 in such a way that $|1-z|/(1-|z|)$ remains bounded.
+\end{theorem}
+\subsection{Analytic Functions as Mappings}
+\subsubsection{Elementary Point Set Topology}
+\begin{defn}(Neighborhood).
+    A set $N\subset S$ is called a \textit{neighborhood} of $y\in S$ if it contains a ball $B(y,\delta)$.
+\end{defn}
+\begin{defn}(Open).
+    A set is \textit{open} if it is a neighborhood of each of its elements.
+\end{defn}
+\begin{defn}(Connected).
+    A subset of a metric space is \textit{connected} if it cannot be represented as the union of two disjoint relatively open sets none of which is empty.
+\end{defn}
+\begin{theorem}
+    The nonempty connected subsets of the real line are the intervals.
+\end{theorem}
+\begin{theorem}
+    Any closed and bounded nonempty set of real numbers has a minimum and a maximum.
+\end{theorem}
+\begin{theorem}
+    A nonempty open set in the plane is connected if and only if any two of its points can be joined by a polygon which lies in the set.
+\end{theorem}
+\begin{defn}(Region).
+    A nonempty connected open set is called a \textit{region}.
+\end{defn}
+\begin{theorem}
+    Every set has a unique decomposition into components.
+\end{theorem}
+\begin{theorem}
+    In $\mathbb{R}^n$ the components of any open set are open.
+\end{theorem}
+\begin{defn}(Complete).
+    A metric space is said to be \textit{complete} if every Cauchy sequence is convergent.
+\end{defn}
+\begin{defn}(Compact).
+    A set $X$ is \textit{compact} if and only if every open covering of $X$ contains a finite subcovering.
+\end{defn}
+\begin{defn}(Totally bounded).
+    A set $X$ is \textit{totally bounded} if, for every $\varepsilon>0$, $X$ can be covered by finitely many balls of radius $\varepsilon$.
+\end{defn}
+\begin{theorem}
+    A set is compact if and only if it is complete and totally bounded.
+\end{theorem}
+\begin{corollary}
+    A subset of $\mathbb{R}$ or $\mathbb{C}$ is compact if and only if it is closed and bounded.
+\end{corollary}
+\begin{theorem}(Bolzano-Weierstrass).
+    A metric space is compact if and only if every infinite sequence has a limit point.
+\end{theorem}
+\begin{theorem}
+    Under a continuous mapping the image of every compact set is compact, and consequently closed.
+\end{theorem}
+\begin{corollary}
+    A continuous real-valued function on a compact set has a maximum and a minimum.
+\end{corollary}
+\begin{theorem}
+    Under a continuous mapping the image of any connected set is connected.
+\end{theorem}
+\begin{theorem}
+    On a compact set every continuous function is uniformly continuous.
+\end{theorem}
+\begin{defn}(Topological space).
+    A \textit{topological space} is a set $T$ together with a collection of its subsets, called open sets. The following conditions have to be fulfilled:
+    \begin{enumerate}
+        \item The empty set $\emptyset$ and the whole space $T$ are open sets.
+        \item The intersection of any two open sets is an open set.
+        \item The union of an arbitrary collection of open sets is an open set.
+    \end{enumerate}
+\end{defn}
+\begin{defn}(Hausdorff space).
+    A topological space is called a \textit{Hausdorff} space if any two distinct points are contained in disjoint open sets.
+\end{defn}
+\subsubsection{Conformality}
+\begin{defn}(Analytic).
+    A complex-valued function $f(z)$, defined on an open set $\Omega$, is said to be \textit{analytic} in $\Omega$ if it has a derivative at each point of $\Omega$.
+\end{defn}
+\begin{defn}(Analytic).
+    A function $f(z)$ is \textit{analytic} on an arbitrary point set $A$ if it is the restriction to $A$ of a function which is analytic in some open set containing $A$.
+\end{defn}
+\begin{theorem}
+    An analytic function in a region $\Omega$ whose derivative vanishes identically must reduce to a constant. The same is true if either the real part, the imaginary part, the modulus, or the argument is constant.
+\end{theorem}
+\subsubsection{Linear Transformations}
+\begin{defn}(Cross ratio).
+    The \textit{cross ratio} $(z_1,z_2,z_3,z_4)$ is the image of $z_1$ under the linear transformation which carries $z_2,z_3,z_4$ into $1,0,\infty$.
+\end{defn}
+\begin{theorem}
+    If $z_1,z_2,z_3,z_4$ are distinct points in the extended plane and $T$ any linear transformation, then $(Tz_1,Tz_2,Tz_3,Tz_4)=(z_1,z_2,z_3,z_4)$.
+\end{theorem}
+\begin{theorem}
+    The cross ratio $(z_1,z_2,z_3,z_4)$ is real if and only if the four points lie on a circle or on a straight line.
+\end{theorem}
+\begin{theorem}
+    A linear transformation carries circles into circles.
+\end{theorem}
+\begin{defn}(Symmetric).
+    The points $z$ and $z^*$ are said to be \textit{symmetric} with respect to the circle $C$ through $z_1,z_2,z_3$ if and only if $(z^*,z_1,z_2,z_3)=(\overline{z,z_1,z_2,z_3})$.
+\end{defn}
+\begin{theorem}(The symmetry principle).
+    If a linear transformation carries a circle $C_1$ into a circle $C_2$, then it transforms any pair of symmetric points with respect to $C_1$ into a pair of symmetric points with respect to $C_2$.
+\end{theorem}
+\subsection{Complex Integration}
+\subsubsection{Fundamental Theorems}
+\begin{theorem}
+    The line integral $\int_{\gamma}p\;\textrm{d}x+q\;\textrm{d}y$, defined in $\Omega$, depends only on the end points of $\gamma$ if and only if there exists a function $U(x,y)$ in $\Omega$ with the partial derivatives $\partial U/\partial x=p,\partial U/\partial y=q$.
+\end{theorem}
+\begin{theorem}(Cauchy).
+    If the function $f(z)$ is analytic on $R$, then $\int_{\partial R}f(z)\;\textrm{d}z=0$.
+\end{theorem}
+\begin{theorem}(Cauchy).
+    Let $f(z)$ be analytic on the set $R'$ obtained from a rectangle $R$ by omitting a finite number of interior points $\zeta_j$. If it is true that $\lim_{z\rightarrow\zeta_j}(z-\zeta_j)f(z)=0$ for all $j$, then $\int_{\partial R}f(z)\;\textrm{d}z=0$.
+\end{theorem}
+\begin{theorem}(Cauchy).
+    If $f(z)$ is analytic in an open disk $\Delta$, then $\int_{\gamma}f(z)\;\textrm{d}z=0$ for every closed curve $\gamma$ in $\Delta$.
+\end{theorem}
+\begin{theorem}(Cauchy).
+    Let $f(z)$ be analytic in the region $\Delta'$ obtained by omitting a finite number of points $\zeta_j$ from an open disk $\Delta$. If $f(z)$ satisfies the condition $\lim_{z\rightarrow\zeta_j}(z-\zeta_j)f(z)=0$ for all $j$, then Theorem 1.38 holds for any closed curve $\gamma$ in $\Delta'$.
+\end{theorem}
+\subsubsection{Cauchy's Integral Formula}
+\begin{lemma}
+    If the piecewise differentiable closed curve $\gamma$ does not pass through the point $a$, then the value of the integral \[\int_{\gamma}\frac{\textrm{d}z}{z-a}\] is a multiple of $2\pi i$.
+\end{lemma}
+\begin{lemma}
+    Let $z_1,z_2$ be two points on a closed curve $\gamma$ which does not pass through the origin. Denote the subarc from $z_1$ to $z_2$ in the direction of the curve by $\gamma_1$, and the subarc from $z_2$ to $z_1$ by $\gamma_2$. Suppose that $z_1$ lies in the lower half plane and $z_2$ in the upper half plane. If $\gamma_1$ does not meet the negative real axis and $\gamma_2$ does not meet the positive real axis, then $n(\gamma,0)=1$.
+\end{lemma}
+\begin{theorem}
+    Suppose that $f(z)$ is analytic in an open disk $\Delta$, and let $\gamma$ be a closed curve in $\Delta$. For any point $a$ not on $\gamma$ \[n(\gamma,a)\cdot f(a)=\frac{1}{2\pi i}\int_{\gamma}\frac{f(z)\;\textrm{d}z}{z-a}\] where $n(\gamma,a)$ is the index of $a$ with respect to $\gamma$.
+\end{theorem}
+\begin{lemma}
+    Suppose that $\varphi(\zeta)$ is continuous on the arc $\gamma$. Then the function \[F_n(z)=\int_{\gamma}\frac{\varphi(\zeta)\;\textrm{d}\zeta}{(\zeta-z)^n}\] is analytic in each of the regions determined by $\gamma$, and its derivative is $F_n'(z)=nF_{n+1}(z)$.
+\end{lemma}
+\subsubsection{Local Properties of Analytical Functions}
+\begin{theorem}
+    Suppose that $f(z)$ is analytic in the region $\Omega'$ obtained by omitting a point $a$ from a region $\Omega$. A necessary and sufficient condition that there exists an analytic function in $\Omega$ which coincides with $f(z)$ in $\Omega'$ is that $\lim_{z\rightarrow a}(z-a)f(z)=0$. The extended function is uniquely determined.
+\end{theorem}
+\begin{theorem}(Taylor).
+    If $f(z)$ is analytic in a region $\Omega$, containing $a$, it is possible to write \[f(z)=f(a)+\frac{f'(a)}{1!}(z-a)+\frac{f''(a)}{2!}(z-a)^2+\cdots+\frac{f^{(n-1)}(a)}{(n-1)!}(z-a)^{n-1}+f_n(z)(z-a)^n\] where $f_n(z)$ is analytic in $\Omega$.
+\end{theorem}
+\begin{theorem}(Weierstrass).
+    An analytic function comes arbitrarily close to any complex value in every neighborhood of an essential singularity.
+\end{theorem}
+\begin{theorem}
+    Let $z_j$ be the zeros of a function $f(z)$ which is analytic in a disk $\Delta$ and does not vanish identically, each zero being counted as many times as its order indicates. For every closed curve $\gamma$ in $\Delta$ which does not pass through a zero \[\sum_jn(\gamma,z_j)=\frac{1}{2\pi i}\int_{\gamma}\frac{f'(z)}{f(z)}\;\textrm{d}z\] where the sum has only a finite number of nonzero terms.
+\end{theorem}
+\begin{theorem}
+    Suppose that $f(z)$ is analytic at $z_0$, $f(z_0)=w_0$, and that $f(z)-w_0$ has a zero of order $n$ at $z_0$. If $\varepsilon>0$ is sufficiently small, there exists a corresponding $\delta>0$ such that for all $a$ with $|a-w_0|<\delta$ the equation $f(z)=a$ has exactly $n$ roots in the disk $|z-z_0|<\varepsilon$.
+\end{theorem}
+\begin{corollary}
+    A nonconstant analytic function maps open sets onto open sets.
+\end{corollary}
+\begin{corollary}
+    If $f(z)$ is analytic at $z_0$ with $f'(z_0)\neq0$, it maps a neighborhood of $z_0$ conformally and topologically onto a region.
+\end{corollary}
+\begin{theorem}(The maximum principle).
+    If $f(z)$ is analytic and nonconstant in a region $\Omega$, then its absolute value $|f(z)|$ has no maximum in $\Omega$.
+\end{theorem}
+\begin{theorem}
+    If $f(z)$ is defined and continuous on a closed bounded set $E$ and analytic on the interior of $E$, then the maximum of $|f(z)|$ on $E$ is assumed on the boundary of $E$.
+\end{theorem}
+\begin{theorem}(Schwarz's Lemma).
+    If $f(z)$ is analytic for $|z|<1$ and satisfies the conditions $|f(z)|\leq1,f(0)=0$, then $|f(z)|\leq|z|$ and $|f'(0)|\leq1$. If $|f(z)|=|z|$ for some $z\neq0$, or if $|f'(0)|=1$, then $f(z)=cz$ with a constant $c$ of absolute value 1.
+\end{theorem}
+\subsubsection{The General Form of Cauchy's Theorems}
+\begin{defn}(Simply connected).
+    A region is \textit{simply connected} if its complement with respect to the extended plane is connected.
+\end{defn}
+\begin{theorem}
+    A region $\Omega$ is simply connected if and only if $n(\gamma,a)=0$ for all cycles $\gamma$ in $\Omega$ and all points $a$ which do not belong to $\Omega$.
+\end{theorem}
+\begin{defn}(Homologous).
+    A cycle $\gamma$ in an open set $\Omega$ is said to be \textit{homologous} to zero with respect to $\Omega$ if $n(\gamma,a)=0$ for all points $a$ in the complement of $\Omega$.
+\end{defn}
+\begin{theorem}(Cauchy).
+    If $f(z)$ is analytic in $\Omega$, then $\int_{\gamma}f(z)\;\textrm{d}z=0$ for every cycle $\gamma$ which is homologous to zero in $\Omega$.
+\end{theorem}
+\begin{corollary}
+    If $f(z)$ is analytic in a simply connected region $\Omega$, then Theorem 1.57 holds for all cycles $\gamma$ in $\Omega$.
+\end{corollary}
+\begin{corollary}
+    If $f(z)$ is analytic and nonzero in a simply connected region $\Omega$, then it is possible to define single-valued analytic branches of $\log{f(z)}$ and $\sqrt[n]{f(z)}$ in $\Omega$.
+\end{corollary}
+\begin{theorem}
+    If $p\;\textrm{d}x+q\;\textrm{d}y$ is locally exact in $\Omega$, then $\int_{\gamma}p\;\textrm{d}x+q\;\textrm{d}y=0$ for every cycle $\gamma\sim0$ in $\Omega$.
+\end{theorem}
+\subsubsection{The Calculus of Residues}
+\begin{defn}(Residue).
+    The \textit{residue} of $f(z)$ at an isolated singularity $a$ is the unique complex number $R$ which makes $f(z)-R/(z-a)$ the derivative of a single-valued analytic function in an annulus $0<|z-a|<\delta$.
+\end{defn}
+\begin{theorem}(Residue Theorem).
+    Let $f(z)$ be analytic except for isolated singularities $a_j$ in a region $\Omega$. Then \[\frac{1}{2\pi i}\int_{\gamma}f(z)\;\textrm{d}z=\sum_jn(\gamma,a_j)\Res_{z=a_j}f(z)\] for any cycle $\gamma$ which is homologous to zero in $\Omega$ and does not pass through any of the points $a_j$.
+\end{theorem}
+\begin{defn}(Bound the region).
+    A cycle $\gamma$ is said to \textit{bound the region} $\Omega$ if and only if $n(\gamma,a)$ is defined and equal to 1 for all points $a\in\Omega$ and either undefined or equal to zero for all points $a$ not in $\Omega$.
+\end{defn}
+\begin{theorem}(Argument Principle).
+    If $f(z)$ is meromorphic in $\Omega$ with the zeros $a_j$ and the poles $b_k$, then \[\frac{1}{2\pi i}\int_{\gamma}\frac{f'(z)}{f(z)}\;\textrm{d}z=\sum_jn(\gamma,a_j)-\sum_kn(\gamma,b_k)\] for every cycle $\gamma$ which is homologous to zero in $\Omega$ and does not pass through any of the zeros or poles.
+\end{theorem}
+\begin{corollary}(Rouché's Theorem).
+    Let $\gamma$ be homologous to zero in $\Omega$ and such that $n(\gamma,z)$ is either 0 or 1 for any point $z$ not on $\gamma$. Suppose that $f(z)$ and $g(z)$ are analytic in $\Omega$ and satisfy the inequality $|f(z)-g(z)|<|f(z)|$ on $\gamma$. Then $f(z)$ and $g(z)$ have the same number of zeros enclosed by $\gamma$.
+\end{corollary}
+\subsubsection{Harmonic Functions}
+\begin{theorem}
+    If $u_1$ and $u_2$ are harmonic in a region $\Omega$, then $\int_{\gamma}u_1\;^*\textrm{d}u_2-u_2\;^*\textrm{d}u_1=0$ for every cycle $\gamma$ which is homologous to zero in $\Omega$.
+\end{theorem}
+\begin{theorem}
+    The arithmetic mean of a harmonic function over concentric circles $|z|=r$ is a linear function of $\log{r}$, \[\frac{1}{2\pi}\int_{|z|=r}u\;\textrm{d}\theta=\alpha\log{r}+\beta\] and if $u$ is harmonic in a disk $\alpha=0$ and the arithmetic mean is constant.
+\end{theorem}
+\begin{theorem}(Maximum Principle for Harmonic Functions).
+    A nonconstant harmonic function has neither a maximum nor a minimum in its region of definition. Consequently, the maximum and the minimum on a closed bounded set $E$ are taken on the boundary of $E$.
+\end{theorem}
+\begin{theorem}
+    Suppose that $u(z)$ is harmonic for $|z|<R$, continuous for $|z|\leq R$. Then \[u(a)=\frac{1}{2\pi}\int_{|z|=R}\frac{R^2-|a|^2}{|z-a|^2}u(z)\;\textrm{d}\theta\] for all $|a|<R$.
+\end{theorem}
+\begin{theorem}(Schwarz).
+    The function $P_U(z)$ is harmonic for $|z|<1$, and \[\lim_{z\rightarrow e^{i\theta_0}}P_U(z)=U(\theta_0)\] provided that $U$ is continuous at $\theta_0$.
+\end{theorem}
+\begin{theorem}
+    Let $\Omega^+$ be the part in the upper half plane of a symmetric region $\Omega$, and let $\sigma$ be the part of the real axis in $\Omega$. Suppose that $v(x)$ is continuous in $\Omega^+\cup\sigma$, harmonic in $\Omega^+$, and zero on $\sigma$. Then $v$ has a harmonic extension to $\Omega$ which satisfies the symmetry relation $v(\overline{z})=-v(z)$. In the same situation, if $v$ is the imaginary part of an analytic function $f(z)$ in $\Omega^+$, then $f(z)$ has an analytic extension which satisfies $f(z)=\overline{f(\overline{z})}$.
+\end{theorem}
+\subsection{Series and Product Developments}
+\subsubsection{Power Series Expansions}
+\begin{theorem}
+    Suppose that $f_n(z)$ is analytic in the region $\Omega_n$, and that the sequence $\{f_n(z)\}$ converges to a limit function $f(z)$ in a region $\Omega$, uniformly on every compact subset of $\Omega$. Then $f(z)$ is analytic in $\Omega$. Moreover, $f_n'(z)$ converges uniformly to $f'(z)$ on every compact subset of $\Omega$.
+\end{theorem}
+\begin{theorem}(Hurwitz).
+    If the functions $f_n(z)$ are analytic and nonzero in a region $\Omega$, and if $f_n(z)$ converges to $f(z)$, uniformly on every compact subset of $\Omega$, then $f(z)$ is either identically zero or never equal to zero in $\Omega$.
+\end{theorem}
+\begin{theorem}
+    If $f(z)$ is analytic in the region $\Omega$, containing $z_0$, then the representation \[f(z)=f(z_0)+\frac{f'(z_0)}{1!}(z-z_0)+\cdots+\frac{f^{(n)}(z_0)}{n!}(z-z_0)^n+\cdots\] is valid in the largest open disk of center $z_0$ contained in $\Omega$.
+\end{theorem}
+\subsubsection{Partial Fractions and Factorization}
+\begin{theorem}(Mittag-Leffler).
+    Let $\{b_{\nu}\}$ be a sequence of complex numbers with $\lim_{\nu\rightarrow\infty}b_{\nu}=\infty$, and let $P_{\nu}(\zeta)$ be polynomials without constant term. Then there are functions which are meromorphic in the whole plane with poles at the points $b_{\nu}$ and the corresponding singular parts $P_{\nu}(1/(z-b_{\nu}))$. Moreover, the most general meromorphic function of this kind can be written in the form \[f(z)=\sum_{\nu}\left[P_{\nu}\left(\frac{1}{z-b_{\nu}}\right)-p_{\nu}(z)\right]+g(z)\]
+\end{theorem}
+\begin{theorem}
+    The infinite product $\prod_{n=1}^{\infty}(1+a_n)$ with $1+a_n\neq0$ converges simultaneously with the series $\sum_{n=1}^{\infty}\log(1+a_n)$ whose terms represent the values of the principal branch of the logarithm.
+\end{theorem}
+\begin{theorem}
+    A necessary and sufficient condition for the absolute convergence of the product $\prod_{n=1}^{\infty}(1+a_n)$ is the convergence of the series $\sum_{n=1}^{\infty}|a_n|$.
+\end{theorem}
+\begin{theorem}(Weierstrass).
+    There exists an entire function with arbitrarily prescribed zeros $a_n$ provided that, in the case of infinitely many zeros, $a_n\rightarrow\infty$. Every entire function with these and no other zeros can be written in the form \[f(z)=z^me^{g(z)}\prod_{n=1}^{\infty}\left(1-\frac{z}{a_n}\right)e^{\frac{z}{a_n}+\frac{1}{2}(\frac{z}{a_n})^2+\cdots+\frac{1}{m_n}(\frac{z}{a_n})^{m_n}}\] where the product is taken over all $a_n\neq0$, the $m_n$ are certain integers, and $g(z)$ is an entire function.
+\end{theorem}
+\begin{corollary}
+    Every function which is meromorphic in the whole plane is the quotient of two entire functions.
+\end{corollary}
+\subsubsection{Entire Functions}
+\begin{theorem}
+    The genus and the order of an entire function satisfy the double inequality $h\leq\lambda\leq h+1$.
+\end{theorem}
+\begin{corollary}
+    An entire function of fractional order assumes every finite value infinitely many times.
+\end{corollary}
+\subsubsection{The Riemann Zeta Function}
+\begin{theorem}
+    For $\sigma=\Re{s}>1$, \[\frac{1}{\zeta(s)}=\prod_{n=1}^{\infty}(1-p_n^{-s})\]
+\end{theorem}
+\begin{theorem}
+    For $\sigma>1$, \[\zeta(s)=-\frac{\Gamma(1-s)}{2\pi i}\int_C\frac{(-z)^{s-1}}{e^z-1}\;\textrm{d}z\] where $(-z)^{s-1}$ is defined on the complement of the positive real axis as $e^{(s-1)\log(-z)}$ with $-\pi<\Im\log(-z)<\pi$.
+\end{theorem}
+\begin{corollary}
+    The $\zeta$-function can be extended to a meromorphic function in the whole plane whose only pole is a simple pole at $s=1$ with the residue 1.
+\end{corollary}
+\begin{theorem}(Functional equation).
+    \[\zeta(s)=2^s\pi^{s-1}\sin{\frac{\pi s}{2}}\Gamma(1-s)\zeta(1-s)\]
+\end{theorem}
+\begin{corollary}
+    The function $\xi(s)=\frac{1}{2}s(1-s)\pi^{-s/2}\Gamma(s/2)\zeta(s)$ is entire and satisfies $\xi(s)=\xi(1-s)$.
+\end{corollary}
+\subsubsection{Normal Families}
+\begin{defn}(Equicontinuous).
+    The functions in a family $\mathfrak{J}$ are said to be \textit{equicontinuous} on a set $E\subset\Omega$ if and only if, for each $\varepsilon>0$, there exists a $\delta>0$ such that $\textrm{d}(f(z),f(z_0))<\varepsilon$ whenever $|z-z_0|<\delta$ and $z_0,z\in E$, simultaneously for all functions $f\in\mathfrak{J}$.
+\end{defn}
+\begin{defn}(Normal).
+    A family $\mathfrak{J}$ is said to be \textit{normal} in $\Omega$ if every sequence $\{f_n\}$ of functions $f_n\in\mathfrak{J}$ contains a subsequence which converges uniformly on every compact subset of $\Omega$.
+\end{defn}
+\begin{theorem}
+    A family $\mathfrak{J}$ is normal if and only if its closure $\mathfrak{J}^-$ with respect to the distance function \[\rho(f,g)=\sum_{k=1}^{\infty}\delta_k(f,g)2^{-k}\] is compact.
+\end{theorem}
+\begin{theorem}
+    The family $\mathfrak{J}$ is totally bounded if and only if to every compact set $E\subset\Omega$ and every $\varepsilon>0$ it is possible to find $f_1,\ldots,f_n\in\mathfrak{J}$ such that every $f\in\mathfrak{J}$ satisfies $\textrm{d}(f,f_j)<\varepsilon$ on $E$ for some $f_j$.
+\end{theorem}
+\begin{theorem}(Arzela-Ascoli).
+    A family $\mathfrak{J}$ of continuous functions with values in a metric space $S$ is normal in the region $\Omega$ of the complex plane if and only if
+    \begin{enumerate}
+        \item $\mathfrak{J}$ is equicontinuous on every compact set $E\subset\Omega$.
+        \item For any $z\in\Omega$ the values $f(z),f\in\mathfrak{J}$, lie in a compact subset of $S$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    A family $\mathfrak{J}$ of analytic functions is normal with respect to $\mathbb{C}$ if and only if the functions in $\mathfrak{J}$ are uniformly bounded on every compact set.
+\end{theorem}
+\begin{theorem}
+    A locally bounded family of analytic functions has locally bounded derivatives.
+\end{theorem}
+\begin{defn}(Normal).
+    A family of analytic functions in a region $\Omega$ is said to be \textit{normal} if every sequence contains either a subsequence that converges uniformly on every compact set $E\subset\Omega$, or a subsequence that tends uniformly to $\infty$ on every compact set.
+\end{defn}
+\begin{lemma}
+    If a sequence of meromorphic functions converges in the sense of spherical distance, uniformly on every compact set, then the limit function is meromorphic or identically equal to $\infty$. If a sequence of analytic functions converges in the same sense, then the limit function is either analytic or identically equal to $\infty$.
+\end{lemma}
+\begin{theorem}(Marty).
+    A family of analytic or meromorphic functions $f$ is normal in the classical sense if and only if the expressions \[\rho(f)=\frac{2|f'(z)|}{1+|f(z)|^2}\] are locally bounded.
+\end{theorem}
+\subsection{Conformal Mapping, Dirichlet's Problem}
+\subsubsection{The Riemann Mapping Theorem}
+\begin{theorem}
+    Given any simply connected region $\Omega$ which is not the whole plane, and a point $z_0\in\Omega$, there exists a unique analytic function $f(z)$ in $\Omega$, normalized by the conditions $f(z_0)=0,f'(z_0)>0$, such that $f(z)$ defines a one-to-one mapping of $\Omega$ onto the disk $|w|<1$.
+\end{theorem}
+\begin{theorem}
+    Let $f$ be a topological mapping of a region $\Omega$ onto a region $\Omega'$. If $\{z_n\}$ or $z(t)$ tends to the boundary of $\Omega$, then $\{f(z_n)\}$ or $f(z(t))$ tends to the boundary of $\Omega'$.
+\end{theorem}
+\begin{theorem}
+    Suppose that the boundary of a simply connected region $\Omega$ contains a line segment $\gamma$ as a one-sided free boundary arc. Then the function $f(z)$ which maps $\Omega$ onto the unit disk can be extended to a function which is analytic and one to one on $\Omega\cup\gamma$. The image of $\gamma$ is an arc $\gamma'$ on the unit circle.
+\end{theorem}
+\begin{theorem}
+    If the boundary of $\Omega$ contains a free one-sided analytic arc $\gamma$, then the mapping function has an analytic extension to $\Omega\cup\gamma$, and $\gamma$ is mapped on an arc of the unit circle.
+\end{theorem}
+\subsubsection{Conformal Mapping of Polygons}
+\begin{theorem}(Schwarz-Christoffel Formula).
+    The functions $z=F(w)$ which map $|w|<1$ conformally onto polygons with angles $\alpha_k\pi(k=1,\ldots,n)$ are of the form \[F(w)=C\int_0^w\prod_{k=1}^n(w-w_k)^{-\beta_k}\;\textrm{d}w+C'\] where $\beta_k=1-\alpha_k$, the $w_k$ are points on the unit circle, and $C,C'$ are complex constants.
+\end{theorem}
+\subsubsection{A Closer Look at Harmonic Functions}
+\begin{theorem}
+    A continuous function $u(z)$ which satisfies \[u(z_0)=\frac{1}{2\pi}\int_0^{2\pi}u(z_0+re^{i\theta})\;\textrm{d}\theta\] for every disk $|z-z_0|\leq r$ contained in $\Omega$ is necessarily harmonic.
+\end{theorem}
+\begin{theorem}(Harnack's Principle).
+    Consider a sequence of functions $u_n(z)$, each defined and harmonic in a certain region $\Omega_n$. Let $\Omega$ be a region such that every point in $\Omega$ has a neighborhood contained in all but a finite number of the $\Omega_n$, and assume moreover that in this neighborhood $u_n(z)\leq u_{n+1}(z)$ as oon as $n$ is sufficiently large. Then there are only two possibilities: either $u_n(z)$ tends uniformly to $+\infty$ on every compact subset of $\Omega$, or $u_n(z)$ tends to a harmonic limit function $u(z)$ in $\Omega$, uniformly on compact sets.
+\end{theorem}
+\subsubsection{The Dirichlet Problem}
+\begin{defn}(Subharmonic).
+    A continuous real-valued function $v(z)$, defined in a region $\Omega$, is said to be \textit{subharmonic} in $\Omega$ if for any harmonic function $u(z)$ in a region $\Omega'\subset\Omega$ the difference $v-u$ satisfies the maximum principle in $\Omega'$.
+\end{defn}
+\begin{theorem}(Mean-Value Property of Harmonic Functions).
+    A continuous function $v(z)$ is subharmonic in $\Omega$ if and only if it satisfies the inequality \[v(z_0)\leq\frac{1}{2\pi}\int_0^{2\pi}v(z_0+re^{i\theta})\;\textrm{d}\theta\] for every disk $|z-z_0|\leq r$ contained in $\Omega$.
+\end{theorem}
+\begin{lemma}
+    Suppose that there exists a harmonic function $\omega(z)$ in $\Omega$ whose continuous boundary values $\omega(\zeta)$ are strictly positive except at one point $\zeta_0$ where $\omega(\zeta_0)=0$. Then, if $f(\zeta)$ is continuous at $\zeta_0$, the corresponding function $u$ determined by Perron's method satisfies \[\lim_{z\rightarrow\zeta_0}u(z)=f(\zeta_0)\]
+\end{lemma}
+\begin{theorem}
+    The Dirichlet problem can be solved for any region $\Omega$ such that each boundary point is the end point of a line segment whose other points are exterior to $\Omega$.
+\end{theorem}
+\subsubsection{Canonical Mappings of Multiply Connected Regions}
+\begin{theorem}
+    The function $F(z)$ effects a one-to-one conformal mapping of $\Omega$ onto the annulus $1<|w|<e^{\lambda_i}$ minus $n-2$ concentric arcs situated on the circles $|w|=e^{\lambda_i},i=2,\ldots,n-1$.
+\end{theorem}
+\begin{lemma}
+    The period $P_k(z_0)$ equals the harmonic measure $\omega_k(z_0)$ multiplied by $2\pi$.
+\end{lemma}
+\begin{theorem}
+    The mappings determined by $p(z)$ and $q(z)$ are one to one, and the image of $\Omega$ is a slit region whose complement consists of $n$ vertical or horizontal segments, respectively.
+\end{theorem}
+\subsection{Elliptic Functions}
+\subsubsection{Doubly Periodic Functions}
+\begin{theorem}
+    A discrete module consists either of zero alone, of the integral multiples $n\omega$ of a single complex number $\omega\neq0$, or of all linear combinations $n_1\omega_1+n_2\omega_2$ with integral coefficients of two numbers $\omega_1,\omega_2$ with nonreal ratio $\omega_2/\omega_1$.
+\end{theorem}
+\begin{theorem}
+    There exists a basis $(\omega_1,\omega_2)$ such that the ratio $\tau=\omega_2/\omega_1$ satisfies the following conditions:
+    \begin{enumerate}
+        \item $\Im{\tau}>0$.
+        \item $-\frac{1}{2}<\Re{\tau}\leq\frac{1}{2}$.
+        \item $|\tau|\geq1$.
+        \item $\Re{\tau}\geq0$ if $|\tau|=1$.
+    \end{enumerate}
+    The ratio $\tau$ is uniquely determined by these conditions, and there is a choice of two, four, or six corresponding bases.
+\end{theorem}
+\begin{theorem}
+    An elliptic function without poles is a constant.
+\end{theorem}
+\begin{theorem}
+    The sum of the residues of an elliptic function is zero.
+\end{theorem}
+\begin{theorem}
+    A nonconstant elliptic function has equally many poles as it has zeros.
+\end{theorem}
+\begin{theorem}
+    The zeros $a_1,\ldots,a_n$ and poles $b_1,\ldots,b_n$ of an eliptic function satisfy $a_1+\cdots+a_n\equiv b_1+\cdots+b_n\mod M$.
+\end{theorem}
+\subsubsection{The Weierstrass Theory}
+\begin{theorem}
+    The modular function $\lambda(\tau)$ effects a one-to-one conformal mapping of the region $\Omega$ onto the upper half plane. The mapping extends continuously to the boundary in such a way that $\tau=0,1,\infty$ correspond to $\lambda=1,\infty,0$.
+\end{theorem}
+\begin{theorem}
+    Every point $\tau$ in the upper half plane is equivalent under the congruence subgroup modulo 2 to exactly one point in $\overline{\Omega}\cup\Omega'$.
+\end{theorem}
+\subsection{Global Analytic Functions}
+\subsubsection{Analytic Continuation}
+\begin{defn}(Sheaf).
+    A \textit{sheaf} over $D$ is a topological space $\mathfrak{S}$ and a mapping $\pi:\mathfrak{S}\rightarrow D$ with the following properties:
+    \begin{enumerate}
+        \item The mapping $\pi$ is a local homeomorphism; this shall mean that each $s\in\mathfrak{S}$ has an open neighborhood $\Delta$ such that $\pi(\Delta)$ is open and the restriction of $\pi$ to $\Delta$ is a homeomorphism.
+        \item For each $\zeta\in D$ the stalk $\pi^{-1}(\zeta)=\mathfrak{S}_{\zeta}$ has the structure of an abelian group.
+        \item The group operations are continuous in the topology of $\mathfrak{S}$.
+    \end{enumerate}
+\end{defn}
+\begin{theorem}
+    Two analytic continuations $\overline{\gamma}_1$ and $\overline{\gamma}_2$ of a global analytic function $\mathbf{f}$ along the same arc $\gamma$ are either identical, or $\overline{\gamma}_1(t)\neq\overline{\gamma}_2(t)$ for all $t$.
+\end{theorem}
+\begin{defn}(Homotopic).
+    Two arcs $\gamma_1$ and $\gamma_2$ over the same parameter interval $[a,b]$ are said to be \textit{homotopic} in $\Omega$ if there exists a continuous function $\gamma(t,u)$, defined on a rectangle $[a,b]\times[0,1]$, with the following properties:
+    \begin{enumerate}
+        \item $\gamma(t,u)\in\Omega$ for all $(t,u)$.
+        \item $\gamma(t,0)=\gamma_1(t),\gamma(t,1)=\gamma_2(t)$ for all $t$.
+        \item $\gamma(a,u)=\gamma_1(a)=\gamma_2(a),\gamma(b,u)=\gamma_1(b)=\gamma_2(b)$ for all $u$.
+    \end{enumerate}
+\end{defn}
+\begin{theorem}(Monodromy Theorem).
+    If the arcs $\gamma_1$ and $\gamma_2$ are homotopic in $\Omega$, and if a given germ of $\mathbf{f}$ at the initial point can be continued along all arcs contained in $\Omega$, then the continuations of this germ along $\gamma_1$ and $\gamma_2$ lead to the same germ at the terminal point.
+\end{theorem}
+\subsubsection{Algebraic Functions}
+\begin{theorem}
+    If $P(w,z)$ and $Q(w,z)$ are relatively prime polynomials, there are only a finite number of values $z_0$ for which the equations $P(w,z_0)=0$ and $Q(w,z_0)=0$ have a common root.
+\end{theorem}
+\begin{defn}(Algebraic function).
+    A global analytic function $\mathbf{f}$ is called an \textit{algebraic function} if all its function elements $(f,\Omega)$ satisfy a relation $P(f(z),z)=0$ in $\Omega$, where $P(w,z)$ is a polynomial which does not vanish identically.
+\end{defn}
+\begin{lemma}
+    There exists an open disk $\Delta$, containing $z_0$, and $n$ function elements $(f_1,\Delta),(f_2,\Delta),\ldots,(f_n,\Delta)$ with these properties:
+    \begin{enumerate}
+        \item $P(f_i(z),z)=0$ in $\Delta$.
+        \item $f_i(z_0)=w_i$.
+        \item If $P(w,z)=0,z\in\Delta$, then $w=f_i(z)$ for some $i$.
+    \end{enumerate}
+\end{lemma}
+\begin{theorem}
+    An analytic function is an algebraic function if it has a finite number of branches and at most algebraic singularities. Every algebraic function $w=\mathbf{f}(z)$ satisfies an irreducible equation $P(w,z)=0$, unique up to a constant factor, and every such equation determines a corresponding algebraic function uniquely.
+\end{theorem}
+\subsubsection{Picard's Theorem}
+\begin{theorem}(Picard).
+    An entire function with more than one finite lacunary value reduces to a constant.
+\end{theorem}
+\subsubsection{Linear Differential Equations}
+\begin{theorem}
+    If $z_0$ is an ordinary point for the equation $a_0(z)w''+a_1(z)w'+a_2(z)w=0$, there exists a local solution $(f,\Omega),z_0\in\Omega$, with arbitrarily described values $f(z_0)=b_0$ and $f'(z_0)=b_1$. The germ $(f,z_0)$ is uniquely determined.
+\end{theorem}
+\begin{theorem}
+    If $z_0$ is a regular singular point for the equation $a_0(z)w''+a_1(z)w'+a_2(z)w=0$, there exist linearly independent solutions of the form $(z-z_0)^{\alpha_1}g_1(z)$ and $(z-z_0)^{\alpha_2}g_2(z)$ with $g_1(0),g_2(0)\neq0$ corresponding to the roots of the indicial equation, provided that $\alpha_2-\alpha_1$ is not an integer. In the case of an integral difference $\alpha_2-\alpha_1\geq0$ the existence of a solution corresponding to $\alpha_2$ can still be asserted.
+\end{theorem}
+
+\end{document}

@@ -1,0 +1,953 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[sorting=none]{biblatex}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{pdfpages}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{mathrsfs}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage[table]{xcolor}
+\addbibresource{references.bib}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arsinh}{arsinh}
+\DeclareMathOperator{\arcosh}{arcosh}
+\DeclareMathOperator{\artanh}{artanh}
+\DeclareMathOperator{\arcsch}{arcsch}
+\DeclareMathOperator{\arsech}{arsech}
+\DeclareMathOperator{\arcoth}{arcoth}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\N}{N}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Cent}{Cent}
+\DeclareMathOperator{\Rad}{Rad}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\NS}{NS}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Ext}{Ext}
+\newcommand{\characteristic}{\mathrel{\textrm{char}}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\rel}[1]{\allowbreak\mkern18mu\mathrm{rel}\,\,#1}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{exmp}[theorem]{Example}
+\newtheorem{defn}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\lf{\left\lfloor}   
+\def\rf{\right\rfloor}
+
+\title{Algebraic Topology}
+\author{Wilkie Hoare}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+%%CONTENT STARTS HERE
+
+\newpage
+\section{Greenberg and Harper: Algebraic Topology}
+\subsection{Elementary Homotopy Theory}
+\subsubsection{Homotopy of Paths}
+\begin{theorem}
+    Let $\pi_1(X,x_0)$ be the set of homotopy classes of loops in $X$ at $x_0$. If multiplication in $\pi_1(X,x_0)$ is defined, $\pi_1(X,x_0)$ becomes a group, in which the neutral element is the class of the constant loop at $x_0$ and the inverse of a class $[\sigma]$ is the class of the loop $\sigma^{-1}$ defined by $\sigma^{-1}(t)=\sigma(1-t),0\leq t\leq1$ (i.e., travel backwards along $\sigma$).
+\end{theorem}
+\begin{prop}
+    Let $\alpha$ be a path from $x_0$ to $x_1$. The mapping $[\sigma]\rightarrow[\alpha^{-1}\sigma\alpha]$ is an isomorphism $\alpha$ of the group $\pi_1(X,x_0)$ onto $\pi_1(X,x_1)$.
+\end{prop}
+\begin{corollary}
+    If $X$ is pathwise connected, the group $\pi_1(X,x_0)$ is independent of the point $x_0$, up to isomorphism.
+\end{corollary}
+\subsubsection{Homotopy of Maps}
+\begin{prop}
+    A contractible space is simply connected.
+\end{prop}
+\begin{corollary}
+    If $f$ is a homotopy equivalence then $f_*$ is an isomorphism $\pi_1(Y,y_0)\rightarrow\pi_1(X,f(y_0))$ for all $y_0\in Y$.
+\end{corollary}
+\subsubsection{Fundamental Group of the Circle}
+\begin{lemma}(Lifting Lemma).
+    If $\sigma$ is a path in $S^1$ with initial point 1, there is a unique path $\sigma'$ in $\mathbb{R}$ with initial point 0 such that $\phi\circ\sigma'=\sigma$.
+\end{lemma}
+\begin{lemma}(Covering Homotopy Lemma).
+    If also $\tau$ is a path in $S^1$ with the initial point 1 such that $F:\sigma\simeq\tau\rel(0,1)$ then there is a unique $F':I\times I\rightarrow\mathbb{R}$ such that $F':\sigma'\simeq\tau'\rel(0,1),\phi\circ F'=F$.
+\end{lemma}
+\begin{corollary}
+    The end point of $\sigma'$ depends only on the homotopy class of $\sigma$.
+\end{corollary}
+\begin{theorem}
+    $\pi_1(S^1)\cong\mathbb{Z}$.
+\end{theorem}
+\begin{theorem}
+    If $G$ is a simply connected topological group, $H$ a discrete normal subgroup, then $\pi_1(G/H,1)\cong H$.
+\end{theorem}
+\begin{corollary}
+    The fundamental group of a torus is $\mathbb{Z}\times\mathbb{Z}$.
+\end{corollary}
+\begin{prop}
+    Given spaces $X,Y,x_0\in X,y_0\in Y$, we have $\pi_1(X\times Y,(x_0,y_0))\cong\pi_1(X,x_0)\times\pi_1(Y,y_0)$.
+\end{prop}
+\begin{theorem}
+    The circle is not a retract of the closed unit disc.
+\end{theorem}
+\begin{corollary}
+    Any continuous map of the closed disc into itself has a fixed point.
+\end{corollary}
+\subsubsection{Covering Spaces}
+\begin{defn}(Covering space, evenly covered, sheet).
+    $E\overset{p}{\rightarrow}X$ is a \textit{covering space} of $X$ if every $x\in X$ has an open neighborhood $U$ such that $p^{-1}(U)$ is a disjoint union of open sets $S_i$ in $E$, each of which is mapped homeomorphically onto $U$ by $p$. Such $U$ are said to be \textit{evenly covered}, and the $S_i$ are called \textit{sheets} over $U$.
+\end{defn}
+\begin{theorem}(Unique Lifting Theorem).
+    Let $(E,e_0)\overset{p}{\rightarrow}(X,x_0)$ be a covering space with base points, $(Y,y_0)\overset{f}{\rightarrow}(X,x_0)$ any map. Assume $Y$ connected. If there is a map $(Y,y_0)\overset{f'}{\rightarrow}(E,e_0)$ such that $pf'=f$, it is unique.
+\end{theorem}
+\begin{theorem}(Path Lifting Theorem).
+    For $(E,e_0)\overset{p}{\rightarrow}(X,x_0)$, if $\sigma$ is a path in $X$ with initial point $x_0$, there is a unique path $\sigma_{e_0}'$ in $E$ with initial point $e_0$ such that $p\sigma_{e_0}'=\sigma$.
+\end{theorem}
+\begin{theorem}(Covering Homotopy Theorem).
+    Let $(E,e_0)\overset{p}{\rightarrow}(X,x_0)$. Let $(Y,y_0)$ be arbitrary and $f:(Y,y_0)\rightarrow(X,x_0)$ a map which has a lifting $f':(Y,y_0)\rightarrow(E,e_0)$. Then any homotopy $F:Y\times I\rightarrow X$ with $F(y,0)=f(y)$ for all $y\in Y$ can be lifted to a homotopy $F':Y\times I\rightarrow E$ with $F'(y,0)=f'(y)$ for all $y\in Y$.
+\end{theorem}
+\begin{corollary}
+    If $\sigma,\tau$ are paths in $X$ with initial point $x_0$, and $\sigma\simeq\tau\rel(0,1)$, then $\sigma_{e_0}'\cong\tau_{e_0}'\rel(0,1)$. In particular $\sigma_{e_0}'$ and $\tau_{e_0}'$ have the same end point.
+\end{corollary}
+\begin{corollary}
+    $p_*:\pi_1(E,e_0)\rightarrow\pi_1(X,x_0)$ is a monomorphism.
+\end{corollary}
+\begin{corollary}
+    If $E$ is pathwise connected, the map $[\sigma]\rightarrow e_0\cdot[\sigma]$ induces a bijection of the set of all cosets $p_*\pi_1(E,e_0)[\sigma]$ onto the fibre. In particular, if $p^{-1}(x_0)$ is finite, the number of points in the fibre is equal to the index of the subgroup $p_*\pi_1(E,e_0)$.
+\end{corollary}
+\begin{theorem}
+    Given a covering space $(E,e_0)\overset{p}{\rightarrow}(X_1x_0)$ with group of covering transformations $G$. If $E$ is simply connected and locally pathwise connected, $G$ is canonically isomorphic to $\pi_1(X_1x_0)$.
+\end{theorem}
+\subsubsection{A Lifting Criterion}
+\begin{corollary}
+    If $(E,e_0)\overset{p}{\rightarrow}(X,x_0),(E',e_0')\overset{p}{\rightarrow}(X,x_0)$ are both simply connected covering spaces of $X$, then there is a unique homeomorphism $\phi:(E',e_0')\rightarrow(E,e_0)$ such that $p\phi=p'$.
+\end{corollary}
+\begin{theorem}
+    If $X$ is semi-locally simply connected (and of course connected and locally path-connected), then $X$ has a universal covering space.
+\end{theorem}
+\begin{corollary}
+    Every connected manifold has a universal covering space (which is also a manifold).
+\end{corollary}
+\begin{corollary}
+    For every subgroup $H$ of $\pi_1(X,x_0)$, there exists a covering space $(E,e_0)\overset{p}{\rightarrow}(X,x_0)$, unique up to equivalence, such that $H=p_*\pi_1(E,e_0)$.
+\end{corollary}
+\begin{theorem}
+    If $X$ is a topological group, then for any covering space $E\overset{p}{\rightarrow}X$ and point $e_0$ in the fibre of the neutral element $x_0$ of $X$, there is a unique structure of topological group on $E$ for which $e_0$ is the neutral element and $p$ is a homomorphism.
+\end{theorem}
+\begin{lemma}
+    For any $\sigma,\tau$ (loops at $x_0$)
+    \begin{enumerate}
+        \item $\sigma*\tau\simeq\sigma\tau\rel(0,1)$.
+        \item $\sigma*\tau\simeq\tau\sigma\rel(0,1)$.
+        \item $\overline{\tau}\simeq\tau^{-1}\rel(0,1)$.
+    \end{enumerate}
+\end{lemma}
+\subsubsection{Loop Spaces and Higher Homotopy Groups}
+\begin{prop}
+    The evaluation map $\omega:X^I\times I\rightarrow X$ given by $\omega(\sigma,t)=\sigma(t)$ is continuous.
+\end{prop}
+\begin{prop}
+    $\sigma,\tau\in\Omega_{x_0}$ are in the same path-connected components of $\Omega_{x_0}$ if and only if $\sigma\simeq\tau\rel(0,1)$.
+\end{prop}
+\begin{corollary}
+    $\pi_1(X,x_0)$ is the set of path-connected components of $\Omega_{x_0}$.
+\end{corollary}
+\begin{lemma}
+    $L_C$ (respectively $R_C$) is homotopic to the identity map of $\Omega_{x_0}$ relative to $\{C\}$.
+\end{lemma}
+\begin{theorem}
+    $\pi_1(\Omega_{x_0},C)$ is commutative.
+\end{theorem}
+\begin{corollary}
+    The higher homotopy groups are all commutative.
+\end{corollary}
+\begin{corollary}
+    If $X$ is contractible then $\pi_n(X,x_0)$ is trivial for all $n$.
+\end{corollary}
+\begin{theorem}
+    If $p:(E,e_0)\rightarrow(X,x_0)$ is a covering space, then $(p_*)_n:\pi_n(E,e_0)\rightarrow\pi_n(X,x_0)$ is an isomorphism for all $n\geq2$.
+\end{theorem}
+\begin{corollary}
+    $\pi_n(\mathbb{P}^m)\cong\pi_n(S^m)$ for $n\geq2$, all $m$.
+\end{corollary}
+\begin{corollary}
+    $\pi_n(S^1)=0$ for $n\geq2$.
+\end{corollary}
+\subsection{Singular Homotopy Theory}
+\subsubsection{Singular Theory}
+\begin{prop}
+    $\partial\partial=0$.
+\end{prop}
+\begin{lemma}
+    $F_q^iF_{q-1}^j=F_q^jF_{q-1}^{i-1}$ for $j<i$.
+\end{lemma}
+\begin{prop}
+    Let $(X_k)$ be the family of path connected components of $X$. Then there is a canonical isomorphism $H_q(X)\cong\otimes_kH_q(X_k)$ for all $q\geq0$.
+\end{prop}
+\begin{prop}
+    $H_0(X)$ is a free $R$-module on as many generators as there are path components of $X$.
+\end{prop}
+\begin{lemma}
+    $\partial S_q(f)=S_{q-1}(f)\partial$.
+\end{lemma}
+\subsubsection{Chain Complexes}
+\begin{defn}(Chain complex, dimension).
+    A \textit{chain complex} over $R$ is a sequence $C=\{C_q,\partial_q\}$ of free $R$-modules and homomorphisms $\partial_q:C_q\rightarrow C_{q-1}$ such that $\partial_q\partial_{q+1}=0$. In most cases $C_q=0$ if $q<0$. An element of $C_q$ has \textit{dimension} $q$.
+\end{defn}
+\begin{defn}(Chain map).
+    A sequence of homomorphism $\{f_q\}$ with $f_q:C_q\rightarrow C_q'$ is a \textit{chain map} provided $\partial_q'f_q=f_{q-1}\partial_q$.
+\end{defn}
+\begin{defn}(Homology).
+    The $q$-th \textit{homology} module of $C$ is defined by $H_q(C)=Z_q(C)/B_q(C)$.
+\end{defn}
+\begin{defn}(Chain homotopy).
+    A \textit{chain homotopy} between chain maps $f=\{f_q:C_q\rightarrow C_q'\}$ and $g=\{g_q:C_q\rightarrow C_q'\}$ is a sequence $D=\{D_q:C_q\rightarrow C_{q+1}'\}$ of homomorphisms such that $\partial_{q+1}'D_q+D_{q-1}\partial_q=f_q-g_q$. We write $f\simeq g$.
+\end{defn}
+\begin{prop}
+    Chain homotopic maps induce equal maps in homology.
+\end{prop}
+\begin{defn}(Acyclic/exact chain complex).
+    A chain complex $C$ is \textit{acyclic} if $H_q(C)=0$ for all $q$. This means $\im{\partial_{q+1}}=\ker{\partial_q}$ for all $q$ ($\im{\partial_1}=C_0$ if $C_q=0$ for $q<0$). The term \textit{exact} is used synonymously.
+\end{defn}
+\begin{defn}(Augmentation).
+    For $C$ such that $C_q=0$ if $q<0$, an \textit{augmentation} over $R$ for $C$ is an epimorphism $\varepsilon:C_0\rightarrow R$ such that $\varepsilon\partial_1=0$. This means $\im{\partial_1}\subset\ker{\varepsilon}$. Note the isomorphism $C_0/\ker{\varepsilon}\cong R$.
+\end{defn}
+\begin{defn}(Acyclic chain complex with augmentation).
+    A chain complex with augmentation is \textit{acyclic} if the reduced chain complex is acyclic. An equivalent formulation is $\im{\partial_{q+1}}=\ker{\partial_q}$ and $\im{\partial_1}=\ker{\varepsilon}$.
+\end{defn}
+\begin{prop}
+    A complex $C=\{C_q,\partial_q\}$ with augmentation $\varepsilon:C_0\rightarrow R$ is acyclic if and only if $H_q(C)=0$ for $q>0$ and $H_0(C)\cong R$.
+\end{prop}
+\begin{prop}
+    If $1\simeq\eta\varepsilon$ then $C$ is acyclic.
+\end{prop}
+\begin{defn}(Aspherical).
+    $X$ is \textit{aspherical} if every continuous $f:S^n\rightarrow X$ extends to $f:E^{n+1}\rightarrow X$. Here $S^n$ is the unit sphere in $R^{n+1}$ and $E^{n+1}$ the unit ball. We shall understand the definition to apply to homeomorphic images of the pair $(E^{n+1},S^n)$ as well.
+\end{defn}
+\begin{theorem}
+    If $X$ is aspherical, then $S(X)$ is acyclic.
+\end{theorem}
+\subsubsection{Homotopy Invariance of Homology}
+\begin{theorem}
+    If $f,g$ are homotopic maps $X\rightarrow Y$, then $S(f)$ and $S(g)$ are chain homotopic maps $S(X)\rightarrow S(Y)$.
+\end{theorem}
+\begin{theorem}
+    If $f,g$ are homotopic maps $X\rightarrow Y$, then for every $q\geq0$, the induced homomorphisms $H_q(f)$ and $H_q(g)$ on the homology modules are equal.
+\end{theorem}
+\begin{theorem}
+    If $f:X\rightarrow Y$ is a homotopy equivalence, then for every $q\geq0$, $H_q(f)$ is an isomorphism $H_q(X)\rightarrow H_q(Y)$.
+\end{theorem}
+\begin{theorem}
+    $S(i_0)$ and $S(i)$ are chain homotopic maps $S(X)\rightarrow S(X\times I)$.
+\end{theorem}
+\subsubsection{Relation Between $\pi_1$ and $H_1$}
+\begin{theorem}
+    There is a homomorphism $\chi:\pi_1(X,x_0)\rightarrow H_1(X:\mathbb{Z})$ which sends the homotopy class of a loop $\gamma$ into the homology class of the singular 1-simplex $\gamma$. If $X$ is path-connected, $\chi$ is surjective, and its kernel is the commutator subgroup.
+\end{theorem}
+\begin{corollary}
+    If $X$ is path connected, then $\chi$ is an isomorphism if and only if the fundamental group of $X$ is commutative.
+\end{corollary}
+\begin{lemma}
+    If $\exp(\alpha_i)=0$ for each distinct factor $\alpha_i$ of $\gamma$, then $[\gamma]$ is in the commutator subgroup.
+\end{lemma}
+\begin{prop}
+    Let $\gamma$ be a loop in $X$ regarded as a map $f:S^1\rightarrow X$. For $\chi[\gamma]=0$ it is necessary and sufficient that $f$ extend to $\overline{f}:W\rightarrow X$ where $W$ is an orientable surface with boundary $S^1$.
+\end{prop}
+\subsubsection{Relative Homology}
+\begin{lemma}
+    $H_q(X,A)\cong Z_q(X,A)/B_q(X,A)$.
+\end{lemma}
+\begin{prop}
+    Let $(X_k)$ be the family of path components of $X$, and put $A_k=X_k\cap A$. Then there is a canonical isomorphism for all $q\geq0$, $H_q(X,A)\cong\otimes_kH_q(X_k,A_k)$.
+\end{prop}
+\begin{prop}
+    If $A$ is nonempty and $X$ is path connected then $H_0(X,A)=0$.
+\end{prop}
+\begin{corollary}
+    If $(X_k)$ are the path components of $X$, then $H_0(X,A)$ is a free module with as many generators as indices $k$ such that $X_k$ does not meet $A$.
+\end{corollary}
+\begin{prop}
+    Homotopic maps of pairs $f,g:(X,A)\rightarrow (Y,B)$ induce equal maps on homology.
+\end{prop}
+\subsubsection{The Exact Homology Sequence}
+\begin{theorem}
+    The homology sequence of $(X,A)$ is exact.
+\end{theorem}
+\begin{prop}
+    The homology sequence is functorial in the pair $(X,A)$.
+\end{prop}
+\begin{lemma}(Five Lemma).
+    Given a diagram of $R$-modules and homomorphisms with all rectangles commutative such that the rows are exact (at joints 2, 3, 4) and the four outer homomorphisms $\alpha,\beta,\delta,\varepsilon$ are isomorphisms, then $\gamma$ is an isomorphism.
+\end{lemma}
+\begin{defn}(Short exact sequence).
+    An exact sequence of $R$-modules of the form $0\rightarrow A\overset{i}{\rightarrow}B\overset{j}{\rightarrow}C\rightarrow0$ is called a \textit{short exact sequence}. In particular, $i$ is monic, $\im{i}=\ker{j}$, and $j$ is epic. The Noether isomorphism theorem then says $C=\im{j}\cong B/\im{i}$ with $A\cong\im{i}$. So, up to isomorphism, $C$ is $B/A$. Among the short exact sequences, certain special cases are singled out.
+\end{defn}
+\begin{defn}(Split).
+    A short exact sequence is \textit{split} if either
+    \begin{enumerate}
+        \item There is a $k:B\rightarrow A$ such that $ki=\textrm{id}_A$.
+        \item There is $l:C\rightarrow B$ such that $jl=\textrm{id}_C$.
+    \end{enumerate}
+    For example $0\rightarrow\mathbb{Z}\overset{i}{\rightarrow}\mathbb{Z}\otimes\mathbb{Z}\overset{j}{\rightarrow}\mathbb{Z}\rightarrow0,i(1)=(2,3),j(1,0)=3,j(0,1)=-2$ is split. Take $l:\mathbb{Z}\rightarrow\mathbb{Z}\otimes\mathbb{Z}$ by $l(1)=(1,1)$. But $0\rightarrow\mathbb{Z}\overset{\times2}{\rightarrow}\mathbb{Z}\rightarrow\mathbb{Z}/2\mathbb{Z}$ is not split because $\mathbb{Z}$ accepts no nontrivial homomorphisms from $\mathbb{Z}/2\mathbb{Z}$.
+\end{defn}
+\begin{prop}
+    Conditions (1) and (2) in Definition 1.73 are equivalent.
+\end{prop}
+\begin{lemma}(Direct Sum Lemma).
+    Consider the diagram of $R$-modules with commutative triangles with $\im{i_s}=\ker{j_s}$, and $k_s$ an isomorphism for $s=1,2$. Then the compositions $G_1\otimes G_2\overset{i_1\otimes i_2}{\rightarrow}G\otimes G\overset{\nabla'}{\rightarrow}G,G\overset{\Delta}{\rightarrow}G\otimes G\overset{j_1\otimes j_2}{\rightarrow}G_1\otimes G_2$ are isomorphisms where $\nabla'(g,g')=g+g',\Delta(g)=(g,g)$.
+\end{lemma}
+\begin{prop}
+    If $A\subset X$ is a retract then the long exact homology sequence of the pair $(X,A)$ breaks into split short exact sequences \[0\rightarrow H_q(A)\overset{H_q(i)}{\underset{H_q(r)}{\rightleftarrows}}H_q(X)\rightarrow H_q(X,A)\rightarrow0\] for all $q\geq0$. For $q=0$ either ordinary or reduced homology may be used. In particular $H_q(X)$ is isomorphic to the direct sum $H_q(A)\otimes H_q(X,A)$.
+\end{prop}
+\subsubsection{The Excision Theorem}
+\begin{theorem}
+    If the closure of $U$ is contained in the interior of $A$, then $U$ can be excised.
+\end{theorem}
+\begin{theorem}
+    Suppose $V\subset U\subset A$ and
+    \begin{enumerate}
+        \item $V$ can be excised.
+        \item $(X-U,A-U)$ is deformation retract of $(X-V,A-V)$.
+    \end{enumerate}
+    Then $U$ can be excised.
+\end{theorem}
+\begin{theorem}
+    Let $E_n^+,E_n^-$ be the closed northern and southern hemispheres of the $n$-sphere $S^n,n\geq1$ (so that $E_n^+\cap E_n^-$ is the equator $S^{n-1}$). Then $(E_n^+,S^{n-1})\rightarrow(S^n,E_n^-)$ is an excision.
+\end{theorem}
+\begin{corollary}
+    For $q\geq1$ and $n\geq1$ \[H_q(S^n)\cong\begin{cases}R&q=n\\0&q\neq n\end{cases}\] \[H_q(E^n,S^{n-1})\cong\begin{cases}R&q=n\\0&q\neq n\end{cases}\]
+\end{corollary}
+\begin{corollary}
+    $S^{n-1}$ is not a retract of $E^n$.
+\end{corollary}
+\begin{theorem}(Brouwer's Fixed Point Theorem).
+    Any continuous map $E^n\rightarrow E^n$ has a fixed point.
+\end{theorem}
+\begin{theorem}
+    Every homology class in $H_q(X,A)$ can be represented by a relative cycle which is a linear combination of simplexes small of order $\mathscr{V}$.
+\end{theorem}
+\begin{lemma}
+    We have the operator equations $\partial Sd=Sd\partial$, $\partial T=Id-Sd-T\partial$ where $Id$ is the identity operator.
+\end{lemma}
+\begin{lemma}
+    Each affine singular simplex appearing in the $q$-chain $Sd\sigma$ has diameter at most $\frac{qd(\sigma)}{q+1}$.
+\end{lemma}
+\begin{prop}
+    Let $\sigma$ be a singular simplex in $X$, $\mathscr{V}$ an open covering of $X$. Then there is an $r>0$ such that $Sd^r\sigma$ is a linear combination of singular simplexes small of order $\mathscr{V}$.
+\end{prop}
+\begin{defn}(Mapping cone).
+    Let $f:C\rightarrow C'$ be a chain map of chain complexes. The \textit{mapping cone} $Cf$ is the complex $(Cf)_q=C_q'\otimes C_{q-1},\partial_q^f(x,y)=(\partial_q'x+f_{q-1}y,-\partial_{q-1}y)$.
+\end{defn}
+\begin{lemma}
+    If $H(C)=0$ then $\textrm{id}\simeq0$.
+\end{lemma}
+\begin{defn}(Chain homotopy equivalence).
+    A chain map $f:C\rightarrow C'$ is a \textit{chain homotopy equivalence} provided there is a chain map $g:C'\rightarrow C$ such that $fg\simeq\textrm{id}_{C'},gf\simeq\textrm{id}_C$.
+\end{defn}
+\begin{lemma}
+    If $f:C\rightarrow C'$ satisfies $H(Cf)=0$, then $f$ is a chain homotopy equivalence.
+\end{lemma}
+\begin{theorem}
+    If the chain map $f:C\rightarrow C'$ induces an isomorphism $H(f)$, then $f$ is a chain homotopy equivalence.
+\end{theorem}
+\subsubsection{Further Applications to Spheres}
+\begin{prop}
+    Let $r:S^n\rightarrow S^n$ be the reflection $r(x_0,\ldots,x_n)=(-x_0,x_1,\ldots,x_n)$. Then the induced homomorphism $H_n(r):H_n(S^n)\rightarrow H_n(S^n)$ is multiplication by -1 for all $n\geq1$.
+\end{prop}
+\begin{prop}
+    Any rotation of $S^n$ is homotopic to the identity map of $S^n$.
+\end{prop}
+\begin{prop}
+    Let $g:S^n\rightarrow S^n$ be the restriction of an orthogonal transformation of $\mathbb{R}^{n+1}$. Then the induced homomorphism $H_n(g):H_n(S^n)\rightarrow H_n(S^n)$ is multiplication by the determinant of $g$ (which is $\pm1$).
+\end{prop}
+\begin{corollary}
+    Let $a:S^n\rightarrow S^n$ be the antipodal map $a(x)=-x$. Then the induced homomorphism $H_n(a)$ is multiplication by $(-1)^{n+1}$.
+\end{corollary}
+\begin{theorem}
+    $S^n$ has a nowhere vanishing vector field if and only if $n$ is odd.
+\end{theorem}
+\subsubsection{Mayer-Vietoris Sequence}
+\begin{lemma}(Barratt-Whitehead Lemma).
+    Given a diagram of $R$-modules and homomorphisms in which all rectangles commute and rows are exact if the $\gamma_i$ are isomorphisms, then there is a long exact sequence $\rightarrow A_i\overset{\Phi_i}{\rightarrow} A_i'\otimes B_i\overset{\Psi_i}{\rightarrow}B_i'\overset{\Gamma_i}{\rightarrow}A_{i-1}\rightarrow\ldots$ where $\Phi_i=(\alpha_i\otimes f_i)\Delta,\Psi_i=\nabla'(-f_i'\otimes\beta_i),\Gamma_i=h_i\gamma_i^{-1}g_i'$. Recall $\Delta(a)=(a,a),\nabla'(x,y)=(x+y)$.
+\end{lemma}
+\begin{defn}(Mayer-Vietoris sequence).
+    If $(X,X_1,X_2)$ is an exact triad, then the ladder induced by the inclusion $(X_1,A)\rightarrow (X,X_2)$ has $H_q(X_1,A)\rightarrow H_q(X,X_2)$ an isomorphism. The associated Barratt-Whitehead sequence is the \textit{Mayer-Vietoris} sequence of the triad, $\rightarrow H_{q+1}(X)\overset{\Gamma_{q+1}}{\rightarrow}H_q(A)\overset{\Phi_q}{\rightarrow}H_q(x_1)\otimes H_q(X_2)\overset{\Psi_q}{\rightarrow}H_q(X)\rightarrow\ldots$.
+\end{defn}
+\begin{corollary}
+    Suppose that for some $q$, $H_{q+1}(X)=0$. Then necessary and sufficient conditions that an element $a\in H_q(A)$ be zero are that $H_q(m_1)(a)=0=H_q(m_2)(a)$.
+\end{corollary}
+\begin{defn}(Relative Mayer-Vietoris sequence).
+    Suppose $(X,X_1,X_2)$ is an exact triad but not necessarily $X=X_1\cup X_2$. Let $Y=X_1\cup X_2$ and $A=X_1\cap X_2$. Then there is a \textit{relative Mayer-Vietoris sequence} which is exact: $\ldots\rightarrow H_q(X,A)\rightarrow H_q(X,X_1)\otimes H_q(X,X_2)\rightarrow H_q(X,Y)\rightarrow H_{q-1}(X,A)\ldots$ and functorial for maps of exact triads.
+\end{defn}
+\subsubsection{The Jordan-Brouwer Separation Theorem}
+\begin{theorem}
+    Let $e_r$ be a closed cell of dimension $r$ in $S^n$. Then $H_q^\#(S^n-e_r)=0$ for all $q\geq0$.
+\end{theorem}
+\begin{lemma}
+    Let $J_1,J_2$ be closed subintervals of $I$ such that $J_1\cap J_2=\{t\}$. Let $e'=\phi(J_1\times I^{r-1}),e''=\phi(J_2\times I^{r-1})$. Suppose there are $(q+1)$-chains $w',w''$ in $S^n-e',S^n-e''$ respectively such that $\partial w'=z=\partial w''$. Then there is also a $(q+1)$-chain $w$ in $S^n-(e'\cup e'')$ such that $z=\partial w$.
+\end{lemma}
+\begin{corollary}
+    $S^n$ cannot be disconnected by removing a closed cell.
+\end{corollary}
+\begin{theorem}
+    Let $s_r$ be a subspace of $S^n$ which is a homeomorph of $S^r$. Then $r\leq n$. If $r=n$, then $s_n=S^n$. If $r<n$, then \[H_q^\#(S^n-s_r)=\begin{cases}R&q=n-r-1\\0&\textrm{otherwise}\end{cases}\]
+\end{theorem}
+\begin{corollary}
+    If $r\leq n$, then removing an $s_r$ from $S^n$ disconnects $S^n$ if and only if $r=n-1$.
+\end{corollary}
+\begin{theorem} (Jordan-Brouwer Separation Theorem).
+    For any $s_{n-1}$ inside $S^n$, $S^n-s_{n-1}$ consists of two connected components, both having $s_{n-1}$ as frontier.
+\end{theorem}
+\begin{corollary}
+    Let $n\geq2,s_{n-1}$ a homeomorph of $S^{n-1}$ in $\mathbb{R}^n$. Then $\mathbb{R}^n-s_{n-1}$ has two connected components, both having $s_{n-1}$ as frontier.
+\end{corollary}
+\begin{corollary}
+    Let $n\geq2$ and $f:E^n\rightarrow\mathbb{R}^n$ a one-to-one map. Then $f$ is a homeomorphism of $E^n$ onto $f(E^n)$; if $s_{n-1}=f(S^{n-1})$, then $f$ maps the interior of $E^n$ onto the inside of $s_{n-1}$.
+\end{corollary}
+\begin{corollary}(Invariance of Domain).
+    Assume $n\geq2$. Let $U\subset\mathbb{R}^n$ be open connected, $f:U\rightarrow\mathbb{R}^n$ a one-to-one map. Then $f(U)$ is connected open and $f$ is a homeomorphism onto $f(U)$.
+\end{corollary}
+\subsubsection{Construction of Spaces: Spherical Complexes}
+\begin{prop}
+    Given a collared pair $(X,A)$ and a map $f:A\rightarrow Y$, where $Y$ is Hausdorff. Let $Z=X\cup_f Y$. Then $(Z,Y)$ is a collared pair; in fact, if $B$ is a collaring of $A$, then $Y\cup\overline{f}(B)$ is a collaring of $Y$. Moreover, $\overline{f}$ maps $X-A$ homeomorphically onto $Z-Y$.
+\end{prop}
+\begin{defn}(Spherical complex).
+    Start with a finite discrete set of points, and successively attach cells, possibly of varying dimensions, but finite in number. We get a compact Hausdorff space, and any space which can be obtained in this way will be called a \textit{spherical complex}.
+\end{defn}
+\begin{prop}
+    $\mathbb{CP}^n$ (respectively $\mathbb{P}^n$) is obtained from $\mathbb{CP}^{n-1}$ (respectively $\mathbb{P}^{n-1}$) by attaching a $2n$-cell (respectively an $n$-cell) via the canonical map $f:S^{2n-1}\rightarrow\mathbb{CP}^{n-1}$ (respectively $f:S^{n-1}\rightarrow\mathbb{P}^{n-1}$).
+\end{prop}
+\begin{theorem}
+    Assume $(X,A)$ is a collared pair. Then $H_q(\overline{f}):H_q(X,A)\rightarrow H_q(Z,Y)$ is an isomorphism for all $q$.
+\end{theorem}
+\begin{corollary}
+    We have
+    \begin{enumerate}
+        \item $H_q^\#(Z)\cong H_q^\#(Y)$ for $q\neq n$ and $q\neq n-1$.
+        \item $H_{n-1}^\#(Z)\cong H_{n-1}^\#(Y)/\im{H_{n-1}}(f)$.
+        \item An exact sequence $0\rightarrow H_n^\#(Y)\rightarrow H_n^\#(Z)\overset{\psi}{\rightarrow}\ker{H_{n-1}}(f)\rightarrow0$.
+    \end{enumerate}
+\end{corollary}
+\begin{corollary}
+    Assume $R$ is a Noetherian ring. If $Z$ is a spherical complex, then $H_q(Z)$ is a finitely generated $R$-module for every $q$. If $n$ is the highest dimension of a cell used in constructing $Z$, then $H_q(Z)=0$ for $q>n$.
+\end{corollary}
+\begin{theorem}
+    The homology of complex projective space is given by \[H_q(\mathbb{CP}^n)\cong\begin{cases}0&q>2n\;\textrm{or}\;q\;\textrm{odd}\\R&q\;\textrm{even such that}\;0\leq q\leq 2n\end{cases}\]
+\end{theorem}
+\begin{theorem}
+    Let $f:S^n\rightarrow\mathbb{P}^n$ be the canonical map. If $n$ is even, $H_n(f)=0$. If $n$ is odd, there are isomorphisms $H_n(\mathbb{P}^n)\cong R\cong H_n(S^n)$ such that $H_n(f)$ is multiplication by 2.
+\end{theorem}
+\begin{theorem}
+    The homology of real projective space is given by \[H_q(\mathbb{P}^n)\cong\begin{cases}0&q>n\\R_2&q\;\textrm{even such that}\;1<q\leq n\\R/2&q\;\textrm{odd such that}\;1\leq q\leq n-1\\R&q=0\;\textrm{and}\;q=n\;\textrm{if}\;n\;\textrm{is odd}\end{cases}\]
+\end{theorem}
+\begin{theorem}
+    The homology of the torus $T$ is \[H_q(T)\cong\begin{cases}R&q=0\;\textrm{and}\;q=2\\R\times R&q=1\\0&q>2\end{cases}\]
+\end{theorem}
+\begin{prop}
+    If $(X,A)$ is a collared pair, then the space $X/A$ obtained from $X$ by collapsing $A$ to a point is a Hausdorff space in which the distinguished point has a contractible open neighborhood. Moreover, there is a canonical isomorphism $H_q^\#(X/A)\cong H_q(X,A)$ for all $q$ so that we obtain an exact sequence $\rightarrow H_q(A)\rightarrow H_q(X)\rightarrow H_q(X/A)\rightarrow H_{q-1}^\#(A)\rightarrow H_{q-1}^\#(X)\rightarrow$.
+\end{prop}
+\subsubsection{Betti Numbers and Euler Characteristic}
+\begin{lemma}
+    Where defined, $\chi(X)=\chi(A)+\chi(X,A)$.
+\end{lemma}
+\begin{lemma}
+    Given an exact sequence of finitely generated Abelian groups $0\rightarrow A_1\overset{i_1}{\rightarrow}A_2\overset{i_2}{\rightarrow}\ldots\overset{i_{r-1}}{\rightarrow}A_r\rightarrow0$ then $\rank{A_1}-\rank{A_2}+\ldots+(-1)^{r+1}\rank{A_r}=0$.
+\end{lemma}
+\begin{lemma}
+    $\overline{i}_1$ is a monomorphism, $\overline{i}_2$ is an epimorphism, and $\ker{\overline{i}_2}/\im{\overline{i}_1}$ is a torsion group.
+\end{lemma}
+\begin{corollary}
+    If $Z$ is obtained from $Y$ by attaching an $n$-cell, and $\chi(Y)$ is defined, then $\chi(Z)=\chi(Y)+(-1)^n$.
+\end{corollary}
+\begin{corollary}
+    Let $X$ be a spherical complex, obtained from $\alpha_0$ points by attaching $\alpha_q$ $q$-cells for $q=1,\ldots,n$ (in any order). Then \[\chi(X)=\sum_{q=0}^n(-1)^q\alpha_q\]
+\end{corollary}
+\subsubsection{Construction of Spaces: Cell Complexes and More Adjunction Spaces}
+\begin{theorem}
+    Let $X$ be a finite cell complex, $E\overset{p}{\rightarrow}X$ a $d$-fold covering space, $d>0$ (i.e., all the fibres $p^{-1}(x)$ have $d$ points). Then $E$ has a structure of finite cell complexes for which the map $p$ is cellular. Moreover $\chi(E)=d_{\chi}(X)$.
+\end{theorem}
+\begin{theorem}(Uniqueness Theorem).
+    If $H$ and $\overline{H}$ are homology theories defined on the category of finite $CW$ pairs and $\eta:H(pt)\rightarrow\overline{H}(pt)$ is a homomorphism, then there exists a unique natural transformation $\overline{\eta}:H\rightarrow\overline{H}$ extending $\eta$. In particular if $\eta$ is an isomorphism then $H_q(X,A)\cong\overline{H}_q(X,A)$ for all finite $CW$ pairs $(X,A)$.
+\end{theorem}
+\begin{lemma}
+    The vertex is a strong deformation retract of $CX$.
+\end{lemma}
+\begin{prop}
+    $f:X\rightarrow Y$ is null-homotopic if and only if $f$ extends to $F:CX\rightarrow Y$.
+\end{prop}
+\begin{defn}(Mapping cone).
+    The \textit{mapping cone} $Cf$ of $f:X\rightarrow Y$ is the adjunction space $CX\cup_f Y$. $Y$ is embedded as a closed subset of $Cf$, we write the embedding $e:Y\rightarrow Cf$, and $CX-X$ is an open subset.
+\end{defn}
+\begin{prop}
+    $f:X\rightarrow Y$ is null-homotopic if and only if $Y$ is a retract of $Cf$.
+\end{prop}
+\begin{prop}
+    Let $f:X\rightarrow Y,g:Y\rightarrow Z$. Then $g$ extends to $h:Cf\rightarrow Z$ such that $he=g$ if and only if $gf$ is null-homotopic.
+\end{prop}
+\begin{prop}
+    If $f'\alpha\simeq\beta f$ then there exists $\gamma:Cf\rightarrow Cf'$, an extension of $e'\beta$, such that it has all squares commutative.
+\end{prop}
+\begin{prop}
+    If $f,g:X\rightarrow Y$ are homotopic, then $Cf$ and $Cg$ are homotopy equivalent.
+\end{prop}
+\begin{prop}(Alexander Trick).
+    Let $h:S^{n-1}\rightarrow S^{n-1}$ be a homeomorphism. Then $W=E^n\cup_h E^n$ is homeomorphic to $S^n$.
+\end{prop}
+\begin{defn}(Twist).
+    The \textit{twists} $\lambda,\mu:S^1\times S^1\times S^1$ are given by $\lambda(e^{i\theta},e^{i\phi})=(e^{i(\theta+\phi)},e^{i\phi}),\mu(e^{i\theta},e^{i\phi})=(e^{i\theta},e^{i(\theta+\phi)})$.
+\end{defn}
+\begin{defn}(Lens space).
+    Let $(p,q)$ be co-prime integers and $h$ as homeomorphism of $\partial(E^2\times S^1)$ such that $H_1(h)(m)=qm+pl$ in $H_1(S^1\times S^1)$. The adjunction space $L(p,q)=E^2\times S^1\cup_h E^2\times S^1$ is a \textit{lens space}.
+\end{defn}
+\begin{prop}
+    The integral homology of $L(p,q)$ is given by $H_3\cong\mathbb{Z},H_2=0,H_1\cong\mathbb{Z}/p\mathbb{Z},H_0\cong\mathbb{Z}$.
+\end{prop}
+\begin{prop}
+    $H_q(Q)\cong H_q(S^3)$.
+\end{prop}
+\subsection{Orientation and Duality on Manifolds}
+\subsubsection{Orientation of Manifolds}
+\begin{lemma}
+    For any point $x\in X$, $H_n(X,X-x)\cong R$.
+\end{lemma}
+\begin{defn}(Local $R$-orientation).
+    A \textit{local $R$-orientation} of $X$ at $x$ is a generator of the $R$-module $H_n(X,X-x)$.
+\end{defn}
+\begin{lemma}(Continuation Lemma).
+    Given an element $\alpha_x\in H_n(X,X-x)$. Then there is an open neighborhood $U$ of $x$ and $\alpha\in H_n(X,X-U)$ such that $\alpha_x=j_x^U(\alpha)$, where $j_x^U:H_n(X,X-U)\rightarrow H_n(X,X-x)$ is the canonical homomorphism induced by inclusion.
+\end{lemma}
+\begin{lemma}(Coherence Lemma).
+    If $\alpha_x$ generates $H_n(X,X-x)$, then $U$ and $\alpha$ can be chosen such that $\alpha_y$ generates $H_n(X,X-y)$ for all $y\in U$.
+\end{lemma}
+\begin{lemma}(Locally Constant Lemma).
+    Every neighborhood $W$ of $x$ contains a neighborhood $U$ of $x$ such that for every $y\in U$, $j_y^U$ is an isomorphism (hence $\alpha_x$ has a unique continuation in $U$).
+\end{lemma}
+\begin{defn}(Local $R$-orientation along a space).
+    Given a subspace $U\subset X$. An element $\alpha\in H_n(X,X-U)$ such that $j_y^U(\alpha)$ generates $H_n(X,X-y)$ for each $y\in U$ will be called a \textit{local $R$-orientation of $X$ along $U$}.
+\end{defn}
+\begin{prop}
+    \begin{enumerate}
+        \item An open submanifold $V$ of an $R$-orientable $X$ is $R$-orientable.
+        \item $X$ is $R$-orientable if and only if all its connected components are.
+    \end{enumerate}
+\end{prop}
+\begin{prop}
+    Suppose $X$ is connected. Then two $R$-orientations of $X$ which agree at one point are equal.
+\end{prop}
+\begin{corollary}
+    A connected orientable manifold has exactly two distinct orientations.
+\end{corollary}
+\begin{prop}
+    Every manifold has a unique $\mathbb{Z}/2$-orientation.
+\end{prop}
+\begin{theorem}
+    Let $X$ be a connected non-orientable manifold. Then there is a 2-fold connected covering space $E\overset{p}{\rightarrow}X$ such that $E$ is orientable.
+\end{theorem}
+\begin{corollary}
+    Every simply connected manifold is orientable (more generally, every connected manifold whose fundamental group contains no subgroup of index 2 is orientable).
+\end{corollary}
+\begin{lemma}
+    For $q>0$, $v^{-1}(q)$ is open in $X^0$ and $v^{-1}(q)\rightarrow X$ is a 2-fold covering space.
+\end{lemma}
+\begin{theorem}
+    Suppose $A\subset X$ is closed. Then
+    \begin{enumerate}
+        \item $H_q(X,X-A)=0$ for $q>n$.
+        \item $j_A$ is a monomorphism, and its image is the submodule $\Gamma_cA$ of sections with compact support, i.e., $j_A:H_n(X,X-A)\overset{\sim}{\rightarrow}\Gamma_cA$. In particular, $j_X:H_n(X)\overset{\sim}{\rightarrow}\Gamma_cX$, and $H_q(X)=0$ for $q>n$.
+    \end{enumerate}
+\end{theorem}
+\begin{corollary}
+    If $A$ is connected and non-compact, $H_n(X,X-A)=0$. In particular, $H_n(X)=0$ if $X$ is connected and non-compact.
+\end{corollary}
+\begin{corollary}
+    If $A$ is compact with $k$ connected components, and $X$ is $R$-orientable along $A$, then $H_n(X,X-A)\cong R^k$.
+\end{corollary}
+\begin{corollary}
+    If $A$ is a compact subspace of $\mathbb{R}^n$ with $k$ connected components, then $k$ equals the $(n-1)$th Betti number of the complement of $A$ in $\mathbb{R}^n$ (assume $n\geq2$).
+\end{corollary}
+\begin{corollary}
+    Let $X$ be a compact connected manifold. Assume that for any $a\neq0$, $a\in R$ and any unit $u\in R$, $ua=a$ implies $u=1$ (this holds, for example, when $R$ is an integral domain). Then \[H_n(X)\cong\begin{cases}R&\textrm{if}\;X\;\textrm{is}\;R\textrm{-orientable}\\0&\textrm{otherwise}\end{cases}\]
+\end{corollary}
+\begin{corollary}
+    If $X$ is a compact connected manifold then $H_n(X;\mathbb{Z}/2)\simeq\mathbb{Z}/2$.
+\end{corollary}
+\subsubsection{Singular Cohomology}
+\begin{defn}(Singular cohains).
+    The module $S^q(X)$ of all \textit{singular cochains} on $X$ is $\Hom_R(S_q(X),R)=S_q(X)^*$. Thus a singular cochain of dimension $q$ is an $R$-linear homomorphism $c:S_q(X)\rightarrow R$. If we denote the valueof this homomorphism on a chain $z$ by $[z,c]$, we then have the identities $[z_1+z_2,c]=[z_1,c]+[z_2,c]$, $[z,c_1+c_2]=[z,c_1]+[z,c_2]$ and $[\nu z,c]=\nu[z,c]=[z,\nu c]$ for $\nu\in R$ so that $[\;,\;]$ is a bilinear pairing.
+\end{defn}
+\begin{prop}
+    There is a unique homomorphism $\delta:S^q(X)\rightarrow S^{q+1}(X)$ satisfying $[\partial z,c]=[z,\delta c]$ for all $(q+1)$-chains $z$ and $q$-cochains $c$. If $f:X\rightarrow Y$ is any map, then $\delta S^q(f)=S^{q+1}(f)\delta$. Moreover, $\delta\delta=0$.
+\end{prop}
+\begin{lemma}
+    The sequence $0\rightarrow\overline{S}^q(X,A)\overset{t_p}{\rightarrow}S^q(X)\overset{t_i}{\rightarrow}S^q(A)\rightarrow0$ is exact.
+\end{lemma}
+\begin{prop}
+    If $R$ is a principal ideal domain (PID) then $\alpha$ is an epimorphism.
+\end{prop}
+\begin{theorem}
+    The singular cohomology modules have the following properties:
+    \begin{enumerate}
+        \item Contrafunctoriality.
+        \item Exact cohomology sequence: $0\rightarrow H^0(X,A)\rightarrow\cdots\rightarrow H^q(X)\rightarrow H^q(A)\overset{\delta}{\rightarrow}H^{q+1}(X,A)\rightarrow\cdots$.
+        \item Homotopy invariant: $f\simeq g\Rightarrow H^q(f)=H^q(g)$.
+        \item Excision: $\overline{U}\subset A\Rightarrow H^q(X,A)\rightarrow H^q(X-U,A-U)$ an isomorphism.
+        \item For a single point $P$: \[H^q(P)\cong\begin{cases}R&q=0\\0&q>0\end{cases}\]
+    \end{enumerate}
+\end{theorem}
+\begin{defn}(Resolution).
+    A \textit{resolution} of an $R$-module $M$ is a chain complex $\{C_q,\partial_q\}$ and an epimorphism $\varepsilon:C_0\rightarrow M$ such that $\im{\partial_q}=\ker{\partial_{q-1}}$ and $\im{\partial_0}=\ker{\varepsilon}$. Recall that our definition of chain complex required each $C_q$ to be a free $R$-module.
+\end{defn}
+\begin{prop}
+    Let $C,C'$ be resolutions of $M,M'$. Given $f:M\rightarrow M'$, there is a chain map $\{f_q\},f_q:C_q\rightarrow C_q'$ such that $\varepsilon'f_0=f\varepsilon$ and any two such chain maps are chain homotopic.
+\end{prop}
+\begin{prop}
+    Any two resolutions of $M$ are chain homotopy equivalent.
+\end{prop}
+\begin{defn}(Derived functor).
+    The $q$-th \textit{derived functor} $\Ext_R^q(\;,N)$ of $\Hom_R(\;,N)$ is given by \[\Ext_R^q(M,N)=\frac{\ker\{\partial_{q+1}^*:H(C_q)\rightarrow H(C_{q+1})\}}{\im\{\partial_q^*:H(C_{q-1})\rightarrow H(C_q)\}}\]
+\end{defn}
+\begin{lemma}
+    Application of $\Hom_R(\;,N)$ to a normal extension yields a short exact sequence $0\rightarrow(C'')^*\rightarrow C^*\rightarrow(C')^*\rightarrow0$.
+\end{lemma}
+\begin{prop}
+    Let $0\rightarrow A'\overset{i}{\rightarrow}A\overset{j}{\rightarrow}A''\rightarrow0$ be a short exact sequence. There is a natural homomorphism $\delta:\Ext_R^q(A',N)\rightarrow\Ext_R^{q+1}(A'',N)$ and a natural long exact sequence $0\rightarrow\Hom_R(A'',N)\rightarrow\Hom_R(A,N)\rightarrow\ldots\overset{\delta}{\rightarrow}\Ext_R^q(A'',N)\rightarrow\Ext_R^q(A,N)\rightarrow\Ext_R^q(A',N)\overset{\delta}{\rightarrow}\Ext_R^{q+1}(A'',N)\rightarrow$.
+\end{prop}
+\begin{theorem}(Universal Coefficient Theorem).
+    There is a natural short exact sequence $0\rightarrow\Ext(H_{n-1}(X,A;\mathbb{Z}),G)\rightarrow H^n(X,A;G)\overset{\alpha}{\rightarrow}\Hom(H_n(X,A;\mathbb{Z}),G)\rightarrow0$ which splits (the splitting is not necessarily natural).
+\end{theorem}
+\begin{theorem}
+    There is a natural isomorphism $\Phi:[X,S^1]\rightarrow H^1(X,\pi_1S^1)$ given by $\Phi(f)=H^1(f)(\iota)$ where $\iota\in H^1(S^1;\pi_1S^1)$ corresponds to the identity in the following sequence of isomorphisms: $H^1(S^1;\pi_1S^1)\cong\Hom(H_1(S^1;\mathbb{Z}),\pi_1S^1)\cong\Hom(\pi_1S^1,\pi_1S^1)$.
+\end{theorem}
+\subsubsection{Cup and Cap Products}
+\begin{prop}
+    The cup product in $S^\cdot(X)$ is bilinear, associative, and has as identity element the 0-cochain 1 defined by $[x,1]=1$ for every point $x\in X$.
+\end{prop}
+\begin{prop}
+    The coboundary operator is a derivation of the graded ring $S^\cdot(X)$, i.e., $\delta(c\cup d)=\delta c\cup d+(-1)^pc\cup\delta d$ for $c\in S^p(X),d\in S^q(X)$.
+\end{prop}
+\begin{corollary}
+    The direct sum $Z^\cdot(X)$ of the cocycle modules is a subring of $S^\cdot(X)$ and the direct sum $B^\cdot(X)$ of the coboundary modules is a two-sided ideal in $Z^\cdot(X)$, hence by passage of the cup product to the quotient, the direct sum $H^\cdot(X)$ of the cohomology modules becomes a graded $R$-algebra.
+\end{corollary}
+\begin{prop}
+    $S^\cdot(f)$ and $H^\cdot(f)$ are ring homomorphisms.
+\end{prop}
+\begin{corollary}
+    $S^\cdot$ and $H^\cdot$ are contrafunctors from the category of topological spaces to the category of graded $R$-algebras.
+\end{corollary}
+\begin{theorem}
+    $H^\cdot(X)$ is skew-commutative, i.e., $a\cup b=(-1)^{pq}b\cup a$ for $a\in H^p(X),b\in H^q(X)$. In particular, if $a=b$ and $p$ is odd, $a\cup a=0$, provided $R$ has characteristic not equal to 2.
+\end{theorem}
+\begin{lemma}
+    $\theta$ on $S_\cdot(X)$ is chain homotopic to the identity, i.e., there is an endomorphism $J$ of $S_\cdot(X)$ raising degrees by 1 such that $Id-\theta=\partial J+J\partial$.
+\end{lemma}
+\begin{lemma}
+    $\phi:S_\cdot(X)\rightarrow S_\cdot(Y)$ is chain homotopic to zero.
+\end{lemma}
+\begin{prop}
+    The pairing $\cap:S_\cdot(X)\times S^\cdot(X)\rightarrow S_\cdot(X)$ makes $S_\cdot(X)$ a right unitary $S^\cdot(X)$-module.
+\end{prop}
+\begin{prop}
+    For $z\in S_{p+q}(X),c\in S^p(X)$, we have $\partial(z\cap c)=(-1)^p[(\partial z)\cap c-z\cap\delta c]$.
+\end{prop}
+\begin{corollary}
+    By passage to the quotient, the cap product induces a bilinear pairing $\cap:H_{p+q}(X)\times H^p(X)\rightarrow H_q(X)$.
+\end{corollary}
+\begin{prop}
+    For any map $f:X\rightarrow Y$, $H_q(f)[a\cap H^p(f)(b)]=H_{p+q}(f)(a)\cap b,a\in H_{p+q}(X),b\in H^p(Y)$.
+\end{prop}
+\subsubsection{Algebraic Limits}
+\begin{defn}(Direct/inductive limit).
+    Suppose $(M_i)_{i\in I}$ is a family of $R$-modules indexed by the directed set $I$, and that for $i\leq i'$ we are given a homomorphism $\phi_{i,i'}:M_i\rightarrow M_{i'}$ such that $\phi_{i'',i'}\phi_{i',i}$ if $i\leq i'\leq i''$ with $\phi_{i,i}=\textrm{id}$. Call this set-up a direct (inductive) system of modules. A \textit{direct (inductive) limit} of this system is a module $M$ together with a family of homomorphisms $\phi_i:M_i\rightarrow M$ indexed by $I$ such that $\phi_{i'}\phi_{i',i}=\phi_i$ if $i\leq i'$ and such that this collection is universal with respect to the following property. For any module $N$ and any family of homomorphisms $\psi_i:M_i\rightarrow N$ satisfying $\psi_{i'}\phi_{i',i}=\psi_i$ if $i\leq i'$ there is a unique homomorphism $\psi:M\rightarrow N$ such that $\psi_i=\psi\phi_i$ for all $i$.
+\end{defn}
+\begin{prop}
+    The inductive limit exists.
+\end{prop}
+\begin{lemma}(Additivity).
+    Suppose that for each $i$ we have a direct sum decomposition $M_i=N_i\otimes P_i$, and that for $i\leq i'$, the homomorphism $\phi_{i',i}$ decomposes accordingly: $\phi_{i',i}=\psi_{i',i}+\rho_{i',i}$. Let $N=\lim N_i,P=\lim P_i$, so that we get induced homomorphisms $\psi:N\rightarrow M,\rho:P\rightarrow M$ such that $\psi\psi_i=\phi_i\mid N_i,\rho\rho_i=\phi_i\mid P_i$. Then $\psi\otimes\rho:N\otimes P\rightarrow M$ is an isomorphism.
+\end{lemma}
+\begin{lemma}
+    $\lambda:\lim M_j\rightarrow\lim M_i$ is an isomorphism.
+\end{lemma}
+\begin{lemma}
+    If $\phi_ix_i=0$, there is an $i'$ with $i\leq i'$ such that $\phi_{i',i}x_i=0$.
+\end{lemma}
+\subsubsection{Poincaré Duality}
+\begin{theorem}(Poincaré Duality Theorem).
+    If $X$ is an $R$-oriented $n$-dimensional manifold, the homomorphism $D:H_c^q(X)\rightarrow H_{n-q}(X)$ is an isomorphism (for all $q$).
+\end{theorem}
+\begin{corollary}
+    If $X$ is connected $R$-orientable, then $H_c^n(X)\cong R$.
+\end{corollary}
+\begin{corollary}
+    If $X$ is compact orientable, then the Betti numbers of $X$ satisfy $\beta_q=\beta_{n-q}$ for all $q$.
+\end{corollary}
+\begin{corollary}
+    Assume $R$ is a PID. If $X$ is odd-dimensional compact $R$-orientable, then $\chi(X;R)=0$.
+\end{corollary}
+\begin{corollary}
+    If $X$ is even-dimensional compact orientable and the dimension is not divisible by 4, then $\chi(X)$ is even.
+\end{corollary}
+\begin{prop}
+    If $\gamma$ generates the module $H^2(\mathbb{CP}^n)$, then $\gamma$ generates the cohomology algebra $H^\cdot(\mathbb{CP}^n)$.
+\end{prop}
+\begin{theorem}(Borsuk-Ulam Theorem).
+    If $n>m\geq1$, then there is no map $g:S^n\rightarrow S^m$ which commutes with the antipodal maps.
+\end{theorem}
+\begin{lemma}
+    There exists $f':\mathbb{P}^n\rightarrow S^m$ such that $pf'=f$.
+\end{lemma}
+\begin{lemma}
+    For any point $x$ in an $n$-dimensional manifold $X$, there is a map $f:X\rightarrow S^n$, an open neighborhood $U$ of $x$, and a point $P$ in $S^n$ such that $f:U\approx S^n-P,f(X-U)=\{P\}$.
+\end{lemma}
+\begin{lemma}
+    If $K$ is a compact subspace of $X$ then there is an open neighborhood $V$ of $K$ and an injective map of $V$ into a Euclidean space.
+\end{lemma}
+\begin{corollary}
+    A compact manifold can be imbedded in a Euclidean space.
+\end{corollary}
+\begin{theorem}
+    Every compact manifold is an absolute neighborhood retract (ANR).
+\end{theorem}
+\begin{corollary}
+    If the compact manifold $X$ is imbedded in some Euclidean space, then $X$ is a retract of some open neighborhood.
+\end{corollary}
+\begin{lemma}
+    If $X_1,X_2$ are ANR's open in $X$ such that $X=X_1\cup X_2$, then $X$ is an ANR.
+\end{lemma}
+\begin{corollary}
+    If $X$ is a compact manifold and $\Delta$ is the diagonal in $X\times X$, then there is an open neighborhood $V$ of $\Delta$ such that the identity map of $V$ is homotopic in $X\times X$ to a retraction of $V$ onto $\Delta$.
+\end{corollary}
+\begin{theorem}
+    Let the compact subspace $K$ of a Euclidean space be an ANR. Then $H_q(K)$ is a finitely generated module for all $q$.
+\end{theorem}
+\begin{corollary}
+    The homology modules of a compact manifold are finitely generated.
+\end{corollary}
+\subsubsection{Alexander Duality}
+\begin{prop}
+    If $A$ is an ANR, then $\kappa$ is an epimorphism; if also $X$ is an ANR, then $\kappa$ is an isomorphism.
+\end{prop}
+\begin{theorem}
+    Assume $X$ is compact. Then the sequence $\cdots\rightarrow H_c^q(U)\overset{i}{\rightarrow}H^q(X)\overset{j}{\rightarrow}\breve{H}^q(A)\overset{\delta}{\rightarrow}H_c^{q+1}(U)\rightarrow\cdots$ is exact, where $A$ is closed and $U=X-A$.
+\end{theorem}
+\begin{corollary}
+    Let $A$ be a compact ANR in a compact ANR $X$, $U=X-A$. Then the homomorphisms $H^q(U,U-K)\overset{\sim}{\rightarrow}H^q(X,X-K)\overset{\textrm{Incl.}}{\rightarrow}H^q(X,A)$ for $K$ compact $\subset U$ induce by passage to the limit an isomorphism $H_c^q(U)\overset{\sim}{\rightarrow}H^q(X,A)$.
+\end{corollary}
+\begin{theorem}(Alexander Duality Theorem).
+    Assume $X$ is $R$-oriented compact $n$-dimensional manifold, $A$ closed. Then $D_A$ is an isomorphism for all $q$.
+\end{theorem}
+\begin{corollary}
+    Let $A$ be a compact submanifold of $\mathbb{R}^n$. Then $H^q(A)\cong H_{n-q-1}^\#(\mathbb{R}^n-A)$ for all $q<n$ and $H^n(A)=0$ (hence $\dim{A}<n$).
+\end{corollary}
+\begin{theorem}(General Separation Theorem).
+    If $A$ is a compact $(n-1)$-dimensional submanifold of $\mathbb{R}^n$ having $k$ connected components, then the complement of $A$ has $k+1$ connected components.
+\end{theorem}
+\begin{theorem}
+    A non-orientable compact $n$-dimensional manifold cannot be imbedded in $\mathbb{R}^{n+1}$.
+\end{theorem}
+\subsubsection{Lefschetz Duality}
+\begin{prop}
+    There are unique homomorphisms $\partial_V:\Gamma(\dot{V})\rightarrow\Gamma(\partial V)$ which are compatible with restriction to smaller $V$ and which take local orientations of $\dot{X}$ along $\dot{V}$ into local orientations of $\partial X$ along $\partial V$.
+\end{prop}
+\begin{corollary}
+    If $\dot{X}$ is $R$-orientable so is $\partial X$.
+\end{corollary}
+\begin{corollary}
+    If $X$ is compact and $\dot{X}$ is $R$-orientable (where $R$ is a PID), then $\chi(\partial X;R)$ is even.
+\end{corollary}
+\begin{prop}
+    Let $X$ be compact, $s\in\Gamma\dot{X}$ an $R$-orientation of $\dot{X}$. Then there is a unique homology class $\zeta\in H_n(X,\partial X)$ such that for any $x\in\dot{X}$, $s(x)=j_x^X(\zeta)$.
+\end{prop}
+\begin{corollary}
+    $\partial\zeta\in H_{n-1}(\partial X)$ is the fundamental class for the induced orientation of $\partial X$.
+\end{corollary}
+\begin{theorem}(Lefschetz Duality Theorem).
+    Let $X$ be a compact manifold-with-boundary of dimension $n$, and let $\dot{X}$ be $R$-oriented. Let $\zeta\in H_n(X,\partial X)$ be the fundamental class. Then the diagram (please see Greenberg Harper) is sign-commutative and the vertical arrows are isomorphisms.
+\end{theorem}
+\subsection{Products and Lefschetz Fixed Point Theorem}
+\subsubsection{Products}
+\begin{lemma}
+    The Alexander-Whitney homomorphism $A:S_n(X\times Y)\rightarrow[S(X)\otimes S(Y)]_n,A(\sigma,\tau)=\sum_{p=0}^n\sigma\lambda_p\otimes\tau\rho_{n-p}$ is functorial in $(X,Y)$.
+\end{lemma}
+\begin{lemma}
+    $A$ is a chain homomorphism, i.e., $A\partial=\partial A$.
+\end{lemma}
+\begin{theorem}(Eilenberg-Zilber).
+    $\overline{A}$ is an isomorphism. In fact, $A$ is a chain equivalence of the chain complex $S(X\times Y)$ with the chain complex $S(X)\otimes S(Y)$.
+\end{theorem}
+\begin{lemma}
+    $i:Z\otimes H(C')\rightarrow H(Z\otimes C')$ is an isomorphism.
+\end{lemma}
+\begin{theorem}(Künneth Exact Sequence).
+    Assume $R$ is a PID and $C$ is free. For all $n$, we have the exact sequence $0\rightarrow\oplus_pH_p(C)\otimes H_{n-p}(C')\rightarrow H_n(C\otimes C')\rightarrow\oplus_p\Tor(H_p(C),H_{n-p-1}(C'))\rightarrow0$.
+\end{theorem}
+\begin{theorem}(Künneth Formula).
+    Assume $R$ is a PID. Then \[H_n(X\times Y)\cong\bigoplus_{p=0}^nH_p(X)\otimes H_{n-p}(Y)\oplus\bigoplus_{p=0}^n\Tor(H_p(X),H_{n-p-1}(Y))\]
+\end{theorem}
+\begin{corollary}
+    If all the homology modules of $Y$ (or of $X$) in dimensions less than $n$ are free (e.g., if $R$ is a field), then \[H_n(X\times Y)\cong\bigoplus_{p=0}^nH_p(X)\otimes H_{n-p}(Y)\]
+\end{corollary}
+\begin{corollary}
+    Assume $R$ is a PID. If the Euler characteristics $\chi(X;R),\chi(Y;R)$ are defined, then $\chi(X\times Y;R)$ is defined and $\chi(X\times Y;R)=\chi(X;R)\chi(Y;R)$.
+\end{corollary}
+\begin{theorem}(Universal Coefficient Theorem).
+    The sequence $0\rightarrow H_n(X;\mathbb{Z})\otimes R\rightarrow H_n(X;R)\rightarrow\Tor(H_{n-1}(X;\mathbb{Z}),R)\rightarrow0$ is split exact.
+\end{theorem}
+\begin{defn}(Cross/exterior product).
+    The \textit{cross} (or \textit{exterior}) \textit{product} $c\times d\in S^{p+q}(X\times Y)$ is the cochain given by the composite $S(X\times Y)\overset{A}{\rightarrow}S(X)\otimes S(Y)\overset{c\otimes d}{\rightarrow}R\otimes R\overset{m}{\rightarrow}R$.
+\end{defn}
+\begin{lemma}
+    $\delta(c\times d)=\delta c\times d+(-1)^pc\times\delta d$.
+\end{lemma}
+\begin{prop}
+    $c\times d=S^\cdot(p_X)(c)\cup S^\cdot(p_Y)(d)$ where $p_X,p_Y$ are the projections of $X\times Y$ on $X,Y$.
+\end{prop}
+\begin{corollary}
+    The cross products for homology and cohomology are related by the formula $|\zeta\times\omega,\xi\times\eta|=[\zeta,\xi][\omega,\eta]$.
+\end{corollary}
+\begin{prop}
+    Let $a,b\in H(X),c,d\in H(Y)$. Then $(a\cup b)\times(c\cup d)=(-1)^{|b||c|}(a\times c)\cup(b\times d)$ where $|x|$ denotes dimension.
+\end{prop}
+\begin{theorem}
+    Let $(\mathscr{A},\mathscr{M})$ be a category with models, $\mathscr{C}$ the category of augmented chain complexes over $R$. Let $F,F':\mathscr{A}\rightarrow\mathscr{C}$ be functors such that $F$ is free and $F'$ is acyclic. Then there exists a morphism of functors $\Phi:F\rightarrow F'$ unique up to chain homotopy.
+\end{theorem}
+\begin{corollary}
+    If both $F$ and $F'$ are free and acyclic, then $F$ and $F'$ are chain equivalent, and in fact any morphism of functors $F\rightarrow F'$ is a chain equivalence.
+\end{corollary}
+\begin{corollary}
+    If $\zeta\in H_p(X),\omega\in H_q(Y)$ then $H_{p+q}(i)(\zeta\times\omega)=(-1)^{pq}\omega\times\zeta$.
+\end{corollary}
+\begin{theorem}(Relative Eilenberg-Zilber Theorem).
+    If $(X\times Y,A\times Y,X\times B)$ is an exact triad, there is a chain equivalence of $S(X,A)\otimes S(Y,B)$ with $S(X\times Y,A\times Y\cup X\times B)$.
+\end{theorem}
+\begin{corollary}
+    There is a pairing, the relative cross product, $H^p(X,A)\otimes H^q(Y,B)\overset{\times}{\rightarrow}H^{p+q}(X\times Y,A\times Y\cup X\times B)$ compatible with the cross product in the absolute case and satisfying the analogues of functoriality, associativity, and behavior under the interchange map defined in Corollary 1.235 which hold for the cross product.
+\end{corollary}
+\begin{prop}
+    If $X=\cup_{i=1}^nU_i$ where $U_i$ are open and contractible in $X$, then all $n$-fold cup products of elements of positive dimension are 0 in $H^\cdot(X)$.
+\end{prop}
+\subsubsection{Thom Class and Lefschetz Fixed Point Theorem}
+\begin{theorem}
+    Let $X$ be an $R$-oriented $n$-dimensional manifold, $U$ an open subspace. Then $H^q(X\times U,X\times U-\Delta)=0$ for all $q<n$ and there is a unique isomorphism $\phi:H^n(X\times U,X\times U-\Delta)\rightarrow\Gamma^*U$ such that $\phi(\beta)(x)=H^n(_Ui_x)(\beta)$ for all $\beta\in H^n(X\times U,X\times U-\Delta),x\in U$.
+\end{theorem}
+\begin{corollary}
+    There is a unique cohomology class $\mu=\mu_x$ in $H^n(X\times X,X\times X-\Delta)$ such that for all $x\in X$, $s^*(x)=H^n(_Xi_x)(\mu)$.
+\end{corollary}
+\begin{corollary}
+    Suppose $X$ is compact. Let $\zeta\in H_n(X)$ be the fundamental class of the $R$-orientation. Let $H^n(j):H^n(X\times X,X\times X-\Delta)\rightarrow H^n(X\times X)$ be the homomorphism induced by inclusion, and let $\mu'=H^n(j)(\mu)$. Then $\mu'/\zeta=1$.
+\end{corollary}
+\begin{lemma}
+    The map $s'\rightarrow s'(0)$ is an isomorphism of $\Gamma^*U$ onto $H^n(\mathbb{R}^n,\mathbb{R}^n-0)$.
+\end{lemma}
+\begin{lemma}
+    If $s'\in\Gamma^*U,x\in U$, then $s'(x)=H^n(f_{-x})(s'(0))$.
+\end{lemma}
+\begin{lemma}
+    $H^q(_Ui_0)$ is an isomorphism for all $q$.
+\end{lemma}
+\begin{lemma}
+    There exists an exact sequence $\rightarrow H^q(X\times Y,Y')\overset{i}{\rightarrow}H^q(X\times U,U')\oplus H^q(X\times V,V')\overset{j}{\rightarrow}H^q(X\times B,B')\overset{k}{\rightarrow}H^{q+1}(X\times Y,Y')\rightarrow$ where $i$ is induced by the chain homomorphism $z\rightarrow(z,z)$, $j$ by the chain homomorphism $(z,w)\rightarrow z-w$, and $k$ is a connecting homomorphism.
+\end{lemma}
+\begin{lemma}
+    If $\gamma\in H^p(X\times X,X\times X-\Delta),\eta\in H^q(X)$, then $H^p(j)(\gamma)\cup(\eta\times1)=H^p(j)(\gamma)\cup(1\times\eta)$ where $j:X\times X\rightarrow(X\times X,X\times X-\Delta)$ is the inclusion.
+\end{lemma}
+\begin{theorem}
+    Let $X$ be a compact $R$-oriented $n$-dimensional manifold with fundamental class $\zeta\in H_n(X)$. Then for any $p\leq n$, the inverse to the Poincaré duality isomorphism $H^p(X)\overset{\sim}{\rightarrow}H_{n-p}(X)$ is given by $\alpha\rightarrow(-1)^{pn}\mu'/\alpha,\alpha\in H_{n-p}(X)$.
+\end{theorem}
+\begin{prop}
+    For any $\eta\in H^p(Y)$, $H^p(f)(\eta)=(-1)^{pm}\mu_f/\zeta_Y\cap\eta$ where $\zeta_Y\in H_m(Y)$ is the fundamental class of $Y$.
+\end{prop}
+\begin{prop}
+    If $\mu_f\neq0$ then $f$ has a fixed point.
+\end{prop}
+\begin{theorem}(Lefschetz Fixed Point Theorem).
+    Let $X$ be a compact $R$-oriented manifold, where $R$ is a field. If $f:X\rightarrow X$ is any map, then the Lefschetz number of $f$ is given by \[\Lambda_f=\sum_q(-1)^q\tr{H^q(f)}\] If $\Lambda_f\neq0$, then $f$ has a fixed point.
+\end{theorem}
+\begin{corollary}
+    The Lefschetz number of the identity ma is equal to the Euler characteristic $\chi(X;R)$ of $X$, i.e., $\chi(X;R)=[\zeta,H^n(d)\mu']$ where $d:X\rightarrow X\times X$ is the diagonal map.
+\end{corollary}
+\begin{corollary}
+    If $f:S^n\rightarrow S^n$ has degree $d\neq(-1)^{n+1}$, then $f$ has a fixed point.
+\end{corollary}
+\begin{prop}
+    $\mu'=\sum_i(-1)^{|b_i|}b_i^\#\times b_i$ where $|b_i|=\dim{b_i}$.
+\end{prop}
+\subsubsection{Intersection Numbers and Cup Products}
+\begin{defn}(Transverse).
+    $M$ intersects $N$ \textit{transversally} at a point $x$ if there is a coordinate neighborhood $U$ of $x$ and a homeomorphism $(U,U\cap M,U\cap N)\cong(\mathbb{R}^{r+s},\mathbb{R}^r\times\{0\},\{0\}\times\mathbb{R}^s)$. Necessarily $x$ corresponds to the origin. We say $M\cap N$ is \textit{transverse}, it if is transverse at each point.
+\end{defn}
+\begin{defn}(Intersection number).
+    The \textit{intersection number} of $M$ and $N$ at $x$ is $\varepsilon$. We write $M\cdot N=\sum_i\varepsilon_i$ where $\varepsilon_i$ is the intersection number of $M$ and $N$ at each transverse intersection $x_i$. $M\cdot N$ is not defined here if $M\cap N$ fails to be transverse.
+\end{defn}
+\begin{lemma}
+    The intersection number is independent of coordinate neighborhood $U$.
+\end{lemma}
+\begin{lemma}
+    $M\cdot N=(-1)^{rs}N\cdot M$.
+\end{lemma}
+\begin{lemma}
+    Let $k:(V,V-x)\rightarrow(V\times V,V\times V-\Delta)$ be the inclusion. Then $M\cdot N=\sum_i[\zeta_M^{x_i}\times\zeta_N^{x_i},H^n(k)\mu]$, where $\mu$ is the Thom class and $\zeta_M^{x_i}\times\zeta_N^{x_i}$ is regarded as an element of $H_n(V,V-x)$.
+\end{lemma}
+\begin{defn}(Represented).
+    A class $\alpha\in H_r(V)$ is \textit{represented} by a submanifold $M$ if $\alpha=H_r(i)(\zeta_M)$ where $i:M\rightarrow V$ is inclusion.
+\end{defn}
+\begin{prop}
+    Let $\alpha\in H_r(V),\beta\in H_s(V)$ be represented by submanifolds $M,N$ such that $M\cap N$ is transverse. Then $[\alpha\times\beta,\mu']=M\cdot N$ where $\mu'$ is the restriction of the Thom class.
+\end{prop}
+\begin{corollary}
+    If $a=\mu'/\alpha,b=\mu'/\beta$, then $[\zeta_V,a\cup b]=(-1)^sM\cdot N$. Recall $\beta\in H_s(V)$.
+\end{corollary}
+\begin{prop}
+    Let $p$ be prime. There is a generator $x\in H^1(L(p,q);\mathbb{Z}/p\mathbb{Z})$ such that $[\zeta,x\cup\beta x]=qz$ where $z\in H^3(L(p,q);\mathbb{Z}/p\mathbb{Z})$ satisfies $[\zeta,z]=1$, $\zeta$ is the integral fundamental class reduced modulo $p$ and $\beta$ is the Bockstein homomorphism associated with the short exact sequence $0\rightarrow\mathbb{Z}/p\mathbb{Z}\rightarrow\mathbb{Z}/p^2\mathbb{Z}\rightarrow\mathbb{Z}/p\mathbb{Z}\rightarrow0$.
+\end{prop}
+\begin{corollary}
+    If $L(p,q)$ is homotopy equivalent to $L(p,q')$, then $\pm q'\equiv qm^2\mod p$.
+\end{corollary}
+
+\end{document}

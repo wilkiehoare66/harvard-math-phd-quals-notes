@@ -1,0 +1,2171 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[sorting=none]{biblatex}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{pdfpages}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage[table]{xcolor}
+\addbibresource{references.bib}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arsinh}{arsinh}
+\DeclareMathOperator{\arcosh}{arcosh}
+\DeclareMathOperator{\artanh}{artanh}
+\DeclareMathOperator{\arcsch}{arcsch}
+\DeclareMathOperator{\arsech}{arsech}
+\DeclareMathOperator{\arcoth}{arcoth}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\N}{N}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Cent}{Cent}
+\DeclareMathOperator{\Rad}{Rad}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\NS}{NS}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Sl}{Sl}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\Gl}{Gl}
+\DeclareMathOperator{\TGl}{TGl}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\TSO}{TSO}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\lie}{lie}
+\DeclareMathOperator{\genus}{genus}
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\p}{P}
+\DeclareMathOperator{\q}{Q}
+\DeclareMathOperator{\e}{E}
+\newcommand{\characteristic}{\mathrel{\textrm{char}}}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\newcommand{\rel}[1]{\allowbreak\mkern18mu\mathrm{rel}\,\,#1}
+\newcommand{\bigotimesprod}{%
+  \mathop{%
+    \vphantom{\prod}%
+    \mathchoice
+      {\vcenter{\hbox{\ooalign{\hidewidth$\displaystyle\otimes$\hidewidth\cr$\displaystyle\prod$}}}}
+      {\vcenter{\hbox{\ooalign{\hidewidth$\textstyle\otimes$\hidewidth\cr$\textstyle\prod$}}}}
+      {\vcenter{\hbox{\ooalign{\hidewidth$\scriptstyle\otimes$\hidewidth\cr$\scriptstyle\prod$}}}}
+      {\vcenter{\hbox{\ooalign{\hidewidth$\scriptscriptstyle\otimes$\hidewidth\cr$\scriptscriptstyle\prod$}}}}
+  }%
+}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{exmp}[theorem]{Example}
+\newtheorem{defn}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\lf{\left\lfloor}   
+\def\rf{\right\rfloor}
+
+\title{Real Analysis}
+\author{Wilkie Hoare}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+%%CONTENT STARTS HERE
+
+\newpage
+\section{Rudin: Real and Complex Analysis}
+\subsection{Abstract Integration}
+\subsubsection{The concept of measurability}
+\begin{defn}(Topology, topological space, open sets, continuous).
+    \begin{enumerate}
+        \item A collection $\tau$ of subsets of a set $X$ is said to be a \textit{topology} in $X$ if $\tau$ has the following three properties:
+        \begin{itemize}
+            \item $\emptyset\in\tau$ and $X\in\tau$.
+            \item If $V_i\in\tau$ for $i=1,\ldots,n$, then $V_1\cap V_2\cap\cdots\cap V_n\in\tau$.
+            \item If $\{V_{\alpha}\}$ is an arbitrary collection of members of $\tau$ (finite, countable, or uncountable), then $\cup_{\alpha}V_{\alpha}\in\tau$.
+        \end{itemize}
+        \item If $\tau$ is a topology in $X$, then $X$ is called a \textit{topological space}, and the members of $\tau$ are called the \textit{open sets} in $X$.
+        \item If $X$ and $Y$ are topological spaces and if $f$ is a mapping of $X$ into $Y$, then $f$ is said to be \textit{continuous} provided that $f^{-1}(V)$ is an open set in $X$ for every open set $V$ in $Y$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}($\sigma$-algebra, measurable space, measurable sets, measurable).
+    \begin{enumerate}
+        \item A collection $\mathfrak{M}$ of subsets of a set $X$ is said to be a \textit{$\sigma$-algebra in $X$} if $\mathfrak{M}$ has the following properties:
+        \begin{itemize}
+            \item $X\in\mathfrak{M}$.
+            \item If $A\in\mathfrak{M}$, then $A^c\in\mathfrak{M}$, where $A^c$ is the complement of $A$ relative to $X$.
+            \item If $A=\cup_{n=1}^{\infty}A_n$ and if $A_n\in\mathfrak{M}$ for $n\in\mathbb{N}$, then $A\in\mathfrak{M}$.
+        \end{itemize}
+        \item If $\mathfrak{M}$ is a $\sigma$-algebra in $X$, then $X$ is called a \textit{measurable space}, and the members of $\mathfrak{M}$ are called the \textit{measurable sets} in $X$.
+        \item If $X$ is a measurable space, $Y$ is a topological space, and $f$ is a mapping of $X$ into $Y$, then $f$ is said to be \textit{measurable} provided that $f^{-1}(V)$ is a measurable set in $X$ for every open set $V$ in $Y$.
+    \end{enumerate}
+\end{defn}
+\begin{prop}
+    Let $X$ and $Y$ be topological spaces. A mapping $f$ of $X$ into $Y$ is continuous if and only if $f$ is continuous at every point of $X$.
+\end{prop}
+\begin{theorem}
+    Let $Y$ and $Z$ be topological spaces, and let $g:Y\rightarrow Z$ be continuous.
+    \begin{enumerate}
+        \item If $X$ is a topological space, if $f:X\rightarrow Y$ is continuous, and if $h=g\circ f$, then $h:X\rightarrow Z$ is continuous.
+        \item If $X$ is a measurable space, if $f:X\rightarrow Y$ is measurable, and if $h=g\circ f$, then $h:X\rightarrow Z$ is measurable.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    Let $u$ and $v$ be real measurable functions on a measurable space $X$, let $\Phi$ be a continuous mapping of the plane into a topological space $Y$, and define $h(x)=\Phi(u(x),v(x))$ for $x\in X$. Then $h:X\rightarrow Y$ is measurable.
+\end{theorem}
+\begin{theorem}
+    If $\mathscr{F}$ is any collection of subsets of $X$, there exists a smallest $\sigma$-algebra $\mathfrak{M}^*$ in $X$ such that $\mathscr{F}\subset\mathfrak{M}^*$.
+\end{theorem}
+\begin{theorem}
+    Suppose $\mathfrak{M}$ is a $\sigma$-algebra in $X$, and $Y$ is a topological space. Let $f$ map $X$ into $Y$.
+    \begin{enumerate}
+        \item If $\Omega$ is the collection of all sets $E\subset Y$ such that $f^{-1}(E)\in\mathfrak{M}$, then $\Omega$ is a $\sigma$-algebra in $Y$.
+        \item If $f$ is measurable and $E$ is a Borel set in $Y$, then $f^{-1}(E)\in\mathfrak{M}$.
+        \item If $Y=[-\infty,\infty]$ and $f^{-1}((\alpha,\infty])\in\mathfrak{M}$ for every real $\alpha$, then $f$ is measurable.
+        \item If $f$ is measurable, if $Z$ is a topological space, if $g:Y\rightarrow Z$ is a Borel mapping, and if $h=g\circ f$, then $h:X\rightarrow Z$ is measurable.
+    \end{enumerate}
+\end{theorem}
+\begin{defn}(Upper limit).
+    Let $\{a_n\}$ be a sequence in $[-\infty,\infty]$, and put $b_k=\sup\{a_k,a_{k+1},a_{k+2},\ldots\}$ for $k\in\mathbb{N}$, and $\beta=\inf\{b_1,b_2,b_3,\ldots\}$. We call $\beta$ the \textit{upper limit} of $\{a_n\}$, and write \[\beta=\limsup_{n\rightarrow\infty}a_n\]
+\end{defn}
+\begin{theorem}
+    If $f_n:X\rightarrow[-\infty,\infty]$ is measurable, for $n\in\mathbb{N}$, and $g=\sup_{n\geq1}f_n,h=\limsup_{n\rightarrow\infty}f_n$, then $g$ and $h$ are measurable.
+\end{theorem}
+\begin{corollary}
+    The limit of every pointwise convergent sequence of complex measurable functions is measurable.
+\end{corollary}
+\begin{corollary}
+    If $f$ and $g$ are measurable (with range in $[-\infty,\infty]$), then so are $\max\{f,g\}$ and $\min\{f,g\}$. In particular, this is true of the functions $f^+=\max\{f,0\}$ and $f^-=\min\{f,0\}$.
+\end{corollary}
+\begin{prop}
+    If $f=g-h$, $g\geq0$, and $h\geq0$, then $f^+\leq g$ and $f^-\leq h$.
+\end{prop}
+\subsubsection{Simple functions}
+\begin{defn}(Simple function).
+    A complex function $s$ on a measurable space $X$ whose range consists of only finitely many points will be called a \textit{simple function}. Among these are the nonnegative simple functions, whose range is a finite subset of $[0,\infty)$. Note that we explicitly exclude $\infty$ from the values of a simple function.
+\end{defn}
+\begin{theorem}
+    Let $f:X\rightarrow[0,\infty]$ be measurable. There exist simple measurable functions $s_n$ on $X$ such that
+    \begin{enumerate}
+        \item $0\leq s_1\leq s_2\leq\cdots\leq f$.
+        \item $s_n(x)\rightarrow f(x)$ as $n\rightarrow\infty$, for every $x\in X$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Elementary properties of measures}
+\begin{defn}(Positive measure, measure space, complex measure).
+    \begin{enumerate}
+        \item A \textit{positive measure} is a function $\mu$, defined on a $\sigma$-algebra $\mathfrak{M}$, whose range is in $[0,\infty]$ and which is \textit{countably additive}. This means that if $\{A_i\}$ is a \textit{disjoint} countable collection of members of $\mathfrak{M}$, then \[\mu\left(\bigcup_{i=1}^{\infty}A_i\right)=\sum_{i=1}^{\infty}\mu(A_i)\] To avoid trivialities, we shall also assume that $\mu(A)<\infty$ for at least one $A\in\mathfrak{M}$.
+        \item A \textit{measure space} is a measurable space which has a positive measure defined on the $\sigma$-algebra of its measurable sets.
+        \item A \textit{complex measure} is a complex-valued countably additive function defined on a $\sigma$-algebra.
+    \end{enumerate}
+\end{defn}
+\begin{theorem}
+    Let $\mu$ be a positive measure on a $\sigma$-algebra $\mathfrak{M}$. Then
+    \begin{enumerate}
+        \item $\mu(\emptyset)=0$.
+        \item $\mu(A_1\cup\cdots\cup A_n)=\mu(A_1)+\cdots+\mu(A_n)$ if $A_1,\ldots,A_n$ are pairwise disjoint members of $\mathfrak{M}$.
+        \item $A\subset B$ implies $\mu(A)\leq\mu(B)$ if $A\in\mathfrak{M},B\in\mathfrak{M}$.
+        \item $\mu(A_n)\rightarrow\mu(A)$ as $n\rightarrow\infty$ if $A=\cup_{n=1}^{\infty}A_n,A_n\in\mathfrak{M}$, and $A_1\subset A_2\subset A_3\subset\cdots$.
+        \item $\mu(A_n)\rightarrow\mu(A)$ as $n\rightarrow\infty$ if $A=\cap_{n=1}^{\infty}A_n,A_n\in\mathfrak{M}$, $A_1\supset A_2\supset A_3\supset\cdots$, and $\mu(A_1)$ is finite.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Integration of positive functions}
+\begin{defn}(Lebesgue integral).
+    If $s:X\rightarrow[0,\infty)$ is a measurable simple function, of the form \[s=\sum_{i=1}^n\alpha_i\chi_{A_i}\] where $\alpha_1,\ldots,\alpha_n$ are the distinct values of $s$, and if $E\in\mathfrak{M}$, we define \[\int_Es\;\textrm{d}\mu=\sum_{i=1}^n\alpha_i\mu(A_i\cap E)\] The convention $0\cdot\infty=0$ is used here; it may happen that $\alpha_i=0$ for some $i$ and that $\mu(A_i\cap E)=\infty$. If $f:X\rightarrow[0,\infty]$ is measurable, and $E\in\mathfrak{M}$, we define \[\int_Ef\;\textrm{d}\mu=\sup\int_Es\;\textrm{d}\mu\] the supremum being taken over all simple measurable functions $s$ such that $0\leq s\leq f$. The left member of the above equation is called the \textit{Lebesgue integral} of $f$ over $E$, with respect to the measure $\mu$. It is a number in $[0,\infty]$.
+\end{defn}
+\begin{prop}
+    Let $s$ and $t$ be nonnegative measurable simple functions on $X$. For $E\in\mathfrak{M}$, define \[\varphi(E)=\int_Es\;\textrm{d}\mu\] Then $\varphi$ is a measure on $\mathfrak{M}$. Also \[\int_X(s+t)\;\textrm{d}\mu=\int_Xs\;\textrm{d}\mu+\int_Xt\;\textrm{d}\mu\]
+\end{prop}
+\begin{theorem}(Lebesgue's Monotone Convergence Theorem).
+    Let $\{f_n\}$ be a sequence of measurable functions on $X$, and suppose that
+    \begin{enumerate}
+        \item $0\leq f_1(x)\leq f_2(x)\leq\cdots\leq\infty$ for every $x\in X$.
+        \item $f_n(x)\rightarrow f(x)$ as $n\rightarrow\infty$, for every $x\in X$.
+    \end{enumerate}
+    Then $f$ is measurable, and \[\int_Xf_n\;\textrm{d}\mu\rightarrow\int_Xf\;\textrm{d}\mu\] as $n\rightarrow\infty$.
+\end{theorem}
+\begin{theorem}
+    If $f_n:X\rightarrow[0,\infty]$ is measurable, for $n\in\mathbb{N}$, and \[f(x)=\sum_{n=1}^{\infty}f_n(x)\] for $x\in X$, then \[\int_Xf\;\textrm{d}\mu=\sum_{n=1}^{\infty}\int_Xf_n\;\textrm{d}\mu\]
+\end{theorem}
+\begin{corollary}
+    If $a_{ij}\geq0$ for $i$ and $j\in\mathbb{N}$, then \[\sum_{i=1}^{\infty}\sum_{j=1}^{\infty}a_{ij}=\sum_{j=1}^{\infty}\sum_{i=1}^{\infty}a_{ij}\]
+\end{corollary}
+\begin{lemma}(Fatou's Lemma).
+    If $f_n:X\rightarrow[0,\infty]$ is measurable, for each positive integer $n$, then \[\int_X\left(\liminf_{n\rightarrow\infty}f_n\right)\;\textrm{d}\mu\leq\liminf_{n\rightarrow\infty}\int_Xf_n\;\textrm{d}\mu\]
+\end{lemma}
+\begin{theorem}
+    Suppose $f:X\rightarrow[0,\infty]$ is measurable, and \[\varphi(E)=\int_Ef\;\textrm{d}\mu\] for $E\in\mathfrak{M}$. Then $\varphi$ is a measure on $\mathfrak{M}$, and \[\int_Xg\;\textrm{d}\varphi=\int_Xgf\;\textrm{d}\mu\] for every measurable $g$ on $X$ with range in $[0,\infty]$.
+\end{theorem}
+\subsubsection{Integration of complex functions}
+\begin{defn}($L^1(\mu)$).
+    We define $L^1(\mu)$ to be the collection of all complex measurable functions $f$ on $X$ for which \[\int_X|f|\;\textrm{d}\mu<\infty\]
+\end{defn}
+\begin{defn}(Lebesgue integrable/summable function).
+    If $f=u+iv$, where $u$ and $v$ are real measurable functions on $X$, and if $f\in L^1(\mu)$, we define \[\int_Ef\;\textrm{d}\mu=\int_Eu^+\;\textrm{d}\mu-\int_Eu^-\;\textrm{d}\mu+i\int_Ev^+\;\textrm{d}\mu-i\int_Ev^-\;\textrm{d}\mu\] for every measurable set $E$.
+\end{defn}
+\begin{theorem}
+    Suppose $f$ and $g\in L^1(\mu)$ and $\alpha$ and $\beta$ are complex numbers. Then $\alpha f+\beta g\in L^1(\mu)$, and \[\int_X(\alpha f+\beta g)\;\textrm{d}\mu=\alpha\int_Xf\;\textrm{d}\mu+\beta\int_Xg\;\textrm{d}\mu\]
+\end{theorem}
+\begin{theorem}
+    If $f\in L^1(\mu)$, then \[\left|\int_Xf\;\textrm{d}\mu\right|\leq\int_X|f|\;\textrm{d}\mu\]
+\end{theorem}
+\begin{theorem}(Lebesgue's Dominated Convergence Theorem).
+    Suppose $\{f_n\}$ is a sequence of complex measurable functions on $X$ such that \[f(x)=\lim_{n\rightarrow\infty}f_n(x)\] exists for every $x\in X$. If there is a function $g\in L^1(\mu)$ such that $|f_n(x)|\leq g(x)$ for $n\in\mathbb{N},x\in X$, then $f\in L^1(\mu)$, \[\lim_{n\rightarrow\infty}\int_X|f_n-f|\;\textrm{d}\mu=0\] and \[\lim_{n\rightarrow\infty}\int_Xf_n\;\textrm{d}\mu=\int_Xf\;\textrm{d}\mu\]
+\end{theorem}
+\subsubsection{The role played by sets of measure zero}
+\begin{theorem}
+    Let $(X,\mathfrak{M},\mu)$ be a measure space, let $\mathfrak{M}^*$ be the collection of all $E\subset X$ for which there exist sets $A$ and $B\in\mathfrak{M}$ such that $A\subset E\subset B$ and $\mu(B-A)=0$, and define $\mu(E)=\mu(A)$ in this situation. Then $\mathfrak{M}^*$ is a $\sigma$-algebra, and $\mu$ is a measure on $\mathfrak{M}^*$.
+\end{theorem}
+\begin{theorem}
+    Suppose $\{f_n\}$ is a sequence of complex measurable functions defined a.e. on $X$ such that \[\sum_{n=1}^{\infty}\int_X|f_n|\;\textrm{d}\mu<\infty\] Then the series \[f(x)=\sum_{n=1}^{\infty}f_n(x)\] converges for almost all $x,f\in L^1(\mu)$, and \[\int_Xf\;\textrm{d}\mu=\sum_{n=1}^{\infty}\int_Xf_n\;\textrm{d}\mu\]
+\end{theorem}
+\begin{theorem}
+    \begin{enumerate}
+        \item Suppose $f:X\rightarrow[0,\infty]$ is measurable, $E\in\mathfrak{M}$, and $\int_Ef\;\textrm{d}\mu=0$. Then $f=0$ a.e. on $E$.
+        \item Suppose $f\in L^1(\mu)$ and $\int_Ef\;\textrm{d}\mu=0$ for every $E\in\mathfrak{M}$. Then $f=0$ a.e. on $X$.
+        \item Suppose $f\in L^1(\mu)$ and \[\left|\int_Xf\;\textrm{d}\mu\right|=\int_X|f|\;\textrm{d}\mu\] Then there is a constant $\alpha$ such that $\alpha f=|f|$ a.e. on $X$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    Suppose $\mu(X)<\infty$, $f\in L^1(\mu)$, $S$ is a closed set in the complex plane, and the averages \[A_E(f)=\frac{1}{\mu(E)}\int_Ef\;\textrm{d}\mu\] lie in $S$ for every $E\in\mathfrak{M}$ with $\mu(E)>0$. Then $f(x)\in S$ for almost all $x\in X$.
+\end{theorem}
+\begin{theorem}
+    Let $\{E_k\}$ be a sequence of measurable sets in $X$, such that \[\sum_{k=1}^{\infty}\mu(E_k)<\infty\] Then almost all $x\in X$ lie in at most finitely many of the sets $E_k$.
+\end{theorem}
+\subsection{Positive Borel Measures}
+\subsubsection{Vector spaces}
+\begin{defn}(Complex vector space, zero vector/origin).
+    A \textit{complex vector space} (or a vector space over the complex field) is a set $V$, whose elements are called \textit{vectors} and in which two operations, called \textit{addition} and \textit{scalar multiplication}, are defined, with the following familiar algebraic properties:
+    \begin{enumerate}
+        \item To every pair of vectors $x$ and $y$ there corresponds a vector $x+y$, in such a way that $x+y=y+x$ and $x+(y+z)=(x+y)+z$; $V$ contains a unique vector 0 (the \textit{zero vector} or \textit{origin} of $V$) such that $x+0=x$ for every $x\in V$; and to each $x\in V$ there corresponds a unique vector $-x$ such that $x+(-x)=0$.
+        \item To each pair $(\alpha,x)$, where $x\in V$ and $\alpha$ is a scalar (in this context, the word \textit{scalar} means \textit{complex number}), there is associated a vector $\alpha x\in V$, in such a way that $1x=x$, $\alpha(\beta x)=(\alpha\beta)x$, and such that the two distributive laws $\alpha(x+y)=\alpha x+\alpha y,(\alpha+\beta)x=\alpha x+\beta x$ hold.
+    \end{enumerate}
+\end{defn}
+\begin{defn}(Linear transformation, linear functional).
+    A \textit{linear transformation} of a vector space $V$ into a vector space $V_1$ is a mapping $\Lambda$ of $V$ into $V_1$ such that $\Lambda(\alpha x+\beta y)=\alpha\Lambda x+\beta\Lambda y$ for all $x$ and $y\in V$ and for all scalars $\alpha$ and $\beta$. In the special case in which $V_1$ is the field of scalars (this is the simplest example of a vector space, except for the trivial one consisting of 0 alone), $\Lambda$ is called a \textit{linear functional}. A linear functional is thus a complex function on $V$ which satisfies the above relation.
+\end{defn}
+\subsubsection{Topological preliminaries}
+\begin{defn}(Closed, closure, compact, compact space, neighborhood, Hausdorff space, locally compact).
+    Let $X$ be a topological space.
+    \begin{enumerate}
+        \item A set $E\subset X$ is \textit{closed} if its complement $E^c$ is open.
+        \item The \textit{closure} $\overline{E}$ of a set $E\subset X$ is the smallest closed set in $X$ which contains $E$.
+        \item A set $K\subset X$ is \textit{compact} if every open cover of $K$ contains a finite subcover. More explicitly, the requirement is that if $\{V_{\alpha}\}$ is a collection of open sets whose union contains $K$, then the union of some finite subcollection of $\{V_{\alpha}\}$ also contains $K$. In particular, if $X$ is itself compact, then $X$ is called a \textit{compact space}.
+        \item A \textit{neighborhood} of a point $p\in X$ is any open subset of $X$ which contains $p$.
+        \item $X$ is a \textit{Hausdorff space} if the following is true: If $p\in X$, $q\in X$, and $p\neq q$, then $p$ has a neighborhood $U$ and $q$ has a neighborhood $V$ such that $U\cap V=\emptyset$.
+        \item $X$ is \textit{locally compact} if every point of $X$ has a neighborhood whose closure is compact.
+    \end{enumerate}
+\end{defn}
+\begin{theorem}
+    Suppose $K$ is compact and $F$ is closed, in a topological space $X$. If $F\subset K$, then $F$ is compact.
+\end{theorem}
+\begin{corollary}
+    If $A\subset B$ and if $B$ has compact closure, so does $A$.
+\end{corollary}
+\begin{theorem}
+    Suppose $X$ is a Hausdorff space, $K\subset X$, $K$ is compact, and $p\in K^c$. Then there are open sets $U$ and $W$ such that $p\in U$, $K\subset W$, and $U\cap W=\emptyset$.
+\end{theorem}
+\begin{corollary}
+    Compact subsets of Hausdorff spaces are closed.
+\end{corollary}
+\begin{corollary}
+    If $F$ is closed and $K$ is compact in a Hausdorff space, then $F\cap K$ is compact.
+\end{corollary}
+\begin{theorem}
+    If $\{K_{\alpha}\}$ is a collection of compact subsets of a Hausdorff space and if $\cap_{\alpha}K_{\alpha}=\emptyset$, then some finite subcollection of $\{K_{\alpha}\}$ also has empty intersection.
+\end{theorem}
+\begin{theorem}
+    Suppose $U$ is open in a locally compact Hausdorff space $X$, $K\subset U$, and $K$ is compact. Then there is an open set $V$ with compact closure such that $K\subset V\subset\overline{V}\subset U$.
+\end{theorem}
+\begin{defn}(Lower/upper semicontinuous).
+    Let $f$ be a real (or extended-real) function on a topological space. If $\{x:f(x)>\alpha\}$ is open for every real $\alpha$, $f$ is said to be \textit{lower semicontinuous}. If $\{x:f(x)<\alpha\}$ is open for every real $\alpha$, $f$ is said to be \textit{upper semicontinuous}.
+\end{defn}
+\begin{defn}(Support).
+    The \textit{support} of a complex function $f$ on a topological space $X$ is the closure of the set $\{x:f(x)\neq0\}$. The collection of all continuous complex functions on $X$ whose support is compact is denoted by $C_c(X)$.
+\end{defn}
+\begin{theorem}
+    Let $X$ and $Y$ be topological spaces, and let $f:X\rightarrow Y$ be continuous. If $K$ is a compact subset of $X$, then $f(K)$ is compact.
+\end{theorem}
+\begin{corollary}
+    The range of any $f\in C_c(X)$ is a compact subset of the complex plane.
+\end{corollary}
+\begin{lemma}(Urysohn's Lemma).
+    Suppose $X$ is a locally compact Hausdorff space, $V$ is open in $X$, $K\subset V$, and $K$ is compact. Then there exists an $f\in C_c(X)$, such that $K\prec f\prec V$.
+\end{lemma}
+\begin{theorem}
+    Suppose $V_1,\ldots,V_n$ are open subsets of a locally compact Hausdorff space $X$, $K$ is compact, and $K\subset V_1\cup\cdots\cup V_n$. Then there exist functions $h_i\prec V_i,i=1,\ldots,n$ such that $h_1(x)+\cdots+h_n(x)=1,x\in K$.
+\end{theorem}
+\subsubsection{The Riesz representation theorem}
+\begin{theorem}(The Riesz Representation Theorem).
+    Let $X$ be a locally compact Hausdorff space, and let $\Lambda$ be a positive linear functional on $C_c(X)$. Then there exists a $\sigma$-algebra $\mathfrak{M}$ in $X$ which contains all Borel sets in $X$, and there exists a unique positive measure $\mu$ on $\mathfrak{M}$ which represents $\Lambda$ in the sense that
+    \begin{enumerate}
+        \item $\Lambda f=\int_Xf\;\textrm{d}\mu$ for every $f\in C_c(X)$.
+        \item $\mu(K)<\infty$ for every compact set $K\subset X$.
+        \item For every $E\in\mathfrak{M}$, we have $\mu(E)=\inf\{\mu(V):E\subset V,V\;\textrm{open}\}$.
+        \item The relation $\mu(E)=\sup\{\mu(K):K\subset E,K\;\textrm{compact}\}$ holds for every open set $E$, and for every $E\in\mathfrak{M}$ with $\mu(E)<\infty$.
+        \item If $E\in\mathfrak{M}$, $A\subset E$, and $\mu(E)=0$, then $A\in\mathfrak{M}$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Regularity properties of Borel measures}
+\begin{defn}(Borel measure, outer/inner regular, regular).
+    A measure $\mu$ defined on the $\sigma$-algebra of all Borel sets in a locally compact Hausdorff space $X$ is called a \textit{Borel measure} on $X$. If $\mu$ is positive, a Borel set $E\subset X$ is \textit{outer regular} or \textit{inner regular}, respectively, if $E$ has property (3) or (4) of the Riesz Representation Theorem. If every Borel set in $X$ is both outer and inner regular, $\mu$ is called \textit{regular}.
+\end{defn}
+\begin{defn}($\sigma$-compact, $\sigma$-finite measure).
+    A set $E$ in a topological space is called \textit{$\sigma$-compact} if $E$ is a countable union of compact sets. A set $E$ in a measure space (with measure $\mu$) is said to have \textit{$\sigma$-finite measure} if $E$ is a countable union of sets $E_i$ with $\mu(E_i)<\infty$.
+\end{defn}
+\begin{theorem}
+    Suppose $X$ is a locally compact, $\sigma$-compact Hausdorff space. If $\mathfrak{M}$ and $\mu$ are as described in the statement of the Riesz Representation Theorem, then $\mathfrak{M}$ and $\mu$ have the following properties:
+    \begin{enumerate}
+        \item If $E\in\mathfrak{M}$ and $\epsilon>0$, there is a closed set $F$ and an open set $V$ such that $F\subset E\subset V$ and $\mu(V-F)<\epsilon$.
+        \item $\mu$ is a regular Borel measure on $X$.
+        \item If $E\in\mathfrak{M}$, there are sets $A$ and $B$ such that $A$ is an $F_{\sigma}$, $B$ is a $G_{\delta}$, $A\subset E\subset B$, and $\mu(B-A)=0$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    Let $X$ be a locally compact Hausdorff space in which every open set is $\sigma$-compact. Let $\lambda$ be any positive Borel measure on $X$ such that $\lambda(K)<\infty$ for every compact set $K$. Then $\lambda$ is regular.
+\end{theorem}
+\subsubsection{Lebesgue measure}
+\begin{theorem}
+    There exists a positive complete measure $m$ defined on a $\sigma$-algebra $\mathfrak{M}$ in $R^k$, with the following properties:
+    \begin{enumerate}
+        \item $m(W)=\vol(W)$ for every $k$-cell $W$.
+        \item $\mathfrak{M}$ contains all Borel sets in $R^k$; more precisely, $E\in\mathfrak{M}$ if and only if there are sets $A$ and $B\subset R^k$ such that $A\subset E\subset B$, $A$ is an $F_{\sigma}$, $B$ is a $G_{\delta}$, and $m(B-A)=0$. Also, $m$ is regular.
+        \item $m$ is translation-invariant, i.e., $m(E+x)=m(E)$ for every $E\in\mathfrak{M}$ and every $x\in R^k$.
+        \item If $\mu$ is any positive translation-invariant Borel measure on $R^k$ such that $\mu(K)<\infty$ for every compact set $K$, then there is a constant $c$ such that $\mu(E)=cm(E)$ for all Borel sets $E\subset R^k$.
+        \item To every linear transformation $T$ of $R^k$ into $R^k$ corresponds a real number $\Delta(T)$ such that $m(T(E))=\Delta(T)m(E)$ for every $E\in\mathfrak{M}$. In particular, $m(T(E))=m(E)$ when $T$ is a rotation.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    If $A\subset R^1$ and every subset of $A$ is Lebesgue measurable then $m(A)=0$.
+\end{theorem}
+\begin{corollary}
+    Every set of positive measure has nonmeasurable subsets.
+\end{corollary}
+\subsubsection{Continuity properties of measurable functions}
+\begin{theorem}(Lusin).
+    Suppose $f$ is a complex measurable function on $X$, $\mu(A)<\infty$, $f(x)=0$ if $x\notin A$, and $\epsilon>0$. Then there exists a $g\in C_c(X)$ such that $\mu(\{x:f(x)\neq g(x)\})<\epsilon$. Furthermore, we may arrange it so that \[\sup_{x\in X}|g(x)|\leq\sup_{x\in X}|f(x)|\]
+\end{theorem}
+\begin{corollary}
+    Assume that the hypotheses of Lusin's Theorem are satisfied and that $|f|\leq1$. Then there is a sequence $\{g_n\}$ such that $g_n\in C_c(X)$, $|g_n|\leq1$, and \[f(x)\lim_{n\rightarrow\infty}g_n(x)\]
+\end{corollary}
+\begin{theorem}(Vitali-Carathéodory).
+    Suppose $f\in L^1(\mu)$, $f$ is real-valued, and $\epsilon>0$. Then there exist functions $u$ and $v$ on $X$ such that $u\leq f\leq v$, $u$ is upper semicontinuous and bounded above, $v$ is lower semicontinuous and bounded below, and \[\int_X(v-u)\;\textrm{d}\mu<\epsilon\]
+\end{theorem}
+\subsection{$L^p$-Spaces}
+\subsubsection{Convex functions and inequalities}
+\begin{defn}(Convex).
+    A real function $\varphi$ defined on a segment $(a,b)$, where $-\infty\leq a<b\leq\infty$, is called \textit{convex} if the inequality $\varphi((1-\lambda)x+\lambda y)\leq(1-\lambda)\varphi(x)+\lambda\varphi(y)$ holds whenever $a<x<b$, $a<y<b$, and $0\leq\lambda\leq1$.
+\end{defn}
+\begin{theorem}
+    If $\varphi$ is convex on $(a,b)$ then $\varphi$ is continuous on $(a,b)$.
+\end{theorem}
+\begin{theorem}(Jensen's Inequality).
+    Let $\mu$ be a positive measure on a $\sigma$-algebra $\mathfrak{M}$ in a set $\Omega$, so that $\mu(\Omega)=1$. If $f$ is a real function in $L^1(\mu)$, if $a<f(x)<b$ for all $x\in\Omega$, and if $\varphi$ is convex on $(a,b)$, then \[\varphi\left(\int_{\Omega}f\;\textrm{d}\mu\right)\leq\int_{\Omega}(\varphi\circ f)\;\textrm{d}\mu\]
+\end{theorem}
+\begin{defn}(Conjugate exponents).
+    If $p$ and $q$ are positive real numbers such that $p+q=pq$, or equivalently \[\frac{1}{p}+\frac{1}{q}=1\] then we call $p$ and $q$ a pair of \textit{conjugate exponents}. It is clear that the above equation implies $1<p<\infty$ and $1<q<\infty$. An important special case is $p=q=2$.
+\end{defn}
+\begin{theorem}
+    Let $p$ and $q$ be conjugate exponents, $1<p<\infty$. Let $X$ be a measure space, with measure $\mu$. Let $f$ and $g$ be measurable functions on $X$, with range in $[0,\infty]$. Then \[\int_Xfg\;\textrm{d}\mu\leq\left\{\int_Xf^p\;\textrm{d}\mu\right\}^{1/p}\left\{\int_Xg^q\;\textrm{d}\mu\right\}^{1/q}\] and \[\left\{\int_X(f+g)^p\;\textrm{d}\mu\right\}^{1/p}\leq\left\{\int_Xf^p\;\textrm{d}\mu\right\}^{1/p}+\left\{\int_Xg^p\;\textrm{d}\mu\right\}^{1/p}\]
+\end{theorem}
+\subsubsection{The $L^p$-spaces}
+\begin{defn}($L^p(\mu)$, $L^p$-norm).
+    If $0<p<\infty$ and if $f$ is a complex measurable function on $X$, define \[\norm{f}_p=\left\{\int_X|f|^p\;\textrm{d}\mu\right\}^{1/p}\] and let $L^p(\mu)$ consist of all $f$ for which $\norm{f}_p<\infty$. We call $\norm{f}_p$ the $L^p$-norm of $f$.
+\end{defn}
+\begin{defn}(Essential supremum).
+    Suppose $g:X\rightarrow[0,\infty]$ is measurable. Let $S$ be the set of all real $\alpha$ such that $\mu(g^{-1}((\alpha,\infty]))=0$. If $S=\emptyset$, put $\beta=\infty$. If $S\neq\emptyset$, put $\beta=\inf{S}$. Since \[g^{-1}((\beta,\infty])=\bigcup_{n=1}^{\infty}g^{-1}\left(\left(\beta+\frac{1}{n},\infty\right]\right)\] and since the union of a countable collection of sets of measure 0 has measure 0, we see that $\beta\in S$. We call $\beta$ the \textit{essential supremum} of $g$.
+\end{defn}
+\begin{theorem}
+    If $p$ and $q$ are conjugate exponents, $1\leq p\leq\infty$, and if $f\in L^p(\mu)$ and $g\in L^q(\mu)$, then $fg\in L^1(\mu)$, and $\norm{fg}_1\leq\norm{f}_p\norm{g}_q$.
+\end{theorem}
+\begin{theorem}
+    Suppose $1\leq p\leq\infty$, and $f\in L^p(\mu),g\in L^p(\mu)$. Then $f+g\in L^p(\mu)$, and $\norm{f+g}_p\leq\norm{f}_p+\norm{g}_p$.
+\end{theorem}
+\begin{theorem}
+    $L^p(\mu)$ is a complete metric space, for $1\leq p\leq\infty$ and for every positive measure $\mu$.
+\end{theorem}
+\begin{theorem}
+    If $1\leq p\leq\infty$ and if $\{f_n\}$ is a Cauchy sequence in $L^p(\mu)$, with limit $f$, then $\{f_n\}$ has a subsequence which converges pointwise almost everywhere to $f(x)$.
+\end{theorem}
+\begin{theorem}
+    Let $S$ be the class of all complex, measurable, simple functions on $X$ such that $\mu(\{x:s(x)\neq0\})<\infty$. If $1\leq p<\infty$, then $S$ is dense in $L^p(\mu)$.
+\end{theorem}
+\subsubsection{Approximation by continuous functions}
+\begin{theorem}
+    For $1\leq p<\infty$, $C_c(X)$ is dense in $L^p(\mu)$.
+\end{theorem}
+\begin{defn}(Vanish at infinity).
+    A complex function $f$ on a locally compact Hausdorff space $X$ is said to \textit{vanish at infinity} if to every $\epsilon>0$ there exists a compact set $K\subset X$ such that $|f(x)|<\epsilon$ for all $x$ not in $K$.
+\end{defn}
+\begin{theorem}
+    If $X$ is a locally compact Hausdorff space, then $C_0(X)$ is the completion of $C_c(X)$, relative to the metric defined by the supremum norm \[\norm{f}=\sup_{x\in X}|f(x)|\]
+\end{theorem}
+\subsection{Elementary Hilbert Space Theory}
+\subsubsection{Inner products and linear functionals}
+\begin{defn}(Inner product/unitary space).
+    A complex vector space $H$ is called an \textit{inner product space} (or \textit{unitary space} if to each ordered pair of vectors $x$ and $y\in H$ there is associated a complex number $(x,y)$, the so-called 'inner product' (or 'scalar product') of $x$ and $y$, such that the following rules hold:
+    \begin{enumerate}
+        \item $(y,x)=\overline{(x,y)}$.
+        \item $(x+y,z)=(x,z)+(y,z)$ if $x,y,z\in H$.
+        \item $(\alpha x,y)=\alpha(x,y)$ if $x$ and $y$ in $H$ and $\alpha$ is a scalar.
+        \item $(x,x)\geq0$ for all $x\in H$.
+        \item $(x,x)=0$ only if $x=0$.
+    \end{enumerate}
+\end{defn}
+\begin{theorem}(The Schwarz Inequality).
+    The first 4 properties of the definition of an inner product imply that $|(x,y)|\leq\norm{x}\norm{y}$ for all $x$ and $y\in H$.
+\end{theorem}
+\begin{theorem}(The Triangle Inequality).
+    For $x$ and $y\in H$, we have $\norm{x+y}\leq\norm{x}+\norm{y}$.
+\end{theorem}
+\begin{theorem}
+    For any fixed $y\in H$, the mappings $x\rightarrow(x,y),x\rightarrow(y,x),x\rightarrow\norm{x}$ are continuous functions on $H$.
+\end{theorem}
+\begin{theorem}
+    Every nonempty, closed, convex set $E$ in a Hilbert space $H$ contains a unique element of smallest norm.
+\end{theorem}
+\begin{theorem}
+    Let $M$ be a closed subspace of a Hilbert space $H$.
+    \begin{enumerate}
+        \item Every $x\in H$ has then a unique decomposition $x=Px+Qx$ into a sum of $Px\in M$ and $Qx\in M^{\bot}$.
+        \item $Px$ and $Qx$ are the nearest points to $x$ in $M$ and in $M^{\bot}$, respectively.
+        \item The mappings $P:H\rightarrow M$ and $Q:H\rightarrow M^{\bot}$ are linear.
+        \item $\norm{x}^2=\norm{Px}^2+\norm{Qx}^2$.
+    \end{enumerate}
+\end{theorem}
+\begin{corollary}
+    If $M\neq H$, then there exists $y\in H$, $y\neq0$, such that $y\perp M$.
+\end{corollary}
+\begin{theorem}
+    If $L$ is a continuous linear functional on $H$, then there is a unique $y\in H$ such that $Lx=(x,y),x\in H$.
+\end{theorem}
+\subsubsection{Orthonormal sets}
+\begin{defn}(Linear combination, independent, finite linear combinations, span).
+    If $V$ is a vector space, if $x_1,\ldots,x_k\in V$, and if $c_1,\ldots,c_k$ are scalars, then $c_1x_1+\cdots+c_kv_k$ is called a \textit{linear combination} of $x_1,\ldots,x_k$. The set $\{x_1,\ldots,x_k\}$ is called \textit{independent} if every finite subset of $S$ is independent. The set $[S]$ of all linear combinations of all finite subsets of $S$ (also called the set of all \textit{finite linear combinations} of members of $S$) is clearly a vector space; $[S]$ is the smallest subspace of $V$ which contains $S$; $[S]$ is called the \textit{span} of $S$, or the space spanned by $S$.
+\end{defn}
+\begin{defn}(Orthonormal).
+    A set of vectors $u_{\alpha}$ in a Hilbert space $H$, where $\alpha$ runs through some index set $A$, is called \textit{orthonormal} if it satisfies the orthogonality relations $(u_{\alpha},u_{\beta})=0$ for all $\alpha\neq\beta$, $\alpha\in A$, and $\beta\in A$, and if it is normalized so that $\norm{u_{\alpha}}=1$ for each $\alpha\in A$. In other words, $\{u_{\alpha}\}$ is orthonormal provided that \[(u_{\alpha},u_{\beta})=\begin{cases}1&\textrm{if}\;\alpha=\beta\\0&\textrm{if}\;\alpha\neq\beta\end{cases}\]
+\end{defn}
+\begin{theorem}
+    Suppose that $\{u_{\alpha}:\alpha\in A\}$ is an orthonormal set in $H$ and that $F$ is a finite subset of $A$. Let $M_F$ be the span of $\{u_{\alpha}:\alpha\in F\}$.
+    \begin{enumerate}
+        \item If $\varphi$ is a complex function on $A$ that is 0 outside $F$, then there is a vector $y\in M_F$, namely \[y=\sum_{\alpha\in F}\varphi(\alpha)u_{\alpha}\] that has $\hat{y}(\alpha)=\varphi(\alpha)$ for every $\alpha\in A$. Also, \[\norm{y}^2=\sum_{\alpha\in F}|\varphi(\alpha)|^2\]
+        \item If $x\in H$ and \[s_F(x)=\sum_{\alpha\in F}\hat{x}(\alpha)u_{\alpha}\] then $\norm{x-s_F(x)}<\norm{x-s}$ for every $s\in M_F$, except for $s=s_F(x)$, and \[\sum_{\alpha\in F}|\hat{x}(\alpha)|^2\leq\norm{x}^2\]
+    \end{enumerate}
+\end{theorem}
+\begin{lemma}
+    Suppose that
+    \begin{enumerate}
+        \item $X$ and $Y$ are metric spaces, $X$ is complete.
+        \item $f:X\rightarrow Y$ is continuous.
+        \item $X$ has a dense subset $X_0$ on which $f$ is an isometry.
+        \item $f(X_0)$ is dense in $Y$.
+    \end{enumerate}
+    Then $f$ is an isometry of $X$ onto $Y$.
+\end{lemma}
+\begin{theorem}
+    Let $\{u_{\alpha}:\alpha\in A\}$ be an orthonormal set in $H$, and let $P$ be the space of all finite linear combinations of the vectors $u_{\alpha}$. The inequality \[\sum_{\alpha\in A}|\hat{x}(\alpha)|^2\leq\norm{x}^2\] holds then for every $x\in H$, and $x\rightarrow\hat{x}$ is a continuous linear mapping of $H$ onto $l^2(A)$ whose restriction to the closure $\overline{P}$ of $P$ is an isometry of $\overline{P}$ onto $l^2(A)$.
+\end{theorem}
+\begin{theorem}
+    Let $\{u_{\alpha}:\alpha\in A\}$ be an orthonormal set in $H$. Each of the following four conditions on $\{u_{\alpha}\}$ implies the other three:
+    \begin{enumerate}
+        \item $\{u_{\alpha}\}$ is a maximal orthonormal set in $H$.
+        \item The set $P$ of all finite linear combinations of members of $\{u_{\alpha}\}$ is dense in $H$.
+        \item The equality \[\sum_{\alpha\in A}|\hat{x}(\alpha)|^2=\norm{x}^2\] holds for every $x\in H$.
+        \item The equality \[\sum_{\alpha\in A}\hat{x}(\alpha)\overline{\hat{y}(\alpha)}=(x,y)\] holds for all $x\in H$ and $y\in H$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}(The Hausdorff Maximality Theorem).
+    Every nonempty partially ordered set contains a maximal totally ordered subset.
+\end{theorem}
+\begin{theorem}
+    Every orthonormal set $B$ in a Hilbert space $H$ is contained in a maximal orthonormal set in $H$.
+\end{theorem}
+\subsubsection{Trigonometric series}
+\begin{defn}(Trigonometric polynomial).
+    A \textit{trigonometric polynomial} is a finite sum of the form \[f(t)=a_0+\sum_{n=1}^N(a_n\cos{nt}+b_n\sin{nt}),t\in R^1\] where $a_0,a_1,\ldots,a_N$ and $b_1,\ldots,b_N$ are complex numbers. On account of the Euler identities, the above can also be written in the form \[f(t)=\sum_{n=-N}^Nc_ne^{int}\] which is more convenient for most purposes. It is clear that every trigonometric polynomial has period $2\pi$.
+\end{defn}
+\begin{theorem}
+    If $f\in C(T)$ and $\epsilon>0$, there is a trigonometric polynomial $P$ such that $|f(t)-P(t)|<\epsilon$ for every real $t$.
+\end{theorem}
+\subsection{Examples of Banach Space Techniques}
+\subsubsection{Banach spaces}
+\begin{defn}(Normed linear space, norm).
+    A complex vector space $X$ is said to be a \textit{normed linear space} if to each $x\in X$ there is associated a nonnegative real number $\norm{x}$, called the \textit{norm} of $x$, such that
+    \begin{enumerate}
+        \item $\norm{x+y}\leq\norm{x}+\norm{y}$ for all $x$ and $y\in X$.
+        \item $\norm{\alpha x}=|\alpha|\norm{x}$ if $x\in X$ and $\alpha$ is a scalar.
+        \item $\norm{x}=0$ implies $x=0$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}(Banach space).
+    A \textit{Banach space} is a normed linear space which is \textit{complete} in the metric defined by its norm.
+\end{defn}
+\begin{defn}(Bounded linear transformation).
+    Consider a linear transformation $\Lambda$ from a normed linear space $X$ into a normed linear space $Y$, and define its \textit{norm} by $\norm{\Lambda}=\sup\{\norm{\Lambda x}:x\in X,\norm{x}\leq1\}$. If $\norm{\Lambda}<\infty$, then $\Lambda$ is called a \textit{bounded linear transformation}.
+\end{defn}
+\begin{theorem}
+    For a linear transformation $\Lambda$ of a normed linear space $X$ into a normed linear space $Y$, each of the following three conditions implies the other two:
+    \begin{enumerate}
+        \item $\Lambda$ is bounded.
+        \item $\Lambda$ is continuous.
+        \item $\Lambda$ is continuous at one point of $X$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Consequences of Baire's theorem}
+\begin{theorem}(Baire).
+    If $X$ is a complete metric space, the intersection of every countable collection of dense open subsets of $X$ is dense in $X$.
+\end{theorem}
+\begin{corollary}
+    In a complete metric space, the intersection of any countable collection of dense $G_{\delta}$'s is again a dense $G_{\delta}$.
+\end{corollary}
+\begin{theorem}(Banach-Steinhaus).
+    Suppose $X$ is a Banach space, $Y$ is a normed linear space, and $\{\Lambda_{\alpha}\}$ is a collection of bounded linear transformations of $X$ into $Y$, where $\alpha$ ranges over some index set $A$. Then either there exists an $M<\infty$ such that $\norm{\Lambda_{\alpha}}\leq M$ for every $\alpha\in A$, or \[\sup_{\alpha\in A}\norm{\Lambda_{\alpha}x}=\infty\] for all $x$ belonging to some dense $G_{\delta}$ in $X$.
+\end{theorem}
+\begin{theorem}(The Open Mapping Theorem).
+    Let $U$ and $V$ be the open unit balls of the Banach spaces $X$ and $Y$. To every bounded linear transformation $\Lambda$ of $X$ onto $Y$ there corresponds a $\delta>0$ so that $\Lambda(U)\supset\delta V$.
+\end{theorem}
+\begin{theorem}
+    If $X$ and $Y$ are Banach spaces and if $\Lambda$ is a bounded linear transformation of $X$ onto $Y$ which is also one-to-one, then there is a $\delta>0$ such that $\norm{\Lambda x}\geq\delta\norm{x},x\in X$. In other words, $\Lambda^{-1}$ is a bounded linear transformation of $Y$ onto $X$.
+\end{theorem}
+\subsubsection{Fourier series of continuous functions}
+\begin{theorem}
+    There is a set $E\subset C(T)$ which is a dense $G_{\delta}$ in $C(T)$ and which has the following property: For each $f\in E$, the set $Q_f=\{x:s^*(f,x)=\infty\}$ is a dense $G_{\delta}$ in $R^1$.
+\end{theorem}
+\begin{theorem}
+    In a complete metric space $X$ which has no isolated points, no countable dense set is a $G_{\delta}$.
+\end{theorem}
+\subsubsection{Fourier coefficients of $L^1$-functions}
+\begin{theorem}
+    The mapping $f\rightarrow\hat{f}$ is a one-to-one bounded linear transformation of $L^1(T)$ into (but not onto) $c_0$.
+\end{theorem}
+\subsubsection{The Hahn-Banach theorem}
+\begin{theorem}(Hahn-Banach).
+    If $M$ is a subspace of a normed linear space $X$ and if $f$ is a bounded linear functional on $M$, then $f$ can be extended to a bounded linear functional $F$ on $X$ so that $\norm{F}=\norm{f}$.
+\end{theorem}
+\begin{prop}
+    Let $V$ be a complex vector space.
+    \begin{enumerate}
+        \item If $u$ is the real part of a complex-linear functional $f$ on $V$, then $f(x)=u(x)-iu(ix),x\in V$.
+        \item If $u$ is a real-linear functional on $V$ and if $f$ is defined by (1), then $f$ is a complex-linear functional on $V$.
+        \item If $V$ is a normed linear space and $f$ and $u$ are related as in (1), then $\norm{f}=\norm{u}$.
+    \end{enumerate}
+\end{prop}
+\begin{theorem}
+    Let $M$ be a linear subspace of a normed linear space $X$, and let $x_0\in X$. Then $x_0$ is in the closure $\overline{M}$ of $M$ if and only if there is no bounded linear functional $f$ on $X$ such that $f(x)=0$ for all $x\in M$ but $f(x_0)\neq0$.
+\end{theorem}
+\begin{theorem}
+    If $X$ is a normed linear space and if $x_0\in X,x_0\neq0$, there is a bounded linear functional $f$ on $X$, of norm 1, so that $f(x_0)=\norm{x_0}$.
+\end{theorem}
+\subsubsection{An abstract approach to the Poisson integral}
+\begin{theorem}
+    Suppose $A$ is a vector space of continuous complex functions on the closed unit disc $\overline{U}$. If $A$ contains all polynomials, and if \[\sup_{z\in U}|f(z)|=\sup_{z\in T}|f(z)|\] for every $f\in A$ (where $T$ is the unit circle, the boundary of $U$), then the Poisson integral representation \[f(z)=\frac{1}{2\pi}\int_{-\pi}^{\pi}\frac{1-r^2}{1-2r\cos(\theta-t)+r^2}f(e^{it})\;\textrm{d}t,z=re^{i\theta}\] is valid for every $f\in A$ and every $z\in U$.
+\end{theorem}
+\subsection{Complex Measures}
+\subsubsection{Total variation}
+\begin{theorem}
+    The total variation $|\mu|$ of a complex measure $\mu$ on $\mathfrak{M}$ is a positive measure on $\mathfrak{M}$.
+\end{theorem}
+\begin{lemma}
+    If $z_1,\ldots,z_N$ are complex numbers then there is a subset $S$ of $\{1,\ldots,N\}$ for which \[\left|\sum_{k\in S}z_k\right|\geq\frac{1}{\pi}\sum_{k=1}^N|z_k|\]
+\end{lemma}
+\begin{theorem}
+    If $\mu$ is a complex measure on $X$, then $|\mu|(X)<\infty$.
+\end{theorem}
+\subsubsection{Absolute continuity}
+\begin{defn}(Absolutely continuous).
+    We say that $\lambda$ is \textit{absolutely continuous} with respect to $\mu$, and write $\lambda\ll\mu$ if $\lambda(E)=0$ for every $E\in\mathfrak{M}$ for which $\mu(E)=0$.
+\end{defn}
+\begin{defn}(Concentrated).
+    If there is a set $A\in\mathfrak{M}$ such that $\lambda(E)=\lambda(A\cap E)$ for every $E\in\mathfrak{M}$, we say that $\lambda$ is \textit{concentrated on} $A$. This is equivalent to the hypothesis that $\lambda(E)=0$ whenever $E\cap A=\emptyset$.
+\end{defn}
+\begin{defn}(Mutually singular).
+    Suppose $\lambda_1$ and $\lambda_2$ are measures on $\mathfrak{M}$, and suppose there exists a pair of disjoint sets $A$ and $B$ such that $\lambda_1$ is concentrated on $A$ and $\lambda_2$ is concentrated on $B$. Then we say that $\lambda_1$ and $\lambda_2$ are \textit{mutually singular}, and write $\lambda_1\perp\lambda_2$.
+\end{defn}
+\begin{prop}
+    Suppose $\mu,\lambda,\lambda_1,\lambda_2$ are measures on a $\sigma$-algebra $\mathfrak{M}$, and $\mu$ is positive.
+    \begin{enumerate}
+        \item If $\lambda$ is concentrated on $A$, so is $|\lambda|$.
+        \item If $\lambda_1\perp\lambda_2$, then $|\lambda_1|\perp|\lambda_2|$.
+        \item If $\lambda_1\perp\mu$ and $\lambda_2\perp\mu$, then $\lambda_1+\lambda_2\perp\mu$.
+        \item If $\lambda_1\ll\mu$ and $\lambda_2\ll\mu$, then $\lambda_1+\lambda_2\ll\mu$.
+        \item If $\lambda\ll\mu$, then $|\lambda|\ll\mu$.
+        \item If $\lambda_1\ll\mu$ and $\lambda_2\perp\mu$, then $\lambda_1\perp\lambda_2$.
+        \item If $\lambda\ll\mu$ and $\lambda\perp\mu$, then $\lambda=0$.
+    \end{enumerate}
+\end{prop}
+\begin{lemma}
+    If $\mu$ is a positive $\sigma$-finite measure on a $\sigma$-algebra $\mathfrak{M}$ in a set $X$, then there is a function $w\in L^1(\mu)$ such that $0<w(x)<1$ for every $x\in X$.
+\end{lemma}
+\begin{theorem}(Lebesgue-Radon-Nikodym).
+    Let $\mu$ be a positive $\sigma$-finite measure on a $\sigma$-algebra $\mathfrak{M}$ in a set $X$, and let $\lambda$ be a complex measure on $\mathfrak{M}$.
+    \begin{enumerate}
+        \item There is then a unique pair of complex measures $\lambda_a$ and $\lambda_s$ on $\mathfrak{M}$ such that $\lambda=\lambda_a+\lambda_s,\lambda_a\ll\mu,\lambda_s\perp\mu$. If $\lambda$ is positive and finite, then so are $\lambda_a$ and $\lambda_s$.
+        \item There is a unique $h\in L^1(\mu)$ such that \[\lambda_a(E)=\int_Eh\;\textrm{d}\mu\] for every set $E\in\mathfrak{M}$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    Suppose $\mu$ and $\lambda$ are measures on a $\sigma$-algebra $\mathfrak{M}$, $\mu$ is positive, and $\lambda$ is complex. Then the following two conditions are equivalent:
+    \begin{enumerate}
+        \item $\lambda\ll\mu$.
+        \item To every $\epsilon>0$ corresponds a $\delta>0$ such that $|\lambda(E)|<\epsilon$ for all $E\in\mathfrak{M}$ with $\mu(E)<\delta$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Consequences of the Radon-Nikodym theorem}
+\begin{theorem}
+    Let $\mu$ be a complex measure on a $\sigma$-algebra $\mathfrak{M}$ in $X$. Then there is a measurable function $h$ such that $|h(x)|=1$ for all $x\in X$ and such that $\textrm{d}\mu=h\textrm{d}|\mu|$.
+\end{theorem}
+\begin{theorem}
+    Suppose $\mu$ is a positive measure on $\mathfrak{M}$, $g\in L^1(\mu)$, and \[\lambda(E)=\int_Eg\;\textrm{d}\mu,E\in\mathfrak{M}\] Then \[|\lambda|(E)=\int_E|g|\;\textrm{d}\mu,E\in\mathfrak{M}\]
+\end{theorem}
+\begin{theorem}(The Hahn Decomposition Theorem).
+    Let $\mu$ be a real measure on a $\sigma$-algebra $\mathfrak{M}$ in a set $X$. Then there exist sets $A$ and $B\in\mathfrak{M}$ such that $A\cup B=X,A\cap B=\emptyset$, and such that the positive and negative variations $\mu^+$ and $\mu^-$ of $\mu$ satisfy $\mu^+(E)=\mu(A\cap E),\mu^-(E)=-\mu(B\cap E),E\in\mathfrak{M}$.
+\end{theorem}
+\begin{corollary}
+    If $\mu=\lambda_1-\lambda_2$, where $\lambda_1$ and $\lambda_2$ are positive measures, then $\lambda_1\geq\mu^+$ and $\lambda_2\geq\mu^-$.
+\end{corollary}
+\subsubsection{Bounded linear functionals on $L^p$}
+\begin{theorem}
+    Suppose $1\leq p<\infty$, $\mu$ is a $\sigma$-finite positive measure on $X$, and $\Phi$ is a bounded linear functional on $L^p(\mu)$. Then there is a unique $g\in L^q(\mu)$, where $q$ is the exponent conjugate to $p$, such that \[\Phi(f)=\int_Xfg\;\textrm{d}\mu,f\in L^p(\mu)\] Moreover, if $\Phi$ and $g$ are related as above, we have $\norm{\Phi}=\norm{g}_q$.
+\end{theorem}
+\subsubsection{The Riesz representation theorem}
+\begin{theorem}(The Riesz Representation Theorem).
+    If $X$ is a locally compact Hausdorff space, then every bounded linear functional $\Phi$ on $C_0(X)$ is represented by a unique regular complex Borel measure $\mu$, in the sense that \[\Phi f=\int_Xf\;\textrm{d}\mu\] for every $f\in C_0(X)$. Moreover, the norm of $\Phi$ is the total variation of $\mu$: $\norm{\Phi}=|\mu|(X)$.
+\end{theorem}
+\subsection{Differentiation}
+\subsubsection{Derivatives of measures}
+\begin{theorem}
+    Suppose $\mu$ is a complex Borel measure on $R^1$ and $f(x)=\mu((-\infty,x)),x\in R^1$. If $x\in R^1$ and $A$ is a complex number, each of the following two statements implies the other:
+    \begin{enumerate}
+        \item $f$ is differentiable at $x$ and $f'(x)=A$.
+        \item To every $\epsilon>0$ corresponds a $\delta>0$ such that \[\left|\frac{\mu(I)}{m(I)}-A\right|<\epsilon\] for every open segment $I$ that contains $x$ and whose length is less than $\delta$. Here $m$ denotes Lebesgue measure on $R^1$.
+    \end{enumerate}
+\end{theorem}
+\begin{defn}(Symmetric derivative, maximal function).
+    Fix a dimension $k$, denote the open ball with center $x\in R^k$ and radius $r>0$ by $B(x,r)=\{y\in R^k:|y-x|<r\}$, associate to any complex Borel measure $\mu$ on $R^k$ the quotients \[(Q_r\mu)(x)=\frac{\mu(B(x,r))}{m(B(x,r))}\] where $m=m_k$ is the Lebesgue measure on $R^k$, and define the \textit{symmetric derivative} of $\mu$ at $x$ to be \[(D\mu)(x)=\lim_{r\rightarrow0}(Q_r\mu)(x)\] at those points $x\in R^k$ at which this limit exists. We shall study $D\mu$ by means of the \textit{maximal function} $M\mu$. For $\mu\geq0$, this is defined by \[(M\mu)(x)=\sup_{0<r<\infty}(Q_r\mu)(x)\] and the maximal function of a complex Borel measure $\mu$ is, by definition, that of its total variation $|\mu|$.
+\end{defn}
+\begin{lemma}
+    If $W$ is the union of a finite collection of balls $B(x_i,r_i),1\leq i\leq N$, then there is a set $S\subset\{1,\ldots,N\}$ so that
+    \begin{enumerate}
+        \item The balls $B(x_i,r_i)$ with $i\in S$ are disjoint.
+        \item $W\subset\cup_{i\in S}B(x_i,3r_i)$.
+        \item $m(W)\leq3^k\sum_{i\in S}m(B(x_i,r_i))$.
+    \end{enumerate}
+\end{lemma}
+\begin{theorem}
+    If $\mu$ is a complex Borel measure on $R^k$ and $\lambda$ is a positive number, then $m\{M\mu>\lambda\}\leq3^k\lambda^{-1}\norm{\mu}$.
+\end{theorem}
+\begin{defn}(Lebesgue point).
+    If $f\in L^1(R^k)$, any $x\in R^k$ for which it is true that \[\lim_{r\rightarrow0}\frac{1}{m(B_r)}\int_{B(x,r)}|f(y)-f(x)|\;\textrm{d}m(y)=0\] is called a \textit{Lebesgue point} of $f$.
+\end{defn}
+\begin{theorem}
+    If $f\in L^1(R^k)$, then almost every $x\in R^k$ is a Lebesgue point of $f$.
+\end{theorem}
+\begin{theorem}
+    Suppose $\mu$ is a complex Borel measure on $R^k$, and $\mu\ll m$. Let $f$ be the Radon-Nikodym derivative of $\mu$ with respect to $m$. Then $D\mu=f$ a.e. $[m]$, and \[\mu(E)=\int_E(D\mu)\;\textrm{d}m\] for all Borel sets $E\subset R^k$.
+\end{theorem}
+\begin{defn}(Nicely shrinking set).
+    Suppose $x\in R^k$. A sequence $\{E_i\}$ of Borel sets in $R^k$ is said to \textit{shrink to $x$ nicely} if there is a number $\alpha>0$ with the following property: There is a sequence of balls $B(x,r_i)$ with $\lim{r_i}=0$, such that $E_i\subset B(x,r_i)$ and $m(E_i)\geq\alpha\cdot m(B(x,r_i))$ for $i\in\mathbb{N}$.
+\end{defn}
+\begin{theorem}
+    Associate to each $x\in R^k$ a sequence $\{E_i(x)\}$ that shrinks to $x$ nicely, and let $f\in L^1(R^k)$. Then \[f(x)=\lim_{i\rightarrow\infty}\frac{1}{m(E_i(x))}\int_{E_i(x)}f\;\textrm{d}m\] at every Lebesgue point of $f$, hence a.e. $[m]$.
+\end{theorem}
+\begin{theorem}
+    If $f\in L^1(R^1)$ and \[F(x)=\int_{-\infty}^xf\;\textrm{d}m,-\infty<x<\infty\] then $F'(x)=f(x)$ at every Lebesgue point of $f$, hence a.e. $[m]$.
+\end{theorem}
+\begin{theorem}
+    Associate to each $x\in R^k$ a sequence $\{E_i(x)\}$ that shrinks to $x$ nicely. If $\mu$ is a complex Borel measure and $\mu\perp m$, then \[\lim_{i\rightarrow\infty}\frac{\mu(E_i(x))}{m(E_i(x))}=0\] a.e. $[m]$.
+\end{theorem}
+\begin{theorem}
+    Suppose that to each $x\in R^k$ is associated some sequence $\{E_i(x)\}$ that shrinks to $x$ nicely, and that $\mu$ is a complex Borel measure on $R^k$. Let $\textrm{d}\mu=f\;\textrm{d}m+\textrm{d}\mu_s$ be the Lebesgue decomposition of $\mu$ with respect to $m$. Then \[\lim_{i\rightarrow\infty}\frac{\mu(E_i(x))}{m(E_i(x))}=f(x)\] a.e. $[m]$. In particular, $\mu\perp m$ if and only if $(D\mu)(x)=0$ a.e. $[m]$.
+\end{theorem}
+\begin{theorem}
+    If $\mu$ is a positive Borel measure on $R^k$ and $\mu\perp m$, then $(D\mu)(x)=\infty$ a.e. $[\mu]$.
+\end{theorem}
+\subsubsection{The fundamental theorem of Calculus}
+\begin{defn}(Absolutely continuous).
+    A complex function $f$, defined on an interval $I=[a,b]$, is said to be \textit{absolutely continuous} on $I$ (briefly, $f$ is AC on $I$) if there corresponds to every $\epsilon>0$ a $\delta>0$ so that \[\sum_{i=1}^n|f(\beta_i)-f(\alpha_i)|<\epsilon\] for any $n$ and any disjoint collection of segments $(\alpha_1,\beta_1),\ldots,(\alpha_n,\beta_n)$ in $I$ whose lengths satisfy \[\sum_{i=1}^n(\beta_i-\alpha_i)<\delta\]
+\end{defn}
+\begin{theorem}
+    Let $I=[a,b]$, let $f:I\rightarrow R^1$ be continuous and nondecreasing. Each of the following three statements about $f$ implies the other two:
+    \begin{enumerate}
+        \item $f$ is AC on $I$.
+        \item $f$ maps sets of measure 0 to sets of measure 0.
+        \item $f$ is differentiable a.e. on $I$, $f'\in L^1$, and \[f(x)-f(a)=\int_a^xf'(t)\;\textrm{d}t,a\leq x\leq b\]
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    Suppose $f:I\rightarrow R^1$ is AC, $I=[a,b]$. Define \[F(x)=\sup\sum_{i=1}^N|f(t_i)-f(t_{i-1})|,a\leq x\leq b\] where the supremum is taken over all $N$ and over all choices of $\{t_i\}$ such that $a=t_0<t_1<\cdots<t_N=x$. The functions $F,F+f,F-f$ are then nondecreasing and AC on $I$.
+\end{theorem}
+\begin{theorem}
+    If $f$ is a complex function that is AC on $I=[a,b]$, then $f$ is differentiable at almost all points of $I$, $f'\in L^1(m)$, and \[f(x)-f(a)=\int_a^xf'(t)\;\textrm{d}t,a\leq x\leq b\]
+\end{theorem}
+\begin{theorem}
+    If $f:[a,b]\rightarrow R^1$ is differentiable at every point of $[a,b]$ and $f'\in L^1$ on $[a,b]$, then \[f(x)-f(a)=\int_a^xf'(t)\;\textrm{d}t,a\leq x\leq b\]
+\end{theorem}
+\subsubsection{Differentiable transformations}
+\begin{defn}(Differentiable, derivative, differential).
+    Suppose $V$ is an open set in $R^k$, $T$ maps $V$ into $R^k$, and $x\in V$. If there exists a linear operator $A$ on $R^k$ (i.e., a linear mapping of $R^k$ into $R^k$) such that \[\lim_{h\rightarrow0}\frac{|T(x+h)-T(x)-Ah|}{|h|}=0\] (where, of course, $h\in R^k$), then we say that $T$ is \textit{differentiable} at $x$, and define $T'(x)=A$. The linear operator $T'(x)$ is called the \textit{derivative} of $T$ at $x$. The term \textit{differential} is also often used for $T'(x)$.
+\end{defn}
+\begin{lemma}
+    Let $S=\{x:|x|=1\}$ be the sphere in $R^k$ that is the boundary of the open unit ball $B=B(0,1)$. If $F:\overline{B}\rightarrow R^k$ is continuous, $0<\epsilon<1$, and $|F(x)-x|<\epsilon$ for all $x\in S$, then $F(B)\supset B(0,1-\epsilon)$.
+\end{lemma}
+\begin{theorem}
+    If
+    \begin{enumerate}
+        \item $V$ is open in $R^k$.
+        \item $T:V\rightarrow R^k$ is continuous.
+        \item $T$ is differentiable at some point $x\in V$.
+    \end{enumerate}
+    Then \[\lim_{r\rightarrow0}\frac{m(T(B(x,r)))}{m(B(x,r))}=\Delta(T'(x))\]
+\end{theorem}
+\begin{lemma}
+    Suppose $E\subset R^k$, $m(E)=0$, $T$ maps $E$ into $R^k$, and \[\limsup\frac{|T(y)-T(x)|}{|y-x|}<\infty\] for every $x\in E$, as $y$ tends to $x$ within $E$. Then $m(T(E))=0$.
+\end{lemma}
+\begin{theorem}
+    Suppose that
+    \begin{enumerate}
+        \item $X\subset V\subset R^k$, $V$ is open, $T:V\rightarrow R^k$ is continuous.
+        \item $X$ is Lebesgue measurable, $T$ is one-to-one on $X$, and $T$ is differentiable at every point of $X$.
+        \item $m(T(V-X))=0$. Then, setting $Y=T(X)$, \[\int_Yf\;\textrm{d}m=\int_X(f\circ T)|J_T|\;\textrm{d}m\] for every measurable $f:R^k\rightarrow[0,\infty]$.
+    \end{enumerate}
+\end{theorem}
+\subsection{Integration on Product Spaces}
+\subsubsection{Measurability on cartesian products}
+\begin{defn}(Cartesian product, rectangle).
+    If $X$ and $Y$ are two sets, their \textit{cartesian product} $X\times Y$ is the set of all ordered pairs $(x,y)$, with $x\in X$ and $y\in Y$. If $A\subset X$ and $B\subset Y$, it follows that $A\times B\subset X\times Y$. We call any set of the form $A\times B$ a \textit{rectangle} in $X\times Y$.
+\end{defn}
+\begin{defn}(Measurable rectangle).
+    Suppose that $(X,\mathscr{S})$ and $(Y,\mathscr{T})$ are measurable spaces. A \textit{measurable rectangle} is any set of the form $A\times B$, where $A\in\mathscr{S}$ and $B\in\mathscr{T}$.
+\end{defn}
+\begin{defn}(Elementary sets).
+    If $Q=R_1\cup\cdots\cup R_n$, where each $R_i$ is a measurable rectangle and $R_i\cap R_j=\emptyset$ for $i\neq j$, we say that $Q\in\mathscr{E}$, the class of all \textit{elementary sets}.
+\end{defn}
+\begin{defn}(Monotone class).
+    A \textit{monotone class} $\mathfrak{M}$ is a collection of sets with the following properties: If $A_i\in\mathfrak{M},B_i\in\mathfrak{M},A_i\subset A_{i+1},B_i\supset B_{i+1}$, for $i\in\mathbb{N}$, and if $A=\cup_{i=1}^{\infty}A_i,B=\cap_{i=1}^{\infty}B_i$, then $A\in\mathfrak{M}$ and $B\in\mathfrak{M}$.
+\end{defn}
+\begin{theorem}
+    If $E\in\mathscr{S}\times\mathscr{T}$, then $E_x\in\mathscr{T}$ and $E^y\in\mathscr{S}$, for every $x\in X$ and $y\in Y$.
+\end{theorem}
+\begin{theorem}
+    $\mathscr{S}\times\mathscr{T}$ is the smallest monotone class which contains all elementary sets.
+\end{theorem}
+\begin{theorem}
+    Let $f$ be an $(\mathscr{S}\times\mathscr{T})$-measurable function on $X\times Y$. Then
+    \begin{enumerate}
+        \item For each $x\in X$, $f_x$ is a $\mathscr{T}$-measurable function.
+        \item For each $y\in Y$, $f^y$ is an $\mathscr{S}$-measurable function.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Product measures}
+\begin{theorem}
+    Let $(X,\mathscr{S},\mu)$ and $(Y,\mathscr{T},\lambda)$ be $\sigma$-finite measure spaces. Suppose $Q\in\mathscr{S}\times\mathscr{T}$. If $\varphi(x)=\lambda(Q_x),\psi(y)=\mu(Q^y)$ for every $x\in X$ and $y\in Y$, then $\varphi$ is $\mathscr{S}$-measurable, $\psi$ is $\mathscr{T}$-measurable, and \[\int_X\varphi\;\textrm{d}\mu=\int_Y\psi\;\textrm{d}\lambda\]
+\end{theorem}
+\begin{defn}(Product).
+    If $(X,\mathscr{S},\mu)$ and $(Y,\mathscr{T},\lambda)$ are as in Theorem 1.157, and if $Q\in\mathscr{S}\times\mathscr{T}$, we define \[(\mu\times\lambda)(Q)=\int_X\lambda(Q_x)\;\textrm{d}\mu(x)=\int_Y\mu(Q^y)\;\textrm{d}\lambda(y)\]
+\end{defn}
+\subsubsection{The Fubini theorem}
+\begin{theorem}(Fubini).
+    Let $(X,\mathscr{S},\mu)$ and $(Y,\mathscr{T},\lambda)$ be $\sigma$-finite measure spaces, and let $f$ be an $(\mathscr{S}\times\mathscr{T})$-measurable function on $X\times Y$.
+    \begin{enumerate}
+        \item If $0\leq f\leq\infty$, and if \[\varphi(x)=\int_Yf_x\;\textrm{d}\lambda,\psi(y)=\int_Xf^y\;\textrm{d}\mu,x\in X,y\in Y\] then $\varphi$ is $\mathscr{S}$-measurable, $\psi$ is $\mathscr{T}$-measurable, and \[\int_X\varphi\;\textrm{d}\mu=\int_{X\times Y}f\;\textrm{d}(\mu\times\lambda)=\int_Y\psi\;\textrm{d}\lambda\]
+        \item If $f$ is complex and if \[\phi^*(x)=\int_Y|f|_x\;\textrm{d}\lambda,\int_X\varphi^*\;\textrm{d}\mu<\infty\] then $f\in L^1(\mu\times\lambda)$.
+        \item If $f\in L^1(\mu\times\lambda)$, then $f_x\in L^1(\lambda)$ for almost all $x\in X$, $f^y\in L^1(\mu)$ for almost all $y\in Y$; the functions $\varphi$ and $\psi$, defined by the first part of (1) a.e., are in $L^1(\mu)$ and $L^1(\lambda)$, respectively, and the second part of (1) holds.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Completion of product measures}
+\begin{theorem}
+    Let $m_k$ denote Lebesgue measure on $R^k$. If $k=r+s,r\geq1,s\geq1$, then $m_k$ is the completion of the product measure $m_r\times m_s$.
+\end{theorem}
+\begin{theorem}
+    Let $(X,\mathscr{S},\mu)$ and $(Y,\mathscr{T},\lambda)$ be complete $\sigma$-finite measure spaces. Let $(\mathscr{S}\times\mathscr{T})^*$ be the completion of $\mathscr{S}\times\mathscr{T}$, relative to the measure $\mu\times\lambda$. Let $f$ be an $(\mathscr{S}\times\mathscr{T})^*$-measurable function on $X\times Y$. Then all conclusions of Fubini's Theorem hold, the only difference being as follows: The $\mathscr{T}$-measurability of $f_x$ can be asserted only for almost all $x\in X$, so that $\varphi(x)$ is only defined a.e. $[\mu]$ by (1); a similar statement holds for $f^y$ and $\psi$.
+\end{theorem}
+\begin{lemma}
+    Suppose $v$ is a positive measure on a $\sigma$-algebra $\mathfrak{M}$, $\mathfrak{M}^*$ is the completion of $\mathfrak{M}$ relative to $v$, and $f$ is an $\mathfrak{M}^*$-measurable function. Then there exists an $\mathfrak{M}$-measurable function $g$ such that $f=g$ a.e. $[v]$.
+\end{lemma}
+\begin{lemma}
+    Let $h$ be an $(\mathscr{S}\times\mathscr{T})^*$-measurable function on $X\times Y$ such that $h=0$ a.e. $[\mu\times\lambda]$. Then for almost all $x\in X$ it is true that $h(x,y)=0$ for almost all $y\in Y$; in particular, $h_x$ is $\mathscr{T}$-measurable for almost all $x\in X$. A similar statement holds for $h^y$.
+\end{lemma}
+\subsubsection{Convolutions}
+\begin{theorem}
+    Suppose $f\in L^1(R^1),g\in L^1(R^1)$. Then \[\int_{-\infty}^{\infty}|f(x-y)g(y)|\;\textrm{d}y<\infty\] for almost all $x$. For these $x$, define \[h(x)=\int_{-\infty}^{\infty}f(x-y)g(y)\;\textrm{d}y\] Then $h\in L^1(R^1)$, and $\norm{h}_1\leq\norm{f}_1\norm{g}_1$, where \[\norm{f}_1=\int_{-\infty}^{\infty}|f(x)|\;\textrm{d}x\] We call $h$ the \textit{convolution} of $f$ and $g$, and write $h=f*g$.
+\end{theorem}
+\subsubsection{Distribution functions}
+\begin{defn}(Distribution function).
+    Let $\mu$ be a $\sigma$-finite positive measure on some $\sigma$-algebra in some set $X$. Let $f:X\rightarrow[0,\infty]$ be measurable. The function that assigns to each $t\in[0,\infty)$ the number $\mu\{f>t\}=\mu(\{x\in X:f(x)>t\})$ is called the \textit{distribution function} of $f$. It is clearly a monotonic (nonincreasing) function of $t$ and is therefore Borel measurable.
+\end{defn}
+\begin{theorem}
+    Suppose that $f$ and $\mu$ are as above, that $\varphi:[0,\infty]\rightarrow[0,\infty]$ is monotonic, absolutely continuous on $[0,T]$ for every $T<\infty$, and that $\varphi(0)=0$ and $\varphi(t)\rightarrow\varphi(\infty)$ as $t\rightarrow\infty$. Then \[\int_X(\varphi\circ f)\;\textrm{d}\mu=\int_0^{\infty}\mu\{f>t\}\varphi'(t)\;\textrm{d}t\]
+\end{theorem}
+\begin{theorem}
+    If $1<p<\infty$ and $f\in L^p(R^k)$ then $Mf\in L^p(R^k)$.
+\end{theorem}
+\subsection{Fourier Transforms}
+\subsubsection{Formal properties}
+\begin{defn}(Fourier transform).
+    We shall use the notation \[\int_{-\infty}^{\infty}f(x)\;\textrm{d}m(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(x)\;\textrm{d}x\] \[\norm{f}_p=\left\{\int_{-\infty}^{\infty}|f(x)|^p\;\textrm{d}m(x)\right\}^{1/p},1\leq p<\infty\] \[(f*g)(x)=\int_{-\infty}^{\infty}f(x-y)g(y)\;\textrm{d}m(y),x\in R^1\] \[\hat{f}(t)=\int_{-\infty}^{\infty}f(x)e^{-ixt}\;\textrm{d}m(x),t\in R^1\] If $f\in L^1$, this final integral is well defined for every real $t$. The function $\hat{f}$ is called the \textit{Fourier transform} of $f$.
+\end{defn}
+\begin{theorem}
+    Suppose $f\in L^1$, and $\alpha$ and $\lambda$ are real numbers.
+    \begin{enumerate}
+        \item If $g(x)=f(x)e^{i\alpha x}$, then $\hat{g}(t)=\hat{f}(t-\alpha)$.
+        \item If $g(x)=f(x-\alpha)$, then $\hat{g}(t)=\hat{f}(t)e^{-i\alpha t}$.
+        \item If $g\in L^1$ and $h=f*g$, then $\hat{h}(t)=\hat{f}(t)\hat{g}(t)$.
+    \end{enumerate}
+    Thus the Fourier transform converts multiplication by a character into translation, and vice versa, and it converts convolutions to pointwise products.
+    \begin{enumerate}
+        \item If $g(x)=\overline{f(-x)}$, then $\hat{g}(t)=\overline{\hat{f}(t)}$.
+        \item If $g(x)=f(x/\lambda)$ and $\lambda>0$, then $\hat{g}(t)=\lambda\hat{f}(\lambda t)$.
+        \item If $g(x)=-ixf(x)$ and $g\in L^1$, then $\hat{f}$ is differentiable and $\hat{f}'(t)=\hat{g}(t)$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{The inversion theorem}
+\begin{theorem}
+    For any function $f$ on $R^1$ and every $y\in R^1$, let $f_y$ be the translate of $f$ defined by $f_y(x)=f(x-y),x\in R^1$. If $1\leq p<\infty$ and if $f\in L^p$, the mapping $y\rightarrow f_y$ is a uniformly continuous mapping of $R^1$ into $L^p(R^1)$.
+\end{theorem}
+\begin{theorem}
+    If $f\in L^1$, then $\hat{f}\in C_0$ and $\norm{\hat{f}}_{\infty}\leq\norm{f}_1$.
+\end{theorem}
+\begin{prop}
+    If $f\in L^1$, then \[(f*h_{\lambda})(x)=\int_{-\infty}^{\infty}H(\lambda t)\hat{f}(t)e^{ixt}\;\textrm{d}m(t)\]
+\end{prop}
+\begin{theorem}
+    If $g\in L^{\infty}$ and $g$ is continuous at a point $x$, then \[\lim_{\lambda\rightarrow0}(g*h_{\lambda})(x)=g(x)\]
+\end{theorem}
+\begin{theorem}
+    If $1\leq p<\infty$ and $f\in L^p$, then \[\lim_{\lambda\rightarrow0}\norm{f*h_{\lambda}-f}_p=0\]
+\end{theorem}
+\begin{theorem}(The Inversion Theorem).
+    If $f\in L^1$ and $\hat{f}\in L^1$, and if \[g(x)=\int_{-\infty}^{\infty}\hat{f}(t)e^{ixt}\;\textrm{d}m(t),x\in R^1\] then $g\in C_0$ and $f(x)=g(x)$ a.e.
+\end{theorem}
+\begin{theorem}(The Uniqueness Theorem).
+    If $f\in L^1$ and $\hat{f}(t)=0$ for all $t\in R^1$, then $f(x)=0$ a.e.
+\end{theorem}
+\subsubsection{The Plancherel theorem}
+\begin{theorem}(Plancherel).
+    One can associate to each $f\in L^2$ a function $\hat{f}\in L^2$ so that the following properties hold:
+    \begin{enumerate}
+        \item If $f\in L^1\cap L^2$, then $\hat{f}$ is the previously defined Fourier transform of $f$.
+        \item For every $f\in L^2$, $\norm{\hat{f}}_2=\norm{f}_2$.
+        \item The mapping $f\rightarrow\hat{f}$ is a Hilbert space isomorphism of $L^2$ onto $L^2$.
+        \item The following symmetric relation exists between $f$ and $\hat{f}$: If \[\varphi_A(t)=\int_{-A}^Af(x)e^{-ixt}\;\textrm{d}m(x),\psi_A(x)=\int_{-A}^A\hat{f}(t)e^{ixt}\;\textrm{d}m(t)\] then $\norm{\varphi_A-\hat{f}}_2\rightarrow0$ and $\norm{\psi_A-f}_2\rightarrow0$ as $A\rightarrow\infty$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    If $f\in L^2$ and $\hat{f}\in L^1$, then \[f(x)=\int_{-\infty}^{\infty}\hat{f}(t)e^{ixt}\;\textrm{d}m(t)\] a.e.
+\end{theorem}
+\begin{theorem}
+    Associate to each measurable set $E\subset R^1$ the space $M_E$ of all $f\in L^2$ such that $\hat{f}=0$ a.e. on $E$. Then $M_E$ is a closed translation-invariant subspace of $L^2$. Every closed translation-invariant subspace of $L^2$ is $M_E$ for some $E$, and $M_A=M_B$ if and only if $m((A-B)\cup(B-A))=0$.
+\end{theorem}
+\subsubsection{The Banach algebra $L^1$}
+\begin{defn}(Banach algebra).
+    A Banach space $A$ is said to be a \textit{Banach algebra} if there is a multiplication defined in $A$ which satisfies the inequality $\norm{xy}\leq\norm{x}\norm{y}$ for $x,y\in A$, the associative law $x(yz)=(xy)z$, the distributive laws $x(y+z)=xy+xz,(y+z)x=yx+zx$ for $x,y,z\in A$, and the relation $(\alpha x)y=x(\alpha y)=\alpha(xy)$ where $\alpha$ is any scalar.
+\end{defn}
+\begin{theorem}
+    If $\varphi$ is a complex homomorphism on a Banach algebra $A$, then the norm of $\varphi$, as a linear functional, is at most 1.
+\end{theorem}
+\begin{theorem}
+    To every complex homomorphism $\varphi$ on $L^1$ (except to $\varphi=0$) there corresponds a unique $t\in R^1$ such that $\varphi(f)=\hat{f}(t)$.
+\end{theorem}
+\section{Evans: Partial Differential Equations}
+\subsection{Sobolev Spaces}
+\subsubsection{Hölder spaces}
+\begin{defn}(Hölder seminorm, Hölder norm).
+    Let $u:U\rightarrow\mathbb{R}$ be bounded and continuous. Write \[\norm{u}_{C(\overline{U})}:=\sup_{x\in U}|u(x)|\] The \textit{$\gamma$th-Hölder seminorm} of $u:U\rightarrow\mathbb{R}$ is \[[u]_{C^{0,\gamma}(\overline{U})}:=\sup_{\substack{x,y\in U\\x\neq y}}\left\{\frac{|u(x)-u(y)|}{|x-y|^{\gamma}}\right\}\] and the \textit{$\gamma$th-Hölder norm} is \[\norm{u}_{C^{0,\gamma}(\overline{U})}:=\norm{u}_{C(\overline{U})}+[u]_{C^{0,\gamma}(\overline{U})}\]
+\end{defn}
+\begin{defn}(Hölder space).
+    The \textit{Hölder space} $C^{k,\gamma}(\overline{U})$ consists of all functions $u\in C^k(\overline{U})$ for which the norm \[\norm{u}_{C^{k,\gamma}(\overline{U})}:=\sum_{|\alpha|\leq k}\norm{D^{\alpha}u}_{C(\overline{U})}+\sum_{|\alpha|=k}[D^{\alpha}u]_{C^{\theta,\gamma}(\overline{U})}\] is finite.
+\end{defn}
+\begin{theorem}(Hölder spaces as function spaces).
+    The space of functions $C^{k,\gamma}(\overline{U})$ is a Banach space.
+\end{theorem}
+\subsubsection{Sobolev spaces}
+\begin{defn}(Test function).
+    Let $C_c^{\infty}(U)$ denote the space of infinitely differentiable functions $\phi:U\rightarrow\mathbb{R}$ with compact support in $U$. We will call a function $\phi$ belonging to $C_c^{\infty}(U)$ a \textit{test function}.
+\end{defn}
+\begin{defn}(Weak partial derivative).
+    Suppose $u,v\in L_{\textrm{loc}}^1(U)$, and $\alpha$ is a multiindex. We say that $v$ is the $\alpha$th-weak partial derivative of $u$, written $D^{\alpha}u=v$, provided \[\int_UuD^{\alpha}\phi\;\textrm{d}x=(-1)^{|\alpha|}\int_Uv\phi\;\textrm{d}x\] for all test functions $\phi\in C_c^{\infty}(U)$.
+\end{defn}
+\begin{lemma}(Uniqueness of weak derivatives).
+    A weak $\alpha$th-partial derivative of $u$, if it exists is uniquely defined up to a set of measure zero.
+\end{lemma}
+\begin{defn}(Sobolev space).
+    The Sobolev space $W^{k,p}(U)$ consists of all locally summable functions $u:U\rightarrow\mathbb{R}$ such that for each multiindex $\alpha$ with $|\alpha|\leq k$, $D^{\alpha}u$ exists in the weak sense and belongs to $L^p(U)$.
+\end{defn}
+\begin{defn}(Norm of an element in the Sobolev space).
+    If $u\in W^{k,p}(U)$, we define its norm to be \[\norm{u}_{W^{k,p}(U)}:=\begin{cases}(\sum_{|\alpha|\leq k}\int_U|D^{\alpha}u|^p\;\textrm{d}x)^{1/p}&1\leq p<\infty\\\sum_{|\alpha|\leq k}\ess\sup_U|D^{\alpha}u|&p=\infty\end{cases}\]
+\end{defn}
+\begin{defn}(Convergence in the Sobolev space).
+    \begin{enumerate}
+        \item Let $\{u_m\}_{m=1}^{\infty},u\in W^{k,p}(U)$. We say $u_m$ converges to $u$ in $W^{k,p}(U)$, written $u_m\rightarrow u$ in $W^{k,p}(U)$, provided \[\lim_{m\rightarrow\infty}\norm{u_m-u}_{W^{k,p}(U)}=0\]
+        \item We write $u_m\rightarrow u$ in $W_{\textrm{loc}}^{k,p}(U)$, to mean $u_m\rightarrow u$ in $W^{k,p}(V)$ for each $V\Subset U$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}(Closure in the Sobolev space).
+    We denote by $W_0^{k,p}(U)$ the closure of $C_c^{\infty}(U)$ in $W^{k,p}(U)$.
+\end{defn}
+\begin{prop}(Properties of weak derivatives).
+    Assume $u,v\in W^{k,p}(U),|\alpha|\leq k$. Then
+    \begin{enumerate}
+        \item $D^{\alpha}u\in W^{k-|\alpha|,p}(U)$ and $D^{\beta}(D^{\alpha}u)=D^{\alpha}(D^{\beta}u)=D^{\alpha+\beta}u$ for all multiindices $\alpha,\beta$ with $|\alpha|+|\beta|\leq k$.
+        \item For each $\lambda,\mu\in\mathbb{R}$, $\lambda u+\mu v\in W^{k,p}(U)$ and $D^{\alpha}(\lambda u+\mu v)=\lambda D^{\alpha}u+\mu D^{\alpha}v,|\alpha|\leq k$.
+        \item If $V$ is an open subset of $U$, then $u\in W^{k,p}(V)$.
+        \item If $\zeta\in C_c^{\infty}(U)$, then $\zeta u\in W^{k,p}(U)$ and \[D^{\alpha}(\zeta u)=\sum_{\beta\leq\alpha}\begin{pmatrix}\alpha\\\beta\end{pmatrix}D^{\beta}\zeta D^{\alpha-\beta}u\] where $\begin{pmatrix}\alpha\\\beta\end{pmatrix}=\frac{\alpha!}{\beta!(\alpha-\beta)!}$.
+    \end{enumerate}
+\end{prop}
+\begin{theorem}(Sobolev spaces as function spaces).
+    For each $k\in\mathbb{N}$ and $1\leq p\leq\infty$, the Sobolev space $W^{k,p}(U)$ is a Banach space.
+\end{theorem}
+\subsubsection{Approximation}
+\begin{theorem}(Local approximation by smooth functions).
+    Assume $u\in W^{k,p}(U)$ for some $1\leq p<\infty$, and set $u^{\varepsilon}=\eta_{\varepsilon}*u$ in $U_{\varepsilon}$. Then
+    \begin{enumerate}
+        \item $u^{\varepsilon}\in C^{\infty}(U_{\varepsilon})$ for each $\varepsilon>0$.
+        \item $u^{\varepsilon}\rightarrow u$ in $W_{\textrm{loc}}^{k,p}(U)$ as $\varepsilon\rightarrow0$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}(Global approximation by smooth functions).
+    Assume $U$ is bounded, and suppose as well that $u\in W^{k,p}(U)$ for some $1\leq p<\infty$. Then there exist functions $u_m\in C^{\infty}(U)\cap W^{k,p}(U)$ such that $u_m\rightarrow u$ in $W^{k,p}(U)$.
+\end{theorem}
+\begin{theorem}(Global approximation by functions smooth up to the boundary).
+    Assume $U$ is bounded and $\partial U$ is $C^1$. Suppose $u\in W^{k,p}(U)$ for some $1\leq p<\infty$. Then there exist functions $u_m\in C^{\infty}(\overline{U})$ such that $u_m\rightarrow u$ in $W^{k,p}(U)$.
+\end{theorem}
+\subsubsection{Extensions}
+\begin{theorem}
+    Assume $U$ is bounded and $\partial U$ is $C^1$. Select a bounded open set $V$ such that $U\Subset V$. Then there exists a bounded linear operator $E:W^{1,p}(U)\rightarrow W^{1,p}(\mathbb{R}^n)$ such that for each $u\in W^{1,p}(U)$:
+    \begin{enumerate}
+        \item $Eu=u$ a.e. in $U$.
+        \item $Eu$ has support within $V$.
+        \item $\norm{Eu}_{W^{1,p}(\mathbb{R}^n)}\leq C\norm{u}_{W^{1,p}(U)}$, the constant $C$ depending only on $p$, $U$ and $V$.
+    \end{enumerate}
+\end{theorem}
+\begin{defn}(Extension).
+    We call $Eu$ an \textit{extension} of $u$ to $\mathbb{R}^n$.
+\end{defn}
+\subsubsection{Traces}
+\begin{theorem}(Trace Theorem).
+    Assume $U$ is bounded and $\partial U$ is $C^1$. Then there exists a bounded linear operator $T:W^{1,p}(U)\rightarrow L^p(\partial U)$ such that
+    \begin{enumerate}
+        \item $Tu=u|_{\partial U}$ if $u\in W^{1,p}(U)\cap C(\overline{U})$.
+        \item $\norm{Tu}_{L^p(\partial U)}\leq C\norm{u}_{W^{1,p}(U)}$, for each $u\in W^{1,p}(U)$, with the constant $C$ depending only on $p$ and $U$.
+    \end{enumerate}
+\end{theorem}
+\begin{defn}(Trace).
+    We call $Tu$ the trace of $u$ on $\partial U$.
+\end{defn}
+\begin{theorem}(Trace-zero functions in $W^{1,p}$).
+    Assume $U$ is bounded and $\partial U$ is $C^1$. Suppose furthermore that $u\in W^{1,p}(U)$. Then $u\in W_0^{1,p}(U)$ if and only if $Tu=0$ on $\partial U$.
+\end{theorem}
+\subsubsection{Sobolev inequalities}
+\begin{defn}(Sobolev conjugate).
+    If $1\leq p<n$, the \textit{Sobolev conjugate} of $p$ is \[p^*:=\frac{np}{n-p}\]
+\end{defn}
+\begin{theorem}(Gagliardo-Nirenberg-Sobolev Inequality).
+    Assume $1\leq p<n$. There exists a constant $C$, depending only on $p$ and $n$, such that $\norm{u}_{L^{p^*}(\mathbb{R}^n)}\leq C\norm{Du}_{L^p(\mathbb{R}^n)}$, for all $u\in C_c^1(\mathbb{R}^n)$.
+\end{theorem}
+\begin{theorem}(Estimates for $W^{1,p},1\leq p<n$).
+    Let $U$ be a bounded, open subset of $\mathbb{R}^n$, and suppose $\partial U$ is $C^1$. Assume $1\leq p<n$, and $u\in W^{1,p}(U)$. Then $u\in L^{p^*}(U)$, with the estimate $\norm{u}_{L^{p^*}(U)}\leq C\norm{u}_{W^{1,p}(U)}$, the constant $C$ depending only on $p$, $n$ and $U$.
+\end{theorem}
+\begin{theorem}(Estimates for $W_0^{1,p},1\leq p<n$).
+    Assume $U$ is a bounded, open subset of $\mathbb{R}^n$. Suppose $u\in W_0^{1,p}(U)$ for some $1\leq p<n$. Then we have the estimate $\norm{u}_{L^q(U)}\leq C\norm{Du}_{L^p(U)}$ for each $q\in[1,p^*]$, the constant $C$ depending only on $p$, $q$, $n$ and $U$.
+\end{theorem}
+\begin{theorem}(Morrey's Inequality).
+    Assume $n<p\leq\infty$. Then there exists a constant $C$, depending only on $p$ and $n$, such that $\norm{u}_{C^{0,\gamma}(\mathbb{R}^n)}\leq C\norm{u}_{W^{1,p}(\mathbb{R}^n)}$ for all $u\in C^1(\mathbb{R}^n)$, where $\gamma:=1-n/p$.
+\end{theorem}
+\begin{defn}(Version).
+    We say $u^*$ is a \textit{version} of a given function $u$ provided $u=u^*$ a.e.
+\end{defn}
+\begin{theorem}(Estimates for $W^{1,p},n<p\leq\infty$).
+    Let $U$ be a bounded, open subset of $\mathbb{R}^n$, and suppose $\partial U$ is $C^1$. Assume $n<p\leq\infty$, and $u\in W^{1,p}(U)$. Then $u$ has a version $u^*\in C^{0,\gamma}(\overline{U})$, for $\gamma=1-n/p$, with the estimate $\norm{u^*}_{C^{0,\gamma}(\overline{U})}\leq C\norm{u}_{W^{1,p}(U)}$. The constant $C$ depends only on $p$, $n$ and $U$.
+\end{theorem}
+\begin{theorem}(General Sobolev Inequalities).
+    Let $U$ be a bounded open subset of $\mathbb{R}^n$, with a $C^1$ boundary. Assume $u\in W^{k,p}(U)$.
+    \begin{enumerate}
+        \item If $k<n/p$, then $u\in L^q(U)$, where \[\frac{1}{q}=\frac{1}{p}-\frac{k}{n}\] We have in addition the estimate $\norm{u}_{L^q(U)}\leq C\norm{u}_{W^{k,p}(U)}$, the constant $C$ depending only on $k$, $p$, $n$ and $U$.
+        \item If $k>n/p$, then $u\in C^{k-\left[\frac{n}{p}\right]-1,\gamma}(\overline{U})$, where \[\gamma=\begin{cases}\left[\frac{n}{p}\right]+1-\frac{n}{p}&\frac{n}{p}\notin\mathbb{Z}\\x<1&\frac{n}{p}\in\mathbb{Z}\end{cases}\] for any positive $x\in\mathbb{R}$. We have in addition the estimate $\norm{u}_{C^{k-\left[\frac{n}{p}\right]-1,\gamma}(\overline{U})}\leq C\norm{u}_{W^{k,p}(U)}$, the constant $C$ depending only on $k$, $p$, $n$, $\gamma$ and $U$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Compactness}
+\begin{defn}(Compactly embedded).
+    Let $X$ and $Y$ be Banach spaces, $X\subset Y$. We say that $X$ is \textit{compactly embedded} in $Y$, written $X\Subset Y$, provided
+    \begin{enumerate}
+        \item $\norm{x}_Y\leq C\norm{x}_X,x\in X$ for some constant $C$.
+        \item Each bounded sequence in $X$ is precompact in $Y$.
+    \end{enumerate}
+\end{defn}
+\begin{theorem}(Rellich-Kondrachov Compactness Theorem).
+    Assume $U$ is a bounded open subset of $\mathbb{R}^n$, and $\partial U$ is $C^1$. Suppose $1\leq p<n$. Then $W^{1,p}(U)\Subset L^q(U)$ for each $1\leq q<p^*$.
+\end{theorem}
+\subsubsection{Additional topics}
+\begin{theorem}(Poincaré's Inequality).
+    Let $U$ be a bounded, connected, open subset of $\mathbb{R}^n$, with a $C^1$ boundary $\partial U$. Assume $1\leq p\leq\infty$. Then there exists a constant $C$, depending only on $n$, $p$ and $U$, such that $\norm{u-(u)_U}_{L^p(U)}\leq C\norm{Du}_{L^p(U)}$ for each function $u\in W^{1,p}(U)$.
+\end{theorem}
+\begin{theorem}(Poincaré's Inequality for a Ball).
+    Assume $1\leq p\leq\infty$. Then there exists a constant $C$, depending only on $n$ and $p$, such that $\norm{u-(u)_{x,r}}_{L^p(B(x,r))}\leq Cr\norm{Du}_{L^p(B(x,r))}$ for each ball $B(x,r)\subset\mathbb{R}^n$ and each function $u\in W^{1,p}(B^0(x,r))$.
+\end{theorem}
+\begin{defn}(Difference quotient).
+    \begin{enumerate}
+        \item The \textit{$i$th-difference quotient} of size $h$ is \[D_i^hu(x)=\frac{u(x+he_i)-u(x)}{h},i=1,\ldots,n\] for $x\in V$ and $h\in\mathbb{R}$, $0<|h|<\dist(V,\partial U)$.
+        \item $D^hu:=(D_1^hu,\ldots,D_n^hu)$.
+    \end{enumerate}
+\end{defn}
+\begin{theorem}(Difference quotients and weak derivatives).
+    \begin{enumerate}
+        \item Suppose $1\leq p<\infty$ and $u\in W^{1,p}(U)$. Then for each $V\Subset U$, $\norm{D^hu}_{L^p(V)}\leq C\norm{Du}_{L^p(U)}$ for some constant $C$ and all $0<|h|<\frac{1}{2}\dist(V,\partial U)$.
+        \item Assume $1<p<\infty,u\in L^p(V)$, and there exists a constant $C$ such that $\norm{D^hu}_{L^p(V)}\leq C$ for all $0<|h|<\frac{1}{2}\dist(V,\partial U)$. Then $u\in W^{1,p}(V)$ with $\norm{Du}_{L^p(V)}\leq C$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}(Characterization of $W^{1,\infty}$).
+    Let $U$ be open and bounded, with $\partial U$ of class $C^1$. Then $u:U\rightarrow\mathbb{R}$ is Lipschitz continuous if and only if $u\in W^{1,\infty}(U)$.
+\end{theorem}
+\begin{defn}(Differentiable).
+    A function $u:U\rightarrow\mathbb{R}$ is differentiable at $x\in U$ if there exists $a\in\mathbb{R}^n$ such that $u(y)=u(x)+a\cdot(y-x)+o(|y-x|)$ as $y\rightarrow x$. In other words, \[\lim_{y\rightarrow x}\frac{|u(y)-u(x)-a\cdot(y-x)|}{|y-x|}=0\]
+\end{defn}
+\begin{theorem}(Differentiability almost everywhere).
+    Assume $u\in W_{\textrm{loc}}^{1,p}(U)$ for some $n<p\leq\infty$. Then $u$ is differentiable a.e. in $U$, and its gradient equals its weak gradient a.e.
+\end{theorem}
+\begin{theorem}(Rademacher).
+    Let $u$ be locally Lipschitz continuous in $U$. Then $u$ is differentiable almost everywhere in $U$.
+\end{theorem}
+\begin{theorem}(Characterization of $H^k$ by Fourier transform).
+    Let $k$ be a nonnegative integer.
+    \begin{enumerate}
+        \item A function $u\in L^2(\mathbb{R}^n)$ belongs to $H^k(\mathbb{R}^n)$ if and only if $(1+|y|^k)\hat{u}\in L^2(\mathbb{R}^n)$.
+        \item In addition, there exists a positive constant $C$ such that $\frac{1}{C}\norm{u}_{H^k(\mathbb{R}^n)}\leq\norm{(1+|y|^k)\hat{u}}_{L^2(\mathbb{R}^n)}\leq C\norm{u}_{H^k(\mathbb{R}^n)}$ for each $u\in H^k(\mathbb{R}^n)$.
+    \end{enumerate}
+\end{theorem}
+\begin{defn}(Fractional Sobolev space).
+    Assume $0<s<\infty$ and $u\in L^2(\mathbb{R}^n)$. Then $u\in H^s(\mathbb{R}^n)$ if $(1+|y|^s)\hat{u}\in L^2(\mathbb{R}^n)$. For noninteger $s$, we set $\norm{u}_{H^s(\mathbb{R}^n)}:=\norm{(1+|y|^s)\hat{u}}_{L^2(\mathbb{R}^n)}$.
+\end{defn}
+\subsubsection{Other spaces of functions}
+\begin{defn}(Dual space of $H_0$).
+    We denote by $H^{-1}(U)$ the \textit{dual space} to $H_0^1(U)$.
+\end{defn}
+\begin{defn}(Norm of the dual space of $H_0$).
+    If $f\in H^{-1}(U)$, we define the norm $\norm{f}_{H^{-1}(U)}=\sup\{\langle f,u\rangle:u\in H_0^1(U),\norm{u}_{H_0^1(U)}\leq1\}$.
+\end{defn}
+\begin{theorem}(Characterization of $H^{-1}$).
+    \begin{enumerate}
+        \item Assume $f\in H^{-1}(U)$. Then there exist functions $f^0,f^1,\ldots,f^n$ in $L^2(U)$ such that \[\langle f,v\rangle=\int_Uf^0v+\sum_{i=1}^nf^iv_{x_i}\;\textrm{d}x,v\in H_0^1(U)\]
+        \item Furthermore, \[\norm{f}_{H^{-1}(U)}=\inf\left\{\left(\int_U\sum_{i=0}^n|f^i|^2\;\textrm{d}x\right)^{1/2}:f\;\textrm{satisfies (1) for}\;f^0,\ldots,f^n\in L^2(U)\right\}\]
+    \end{enumerate}
+\end{theorem}
+\begin{defn}($L^p(0,T;X)$).
+    The space $L^p(0,T;X)$ consists of all measurable functions $\mathbf{u}:[0,T]\rightarrow X$ with \[\norm{\mathbf{u}}_{L^p(0,T;X)}:=\left(\int_0^T\norm{\mathbf{u}(t)}^p\;\textrm{d}t\right)^{1/p}<\infty\] for $1\leq p<\infty$, and \[\norm{\mathbf{u}}_{L^{\infty}(0,T;X)}:=\ess\sup_{0\leq t\leq T}\norm{\mathbf{u}(t)}<\infty\]
+\end{defn}
+\begin{defn}($C([0,T];X)$).
+    The space $C([0,T];X)$ comprises all continuous functions $\mathbf{u}:[0,T]\rightarrow X$ with \[\norm{\mathbf{u}}_{C([0,T];X)}:=\max_{0\leq t\leq T}\norm{\mathbf{u}(t)}<\infty\]
+\end{defn}
+\begin{defn}(Weak derivative of $\mathbf{u}$).
+    Let $\mathbf{u}\in L^1(0,T;X)$. We say $\mathbf{v}\in L^1(0,T;X)$ is the weak derivative of $\mathbf{u}$, written $\mathbf{u}'=\mathbf{v}$, provided \[\int_0^T\phi'(t)\mathbf{u}(t)\;\textrm{d}t=-\int_0^T\phi(t)\mathbf{v}(t)\;\textrm{d}t\] for all scalar test functions $\phi\in C_c^{\infty}(0,T)$.
+\end{defn}
+\begin{defn}
+    The Sobolev space $W^{1,p}(0,T;X)$ consists of all functions $\mathbf{u}\in L^p(0,T;X)$ such that $\mathbf{u}'$ exists in the weak sense and belongs to $L^p(0,T;X)$. Furthermore, \[\norm{u}_{W^{1,p}(0,T;X)}:=\begin{cases}\left(\int_0^T\norm{\mathbf{u}(t)}^p+\norm{\mathbf{u}'(t)}^p\;\textrm{d}t\right)^{1/p}&1\leq p<\infty\\\ess\sup_{0\leq t\leq T}(\norm{\mathbf{u}(t)}+\norm{\mathbf{u}'(t)})&p=\infty\end{cases}\]
+\end{defn}
+\begin{theorem}(Calculus in an abstract space).
+    Let $\mathbf{u}\in W^{1,p}(0,T;X)$ for some $1\leq p\leq\infty$. Then
+    \begin{enumerate}
+        \item $\mathbf{u}\in C([0,T];X)$.
+        \item $\mathbf{u}(t)=\mathbf{u}(s)+\int_s^t\mathbf{u}'(\tau)\;\textrm{d}\tau$ for all $0\leq s\leq t\leq T$.
+        \item Furthermore, we have the estimate \[\max_{0\leq t\leq T}\norm{\mathbf{u}(t)}\leq C\norm{\mathbf{u}}_{W^{1,p}(0,T;X)}\] the constant $C$ depending only on $T$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}(More calculus).
+    Suppose $\mathbf{u}\in L^2(0,T;H_0^1(U))$, with $\mathbf{u}'\in L^2(0,T;H^{-1}(U))$.
+    \begin{enumerate}
+        \item Then $\mathbf{u}\in C([0,T];L^2(U))$.
+        \item The mapping $t\mapsto\norm{\mathbf{u}(t)}_{L^2(U)}^2$ is absolutely continuous, with \[\frac{\textrm{d}}{\textrm{d}t}\norm{\mathbf{u}(t)}_{L^2(U)}^2=2\langle\mathbf{u}'(t),\mathbf{u}(t)\rangle\] for a.e. $0\leq t\leq T$.
+        \item Furthermore, we have the estimate \[\max_{0\leq t\leq T}\norm{\mathbf{u}(t)}_{L^2(U)}\leq C\left(\norm{\mathbf{u}}_{L^2(0,T;H_0^1(U))}+\norm{\mathbf{u}'}_{L^2(0,T;H^{-1}(U))}\right)\] the constant $C$ depending only on $T$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}(Mappings into better spaces).
+    Assume that $U$ is open, bounded, and $\partial U$ is smooth. Take $m$ to be a nonnegative integer. Suppose $\mathbf{u}\in L^2(0,T;H^{m+2}(U))$, with $\mathbf{u}'\in L^2(0,T;H^m(U))$.
+    \begin{enumerate}
+        \item Then $\mathbf{u}\in C([0,T];H^{m+1}(U))$.
+        \item Furthermore, we have the estimate \[\max_{0\leq t\leq T}\norm{\mathbf{u}(t)}_{H^{m+1}(U)}\leq C\left(\norm{\mathbf{u}}_{L^2(0,T;H^{m+2}(U))}+\norm{\mathbf{u}'}_{L^2(0,T;H^m(U))}\right)\] the constant $C$ depending only on $T$, $U$ and $m$.
+    \end{enumerate}
+\end{theorem}
+\section{Shiryaev: Probability}
+\subsection{Elementary Probability Theory}
+\subsubsection{Probabilistic Model of an Experiment with a Finite Number of Outcomes}
+\begin{defn}(Probability space, probabilistic model, discrete).
+    The \textit{probability space} $(\Omega,\mathscr{A},\p)$, where $\Omega=\{\omega_1,\ldots,\omega_N\}$, $\mathscr{A}$ is an algebra of subsets of $\Omega$, and $\p=\{\p(A):A\in\mathscr{A}\}$ is said to specify the \textit{probabilistic model} ('theory') of an experiment with a (finite) space $\Omega$ of outcomes (elementary events) and algebra $\mathscr{A}$ of events. (Clearly, $\p(\{\omega_i\})=p(\omega_i),i=1,\ldots,N$). A probability space $(\Omega,\mathscr{A},\p)$ with a finite set $\Omega$ is called \textit{discrete}.
+\end{defn}
+\subsubsection{Conditional Probability: Independence}
+\begin{defn}(Conditional probability).
+    The \textit{conditional probability} of event $B$ given that event $A$, $\p(A)>0$, occurred (denoted by $\p(B|A)$) is $\p(AB)/\p(A)$.
+\end{defn}
+\begin{defn}(Independent/statistically independent events).
+    Events $A$ and $B$ are called \textit{independent} or \textit{statistically independent} (with respect to the probability $\p$) if $\p(AB)=\p(A)\p(B)$.
+\end{defn}
+\begin{defn}(Independent/statistically independent algebras).
+    Two algebras $\mathscr{A}_1$ and $\mathscr{A}_2$ of events (or sets) are called \textit{independent} or \textit{statistically independent} (with respect to the probability $\p$) if all pairs of sets $A_1$ and $A_2$, belonging respectively to $\mathscr{A}_1$ and $\mathscr{A}_2$, are independent.
+\end{defn}
+\begin{defn}(Many independent/statistically independent events).
+    We say that the \textit{sets (events)} $A_1,\ldots,A_n$ are mutually \textit{independent} or \textit{statistically independent} (with respect to the probability $\p$) if for any $k=1,\ldots,n$ and $1\leq i_1<i_2<\cdots<i_k\leq n$, $\p(A_{i_1},\ldots,A_{i_k})=\p(A_{i_1})\ldots\p(A_{i_k})$.
+\end{defn}
+\begin{defn}(Many independent/statistically independent algebras).
+    The algebras $\mathscr{A}_1,\ldots,\mathscr{A}_n$ of sets (events) are called mutually \textit{independent} or \textit{statistically independent} (with respect to the probability $\p$) if any sets $A_1,\ldots,A_n$ belonging respectively to $\mathscr{A}_1,\ldots,\mathscr{A}_n$ are independent.
+\end{defn}
+\subsubsection{Random Variables and Their Properties}
+\begin{defn}(Random variable).
+    Any numerical function $\xi=\xi(\omega)$ defined on a (finite) sample space $\Omega$ is called a (simple) \textit{random variable}.
+\end{defn}
+\begin{defn}(Distribution function).
+    Let $x\in R^1$. The function $F_{\xi}(x)=\p\{\omega:\xi(\omega)\leq x\}$ is called the \textit{distribution function} of the random variable $\xi$.
+\end{defn}
+\begin{defn}(Independent random variables).
+    The random variables $\xi_1,\ldots,\xi_r$ are said to be (mutually) \textit{independent} if $\p\{\xi_1=x_1,\ldots,\xi_r=x_r\}=\p\{\xi_1=x_1\}\cdots\p\{\xi_r=x_r\}$ for all $x_1,\ldots,x_r\in X$; or, equivalently, if $\p\{\xi_1\in B_1,\ldots,\xi_r\in B_r\}=\p\{\xi_1\in B_1\}\cdots\p\{\xi_r\in B_r\}$ for all $B_1,\ldots,B_r\in\mathscr{X}$.
+\end{defn}
+\begin{defn}(Expectation/mean value).
+    The \textit{expectation} or \textit{mean value} of the random variable $\xi=\sum_{i=1}^kx_iI(A_i)$ is the number \[\e\xi=\sum_{i=1}^kx_i\p(A_i)\]
+\end{defn}
+\begin{defn}(Variance, standard deviation).
+    The \textit{variance} of the random variable $\xi$ (denoted by $\Var{\xi}$) is $\Var{\xi}=\e(\xi-\e\xi)^2$. The number $\sigma=+\sqrt{\Var{\xi}}$ is called the \textit{standard deviation} (of $\xi$ from the mean value $\e\xi$).
+\end{defn}
+\subsubsection{The Bernoulli Scheme: I - The Law of Large Numbers}
+\begin{theorem}(Chebyshev's (Bienaymé-Chebyshev's) Inequality).
+    Let $(\Omega,\mathscr{A},\p)$ be a (discrete) probability space and $\xi=\xi(\omega)$ a nonnegative random variable defined on $(\Omega,\mathscr{A})$. Then $\p\{\xi\geq\varepsilon\}\leq\e\xi/\varepsilon$ for all $\varepsilon>0$.
+\end{theorem}
+\begin{corollary}
+    If $\xi$ is any random variable defined on $(\Omega,\mathscr{A})$, we have for $\varepsilon>0$,
+    \begin{enumerate}
+        \item $\p\{|\xi|\geq\varepsilon\}\leq\e|\xi|/\varepsilon$.
+        \item $\p\{|\xi|\geq\varepsilon\}=\p\{\xi^2\geq\varepsilon^2\}\leq\e\xi^2/\varepsilon^2$.
+        \item $\p\{|\xi-\e\xi|\geq\varepsilon\}\leq\Var\xi/\varepsilon^2$.
+        \item $\p\{|\xi-\e\xi|/\sqrt{\Var\xi}\geq\varepsilon)\leq1/\varepsilon^2$.
+    \end{enumerate}
+\end{corollary}
+\begin{theorem}(Macmillan).
+    Let $p_i>0,i=1,\ldots,r$, and $0<\varepsilon<1$. Then there is an $n_0=n_0(\varepsilon;p_1,\ldots,p_r)$ such that for all $n>n_0$
+    \begin{enumerate}
+        \item $e^{n(H-\varepsilon)}\leq N(C(n,\varepsilon_1))\leq e^{n(H+\varepsilon)}$.
+        \item $e^{-n(H+\varepsilon)}\leq p(\omega)\leq e^{-n(H-\varepsilon)},\omega\in C(n,\varepsilon_1)$.
+        \item \[\p(C(n,\varepsilon_1))=\sum_{\omega\in C(n,\varepsilon_1)}p(\omega)\rightarrow1,n\rightarrow\infty\]
+    \end{enumerate}
+    where $\varepsilon_1$ is the smaller of $\varepsilon$ and \[\varepsilon/\left\{-2\sum_{k=1}^r\log{p_k}\right\}\]
+\end{theorem}
+\subsubsection{The Bernoulli Scheme: II - Limit Theorems (Local, de Moivre-Laplace, Poisson}
+\begin{theorem}(Local Limit Theorem).
+    Let $0<p<1$; then \[P_n(k)\sim\frac{1}{\sqrt{2\pi npq}}e^{-(k-np)^2/(2npq)}\] uniformly in $k$ such that $|k-np|=o(npq)^{2/3}$, more precisely, as $n\rightarrow\infty$ \[\sup_{\{k:|k-np|\leq\varphi(n)\}}\left|\frac{P_n(k)}{\frac{1}{\sqrt{2\pi npq}}e^{-(k-np)^2/(2npq)}}-1\right|\rightarrow0\] where $\varphi(n)=o(npq)^{2/3}$.
+\end{theorem}
+\begin{corollary}
+    The conclusion of the Local Limit Theorem can be put in the following equivalent form: For all $x\in R^1$ such that $x=o(npq)^{1/6}$, and for $np+x\sqrt{npq}$ an integer from the set $\{0,1,\ldots,n\}$, \[P_n(np+x\sqrt{npq})\sim\frac{1}{\sqrt{2\pi npq}}e^{-x^2/2}\] i.e., as $n\rightarrow\infty$, \[\sup_{\{x:|x|\leq\psi(n)\}}\left|\frac{P_n(np+x\sqrt{npq})}{\frac{1}{\sqrt{2\pi npq}}e^{-x^2/2}}-1\right|\rightarrow0\] where $\psi(n)=o(npq)^{1/6}$.
+\end{corollary}
+\begin{theorem}(De Moivre-Laplace Integral Theorem).
+    Let $0<p<1$, \[P_n(k)=C_n^kp^kq^{n-k},P_n(a,b]=\sum_{a<x\leq b}P_n(np+x\sqrt{npq})\] Then \[\sup_{-\infty\leq a<b\leq\infty}\left|P_n(a,b]-\frac{1}{\sqrt{2\pi}}\int_a^be^{-x^2/2}\;\textrm{d}x\right|\rightarrow0,n\rightarrow\infty\]
+\end{theorem}
+\begin{theorem}(Poisson).
+    Let $p(n)\rightarrow0,n\rightarrow\infty$, in such a way that $np(n)\rightarrow\lambda$, where $\lambda>0$. Then for $k\in\mathbb{N}$, $P_n(k)\rightarrow\pi_k,n\rightarrow\infty$, where \[\pi_k=\frac{\lambda^ke^{-\lambda}}{k!},k\in\mathbb{N}_0\]
+\end{theorem}
+\subsubsection{Estimating the Probability of Success in the Bernoulli Scheme}
+\begin{defn}(Confidence interval of reliability/significance level).
+    An interval of the form $[\psi_1(\omega),\psi_2(\omega)]$ where $\psi_1(\omega)$ and $\psi_2(\omega)$ are functions of sample points, is called a \textit{confidence interval of reliability} $1-\delta$ (or of \textit{significance level} $\delta$) if $\p_{\theta}\{\psi_1(\omega)\leq\theta\leq\psi_2(\omega)\}\geq1-\delta$ for all $\theta\in\Theta$.
+\end{defn}
+\subsubsection{Random Walk: II - Reflection Principle - Arcsine Law}
+\begin{lemma}
+    Let $a$ and $b$ be nonnegative integers, $a-b>0$ and $k=a+b$. Then \[L_k(S_1>0,\ldots,S_{k-1}>0,S_k=a-b)=\frac{a-b}{k}C_k^a\]
+\end{lemma}
+\begin{lemma}
+    Let $u_0=1$ and $0\leq k\leq n$. Then $P_{2k,2n}=u_{2k}\cdot u_{2n-2k}$.
+\end{lemma}
+\begin{theorem}(Arcsine Law).
+    The probability that the fraction of the time spent by the particle on the positive side is at most $x$ tends to $2\pi^{-1}\arcsin{\sqrt{x}}$: \[\sum_{\{k:k/n\leq x\}}P_{2k,2n}\rightarrow2\pi^{-1}\arcsin{\sqrt{x}}\]
+\end{theorem}
+\subsubsection{Martingales: Some Applications to the Random Walk}
+\begin{defn}(Martingale).
+    A sequence of random variables $\xi_1,\ldots,\xi_n$ is called a \textit{martingale} (with respect to the decompositions $\mathscr{D}_1\preccurlyeq\mathscr{D}_2\preccurlyeq\cdots\preccurlyeq\mathscr{D}_n$ if
+    \begin{enumerate}
+        \item $\xi_k$ is $\mathscr{D}_k$-measurable.
+        \item $\e(\xi_{k+1}\mid\mathscr{D}_k)=\xi_k,1\leq k\leq n-1$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}(Stopping time).
+    A random variable $\tau=\tau(\omega)$ that takes the values $1,2,\ldots,n$ is called a \textit{stopping time} (with respect to decompositions $(\mathscr{D}_k)_{1\leq k\leq n},\mathscr{D}_1\preccurlyeq\mathscr{D}_2\preccurlyeq\cdots\preccurlyeq\mathscr{D}_n$) if, for any $k=1,\ldots,n$, the random variable $I_{\{\tau=k\}}(\omega)$ 
+\end{defn}
+\begin{theorem}
+    Let $\xi=(\xi_k,\mathscr{D}_k)_{1\leq k\leq n}$ be a martingale and $\tau$ a stopping time with respect to the decompositions $(\mathscr{D}_k)_{1\leq k\leq n}$. Then $\e(\xi_{\tau}\mid\mathscr{D}_1)=\xi_1$, where \[\xi_{\tau}=\sum_{k=1}^n\xi_kI_{\{\tau=k\}}(\omega)\] and $\e\xi_{\tau}=\e\xi_1$.
+\end{theorem}
+\begin{corollary}
+    For the martingale $(S_k,\mathscr{D}_k)_{1\leq k\leq n}$, and any stopping time $\tau$ (with respect to $(\mathscr{D}_k)$) we have the formulas $\e S_{\tau}=0,\e S_{\tau}^2=\e\tau$ known as Wald's identities.
+\end{corollary}
+\begin{theorem}(Ballot Theorem).
+    Let $\eta_1,\ldots,\eta_n$ be a sequence of independent identically distributed random variables taking finitely many values from the set $\mathbb{N}_0$ and $S_k=\eta_1+\cdots+\eta_k,1\leq k\leq n$. Then ($\p$-a.s.) \[\p\{S_k<k\;\forall k,1\leq k\leq n\mid S_n\}=\left(1-\frac{S_n}{n}\right)^+\] where $a^+=\max(a,0)$.
+\end{theorem}
+\subsubsection{Markov Chains: Ergodic Theorem, Strong Markov Property}
+\begin{defn}(Markov chain).
+    Let $(\Omega,\mathscr{A},\p)$ be a (finite) probability space and let $\xi=(\xi_0,\ldots,\xi_n)$ be a sequence of random variables with values in a (finite) set $X$. If $\p\{\xi_{k+1}=a_{k+1}\mid\mathscr{B}_k^{\xi}\}=\p\{\xi_{k+1}=a_{k+1}\mid\xi_k\}$, the sequence $\xi=(\xi_0,\ldots,\xi_n)$ is called a (finite) \textit{Markov chain}.
+\end{defn}
+\begin{theorem}(Ergodic Theorem).
+    Let $\mathbb{P}=\norm{p_{ij}}$ be the transition matrix of a Markov chain with a finite state space $X=\{1,2,\ldots,N\}$.
+    \begin{enumerate}
+        \item If there is an $n_0$ such that \[\min_{ij}p_{ij}^{(n_0)}>0\] then there are numbers $\pi_1,\ldots,\pi_N$ such that $\pi_j>0,\sum_j\pi_j=1$ and $p_{ij}^{(n)}\rightarrow\pi_j,n\rightarrow\infty$ for every $j\in X$ and $i\in X$.
+        \item Conversely, if there are numbers $\pi_1,\ldots,\pi_N$ satisfying the latter two of these conditions, there is an $n_0$ such that the first claim holds.
+        \item The numbers $(\pi_1,\ldots,\pi_N)$ satisfy the equations \[\pi_j=\sum_{\alpha}\pi_{\alpha}p_{\alpha j},j=1,\ldots,N\]
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}(Law of Large Numbers).
+    If $\xi_0,\xi_1,\ldots$ form an ergodic Markov chain with a finite state space, then $\p\{|v_A(n)-\pi_A|>\varepsilon\}\rightarrow0,n\rightarrow\infty$, for every $\varepsilon>0$, every set $A\subseteq X$ and every initial distribution.
+\end{theorem}
+\begin{defn}(System of sets).
+    We say that a set $B$ in the algebra $\mathscr{B}_n^{\xi}$ belongs to the system of sets $\mathscr{B}_{\tau}^{\xi}$ if, for each $k$, $0\leq k\leq n$, $B\cap\{\tau=k\}\in\mathscr{B}_k^{\xi}$.
+\end{defn}
+\begin{theorem}
+    Let $\xi=(\xi_0,\ldots,\xi_n)$ be a homogeneous Markov chain with transition matrix $\norm{p_{ij}}$, $\tau$ a stopping time (with respect to $\mathscr{D}^{\xi}$), $B\in\mathscr{B}_{\tau}^{\xi}$ and $A=\{\omega:\tau+l\leq n\}$. Then if $P\{A\cap B\cap(\xi_{\tau}=a_0)\}>0$, the following strong Markov properties hold: $\p\{\xi_{\tau+l}=a_l,\ldots,\xi_{\tau+1}=a_1\mid A\cap B\cap(\xi_{\tau}=a_0)\}=\p\{\xi_{\tau+l}=a_l,\ldots\xi_{\tau+1}=a_1\mid A\cap(\xi_{\tau}=a_0)\}$, and if $\p\{A\cap(\xi_{\tau}=a_0)\}>0$ then $\p\{\xi_{\tau+l}=a_l,\ldots,\xi_{\tau+1}=a_1\mid A\cap(\xi_{\tau}=a_0)\}=p_{a_0a_1}\cdots p_{a_{l-1}}p_{a_l}$.
+\end{theorem}
+\subsubsection{Generating Functions}
+\begin{lemma}
+    The number $N(r;n)$ of integer-valued solutions to the system $X_1+\cdots+X_n=r$ subject to $X_1\in\{k_1^{(1)},k_1^{(2)},\ldots\}$ through to $X_n\in\{k_n^{(1)},k_n^{(2)},\ldots\}$ is the coefficient of $x^r$ in the product $A_1(x)\cdots A_n(x)$ of generating functions $A_1(x)=x^{k_1^{(1)}}+x^{k_1^{(2)}}+\cdots$ through to $A_n(x)=x^{k_n^{(1)}}+x^{k_n^{(2)}}+\cdots$.
+\end{lemma}
+\subsubsection{Inclusion-Exclusion Principle}
+\begin{theorem}
+    \begin{enumerate}
+        \item The following formulas of inclusion-exclusion hold: \[N(A_1\cup\ldots\cup A_n)=\sum_{1\leq i\leq n}N(A_i)-\sum_{1\leq i_1<i_2\leq n}N(A_{i_1}\cap A_{i_1})+\cdots+(-1)^{m+1}\sum_{1\leq i_1<\ldots<i_m\leq n}N(A_{i_1}\cap\cdots\cap A_{i_m})+\cdots+(-1)^{n+1}N(A_1\cap\cdots\cap A_n)\] or, in a more concise form, \[N\left(\bigcup_{i=1}^nA_i\right)=\sum_{\emptyset\neq S\subseteq T}(-1)^{N(S)+1}N\left(\bigcap_{i\in S}A_i\right)\] where $T=\{1,\ldots,n\}$.
+        \item \[N(A_1\cap\ldots\cap A_n)=\sum_{1\leq i\leq n}N(A_i)-\sum_{1\leq i_1<i_2\leq n}N(A_{i_1}\cup A_{i_2})+\cdots+(-1)^{m+1}\sum_{1\leq i_1<\ldots<i_m\leq n}N(A_{i_1}\cup\cdots\cup A_{i_m})+\cdots+(-1)^{n+1}N(A_1\cup\cdots\cup A_n)\] or, in a more concise form, \[N\left(\bigcap_{i=1}^nA_i\right)=\sum_{\emptyset\neq S\subseteq T}(-1)^{N(S)+1}N\left(\bigcup_{i\in S}A_i\right)\]
+        \item $N(\overline{A}_1\cup\cdots\cup\overline{A}_n)=N(\Omega)-N(A_1\cap\cdots\cap A_n),N(\overline{A}_1\cap\cdots\cap\overline{A}_n)=N(\Omega)-N(A_1\cup\cdots\cup A_n)$, or, taking into account (1) and (2), \[N\left(\bigcup_{i=1}^n\overline{A}_i\right)=\sum_{S\subseteq T}(-1)^{N(S)}N\left(\bigcup_{i\in S}A_i\right),N\left(\bigcap_{i=1}^n\overline{A}_i\right)=\sum_{S\subseteq T}(-1)^{N(S)}N\left(\bigcap_{i\in S}A_i\right)\]
+    \end{enumerate}
+\end{theorem}
+\subsection{Mathematical Foundations of Probability Theory}
+\subsubsection{Probabilistic Model for an Experiment with Infinitely Many Outcomes: Kolmogorov's Axioms}
+\begin{defn}(Algebra).
+    Let $\Omega$ be a set of points $\omega$. A system $\mathscr{A}$ of subsets of $\Omega$ is called an \textit{algebra} if
+    \begin{enumerate}
+        \item $\Omega\in\mathscr{A}$.
+        \item $A,B\in\mathscr{A}\Rightarrow A\cup B\in\mathscr{A},A\cap B\in\mathscr{A}$.
+        \item $A\in\mathscr{A}\Rightarrow\overline{A}\in\mathscr{A}$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}(Finitely additive measure, finitely additive probability).
+    Let $\mathscr{A}$ be an algebra of subsets of $\Omega$. A \textit{set function} $\mu=\mu(A),A\in\mathscr{A}$, taking values in $[0,\infty]$, is called a \textit{finitely additive measure} defined on $\mathscr{A}$ if $\mu(A+B)=\mu(A)+\mu(B)$ for every pair of disjoint sets $A$ and $B$ in $\mathscr{A}$. A finitely additive measure $\mu$ with $\mu(\Omega)<\infty$ is called \textit{finite}, and when $\mu(\Omega)=1$ it is called a \textit{finitely additive probability measure}, or a \textit{finitely additive probability}.
+\end{defn}
+\begin{defn}(Probabilistic model in the extended sense).
+    An ordered triple $(\Omega,\mathscr{A},\p)$, where
+    \begin{enumerate}
+        \item $\Omega$ is a set of points $\omega$.
+        \item $\mathscr{A}$ is an algebra of subsets of $\Omega$.
+        \item $\p$ is a finitely additive probability on $A$.
+    \end{enumerate}
+    is a \textit{probabilistic model}, or a \textit{probabilistic 'theory'} (of an experiment) \textit{in the extended sense}.
+\end{defn}
+\begin{defn}($\sigma$-algebra).
+    A system $\mathscr{F}$ of subsets of $\Omega$ is a \textit{$\sigma$-algebra} if it is an algebra and satisfies the following additional condition: if $A_n\in\mathscr{F},n\in\mathbb{N}$, then $\cup A_n\in\mathscr{F},\cap A_n\in\mathscr{F}$.
+\end{defn}
+\begin{defn}(Measurable space).
+    The space $\Omega$ together with a $\sigma$-algebra $\mathscr{F}$ of its subsets is a \textit{measurable space}, and is denoted by $(\Omega,\mathscr{F})$.
+\end{defn}
+\begin{defn}(Countably additive/$\sigma$-additive/measure).
+    A finitely additive measure $\mu$ defined on an algebra $\mathscr{A}$ of subsets of $\Omega$ is \textit{countably additive} (or \textit{$\sigma$-additive}), or simply a \textit{measure}, if, for any pairwise disjoint subsets $A_1,A_2,\ldots$ of $\Omega$ with $\sum A_n\in\mathscr{A}$ \[\mu\left(\sum_{n=1}^{\infty}A_n\right)=\sum_{n=1}^{\infty}\mu(A_n)\]
+\end{defn}
+\begin{theorem}
+    Let $\p$ be a finitely additive set function defined over the algebra $\mathscr{A}$, wth $\p(\Omega)=1$. The following four conditions are equivalent:
+    \begin{enumerate}
+        \item $\p$ is $\sigma$-additive ($\p$ is a probability).
+        \item $\p$ is continuous from below, i.e., for any sets $A_1,A_2,\ldots\in\mathscr{A}$ such that $A_n\subseteq A_{n+1}$ and $\cup_{n=1}^{\infty}A_n\in\mathscr{A}$, \[\lim_n\p(A_n)=\p\left(\bigcup_{n=1}^{\infty}A_n\right)\]
+        \item $\p$ is continuous from above, i.e., for any sets $A_1,A_2,\ldots\in\mathscr{A}$ such that $A_n\supseteq A_{n+1}$ and $\cap_{n=1}^{\infty}A_n\in\mathscr{A}$, \[\lim_n\p(A_n)=\p\left(\bigcap_{n=1}^{\infty}A_n\right)\]
+        \item $\p$ is continuous at $\emptyset$, i.e., for any sets $A_1,A_2,\ldots\in\mathscr{A}$ such that $A_{n+1}\subseteq A_n$ and $\cap_{n=1}^{\infty}A_n=\emptyset$, \[\lim_n\p(A_n)=0\]
+    \end{enumerate}
+\end{theorem}
+\begin{defn}(Sample space/space of elementary events, events, probability).
+    An ordered triple $(\Omega,\mathscr{F},\p)$ where
+    \begin{enumerate}
+        \item $\Omega$ is a set of points $\omega$.
+        \item $\mathscr{F}$ is a $\sigma$-algebra of subsets of $\Omega$.
+        \item $\p$ is a probability on $\mathscr{F}$.
+        is called a \textit{probabilistic model} (of an experiment) or a \textit{probability space}. Here $\Omega$ is the \textit{sample space} or \textit{space of elementary events}, the sets $A$ in $\mathscr{F}$ are \textit{events}, and $\p(A)$ is the \textit{probability} of the event $A$.
+    \end{enumerate}
+\end{defn}
+\subsubsection{Algebras and $\sigma$-Algebras: Measurable Spaces}
+\begin{lemma}
+    Let $\mathscr{E}$ be a collection of subsets of $\Omega$. Then there are the smallest algebra $\alpha(\mathscr{E})$ and the smallest $\sigma$-algebra $\sigma(\mathscr{E})$ containing all the sets that are in $\mathscr{E}$.
+\end{lemma}
+\begin{defn}(Monotonic class).
+    A collection $\mathscr{M}$ of subsets of $\Omega$ is a \textit{monotonic class} if $A_n\in\mathscr{M},n\in\mathbb{N}$, together with $A_n\uparrow A$ or $A_n\downarrow A$, implies that $A\in\mathscr{M}$.
+\end{defn}
+\begin{lemma}
+    A necessary and sufficient condition for an algebra $\mathscr{A}$ to be a $\sigma$-algebra is that it is a monotonic class.
+\end{lemma}
+\begin{theorem}
+    Let $\mathscr{A}$ be an algebra. Then $\mu(\mathscr{A})=\sigma(\mathscr{A})$.
+\end{theorem}
+\begin{defn}($\pi,\lambda,d$-systems).
+    Let $\Omega$ be a space. A system $\mathscr{P}$ of subsets of $\Omega$ is called a \textit{$\pi$-system} if it is closed under \textit{finite intersections}, i.e., for any $A_1,\ldots,A_n\in\mathscr{P}$ we have $\cap_{1\leq k\leq n}A_k\in\mathscr{P},n\geq1$. A system $\mathscr{L}$ of subsets of $\Omega$ is called a \textit{$\lambda$-system}, if
+    \begin{enumerate}
+        \item $\Omega\in\mathscr{L}$.
+        \item $(A,B\in\mathscr{L},A\subseteq B)\Rightarrow(B\backslash A\in\mathscr{L})$.
+        \item $(A_n\in\mathscr{L},n\geq1,A_n\uparrow A)\Rightarrow(A\in\mathscr{L})$.
+    \end{enumerate}
+    A system $\mathscr{D}$ of subsets of $\Omega$ that is both a $\pi$-system and a $\lambda$-system is called a \textit{$\pi$-$\lambda$-system} or Dynkin's \textit{$d$-system}.
+\end{defn}
+\begin{theorem}(On $\pi$-$\lambda$-Systems).
+    \begin{enumerate}
+        \item Any $\pi$-$\lambda$-system $\mathscr{E}$ is a $\sigma$-algebra.
+        \item Let $\mathscr{E}$ be a $\pi$-system of sets. Then $\lambda(\mathscr{E})=d(\mathscr{E})=\sigma(\mathscr{E})$.
+        \item Let $\mathscr{E}$ be a $\pi$-system of sets, $\mathscr{L}$ a $\lambda$-system and $\mathscr{E}\subseteq\mathscr{L}$. Then $\sigma(\mathscr{E})\subseteq\mathscr{L}$.
+    \end{enumerate}
+\end{theorem}
+\begin{lemma}
+    Let $\p$ and $\q$ be two probability measures on a measurable space $(\Omega,\mathscr{F})$. Let $\mathscr{E}$ be a $\pi$-system of sets in $\mathscr{F}$ and the measures $\p$ and $\q$ coincide on the sets which belong to $\mathscr{E}$. Then these measures coincide on the $\sigma$-algebra $\sigma(\mathscr{E})$. In particular, if $\mathscr{A}$ is an algebra and the measures $\p$ and $\q$ coincide on its sets, then they coincide on the sets of $\sigma(\mathscr{A})$.
+\end{lemma}
+\begin{lemma}
+    Let $\mathscr{A}_1,\mathscr{A}_2,\ldots,\mathscr{A}_n$ be algebras of events independent with respect to the measure $\p$. Then the $\sigma$-algebras $\sigma(\mathscr{A}_1),\sigma(\mathscr{A}_2),\ldots,\sigma(\mathscr{A}_n)$ are also independent with respect to this measure.
+\end{lemma}
+\begin{theorem}
+    Let $\mathscr{E}$ be a $\pi$-system of sets in $\mathscr{F}$ and $\mathscr{H}$ a class of real-valued $\mathscr{F}$-measurable functions satisfying the following conditions:
+    \begin{enumerate}
+        \item If $A\in\mathscr{E}$, then $I_A\in\mathscr{H}$.
+        \item If $f\in\mathscr{H},h\in\mathscr{H}$, then $f+h\in\mathscr{H}$ and $cf\in\mathscr{H}$ for any real number $c$.
+        \item If $h_n\in\mathscr{H},n\geq1,0\leq h_n\uparrow h$, then $h\in\mathscr{H}$.
+    \end{enumerate}
+    Then $\mathscr{H}$ contains all bounded functions measurable with respect to $\sigma(\mathscr{E})$.
+\end{theorem}
+\begin{lemma}
+    Let $\mathscr{E}$ be a class of subsets of $\Omega$, let $B\subseteq\Omega$, and define $\mathscr{E}\cap B=\{A\cap B:A\in\mathscr{E}\}$. Then $\sigma(\mathscr{E}\cap B)=\sigma(\mathscr{E})\cap B$.
+\end{lemma}
+\begin{theorem}
+    Let $T$ be any uncountable set. Then $\mathscr{B}(R^T)=\mathscr{B}_1(R^T)=\mathscr{B}_2(R^T)$, and every set $A\in\mathscr{B}(R^T)$ has the following structure: there are a countable set of points $t_1,t_2,\ldots$ of $T$ and a Borel set $B$ in $\mathscr{B}(R^{\infty})$ such that $A=\{x:(x_{l_1},x_{l_2},\ldots)\in B\}$.
+\end{theorem}
+\subsubsection{Methods of Introducing Probability Measures on Measurable Spaces}
+\begin{defn}(Distribution function).
+    Every function $F=F(x)$ satisfying
+    \begin{enumerate}
+        \item $F(x)$ is nondecreasing.
+        \item $F(-\infty)=0,F(+\infty)=1$, where \[F(-\infty)=\lim_{x\downarrow-\infty}F(x),F(+\infty)=\lim_{x\uparrow\infty}F(x)\]
+        \item $F(x)$ is continuous on the right and has a limit on the left at each $x\in R$.
+    \end{enumerate}
+    is called a \textit{distribution function} (on the real line $R$).
+\end{defn}
+\begin{theorem}
+    Let $F=F(x)$ be a distribution function on the real line $R$. There exists a unique probability measure $\p$ on $(R,\mathscr{B}(R))$ such that $\p(a,b]=F(b)-F(a)$ for all $a,b,-\infty\leq a<b<\infty$.
+\end{theorem}
+\begin{theorem}(Carathéodory).
+    Let $\Omega$ be a space, $\mathscr{A}$ an algebra of its subsets, and $\mathscr{B}=\sigma(\mathscr{A})$ the smallest $\sigma$-algebra containing $\mathscr{A}$. Let $\mu_0$ be a $\sigma$-finite and $\sigma$-additive measure on $(\Omega,\mathscr{A})$. Then there is a unique measure $\mu$ on $(\Omega,\sigma(\mathscr{A}))$ which is an extension of $\mu_0$, i.e., satisfies $\mu(A)=\mu_0(A),A\in\mathscr{A}$.
+\end{theorem}
+\begin{defn}($n$-dimensional distribution function).
+    An \textit{$n$-dimensional distribution function} (on $R^n$) is a function $F_n=F_n(x_1,\ldots,x_n)$ with properties
+    \begin{enumerate}
+        \item $\Delta_{a_1b_1}\cdots\Delta_{a_nb_n}F_n(x_1,\ldots,x_n)\geq0$.
+        \item $F_n(x^{(k)})\downarrow F_n(x),k\rightarrow\infty$.
+        \item $F_n(+\infty,\ldots,+\infty)=1$.
+        \item $\lim_{x\downarrow y}F_n(x_1,\ldots,x_n)=0$.
+    \end{enumerate}
+\end{defn}
+\begin{theorem}
+    Let $F_n=F_n(x_1,\ldots,x_n)$ be a distribution function on $R^n$. Then there is a unique probability measure $\p$ on $(R^n,\mathscr{B}(R^n))$ such that $\p(a,b]=\Delta_{a_1b_1}\cdots\Delta_{a_nb_n}F_n(x_1,\ldots,x_n)$.
+\end{theorem}
+\begin{theorem}(Kolmogorov's Theorem on the Extension of Measures on $(R^{\infty},\mathscr{B}(R^{\infty}))$).
+    Let $P_1,P_2,\ldots$ be probability measures on $(R,\mathscr{B}(R)),(R^2,\mathscr{B}(R^2)),\ldots$ respectively, possessing the consistency property $P_{n+1}(B\times R)=P_n(B)$. Then there is a unique probability measure $\p$ on $(R^{\infty},\mathscr{B}(R^{\infty}))$ such that $\p(\mathscr{I}_n(B))=P_n(B),B\in\mathscr{B}(R^n)$, for $n\in\mathbb{N}$.
+\end{theorem}
+\begin{theorem}(Kolmogorov's Theorem on the Extension of Measures in $(R^T,\mathscr{B}(R^T))$).
+    Let $\{P_{\tau}\}$ be a consistent family of probability measures on $(R^{\tau},\mathscr{B}(R^{\tau}))$. Then there is a unique probability measure $\p$ on $(R^T,\mathscr{B}(R^T))$ such that $\p(\mathscr{I}_{\tau}(B))=P_{\tau}(B)$ for all unordered sets $\tau=[t_1,\ldots,t_n]$ of different indices $t_i\in T,B\in\mathscr{B}(R^{\tau})$ and $\mathscr{I}_{\tau}(B)=\{x\in R^T:(x_{t_1},\ldots,x_{t_n})\in B\}$.
+\end{theorem}
+\subsubsection{Random Variables: I}
+\begin{defn}($\mathscr{F}$-measurable function/random variable).
+    A real function $\xi=\xi(\omega)$ defined on $(\Omega,\mathscr{F})$ is an \textit{$\mathscr{F}$-measurable function}, or a \textit{random variable}, if $\{\omega:\xi(\omega)\in B\}\in\mathscr{F}$ for every $B\in\mathscr{B}(R)$; or, equivalently, if the inverse image $\xi^{-1}(B)\equiv\{\omega:\xi(\omega)\in B\}$ is a measurable set in $\Omega$.
+\end{defn}
+\begin{defn}(Probability distribution).
+    A probability measure $P_{\xi}$ on $(R,\mathscr{B}(R))$ with $P_{\xi}(B)=\p\{\omega:\xi(\omega)\in B\},B\in\mathscr{B}(R)$, is called the \textit{probability distribution} of $\xi$ on $(R,\mathscr{B}(R))$.
+\end{defn}
+\begin{defn}(Distribution function).
+    The function $F_{\xi}=\p\{\omega:\xi(\omega)\leq x\},x\in R$, is called the \textit{distribution function} of $\xi$.
+\end{defn}
+\begin{lemma}
+    Let $\mathscr{E}$ be a system of sets such that $\sigma(\mathscr{E})=\mathscr{B}(R)$. A necessary and sufficient condition that a function $\xi=\xi(\omega)$ is $\mathscr{F}$-measurable is that $\{\omega:\xi(\omega)\in E\}\in\mathscr{F}$ for all $E\in\mathscr{E}$.
+\end{lemma}
+\begin{corollary}
+    A necessary and sufficient condition for $\xi=\xi(\omega)$ to be a random variable is that $\{\omega:\xi(\omega)<x\}\in\mathscr{F}$ for every $x\in R$, or that $\{\omega:\xi(\omega)\leq x\}\in\mathscr{F}$ for every $x\in R$.
+\end{corollary}
+\begin{lemma}
+    Let $\varphi=\varphi(x)$ be a Borel function and $\xi=\xi(\omega)$ a random variable. Then the composition $\eta=\varphi\circ\xi$, i.e., the function $\eta(\omega)=\varphi(\xi(\omega))$, is also a random variable.
+\end{lemma}
+\begin{defn}(Extended random variable).
+    A function $\xi=\xi(\omega)$ defined on $(\Omega,\mathscr{F})$ with values in $\overline{R}=[-\infty,\infty]$ will be called an \textit{extended random variable} if condition $\{\omega:\xi(\omega)\in B\}\in\mathscr{F}$ is satisfied for every Borel set $B\in\mathscr{B}(R)$, where $\mathscr{B}(R)=\sigma(\mathscr{B}(R),\pm\infty)$.
+\end{defn}
+\begin{theorem}
+    \begin{enumerate}
+        \item For every random variable $\xi=\xi(\omega)$ (extended ones included) there is a sequence of simple random variables $\xi_1,\xi_2,\ldots$ such that $|\xi_n|\leq|\xi|$ and $\xi_n(\omega)\rightarrow\xi(\omega),n\rightarrow\infty$, for all $\omega\in\Omega$.
+        \item If also $\xi(\omega)\geq0$, there is a sequence of simple random variables $\xi_1,\xi_2,\ldots$ such that $\xi_n(\omega)\uparrow\xi(\omega),n\rightarrow\infty$, for all $\omega\in\Omega$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    Let $\xi_1,\xi_2,\ldots$ be a sequence of extended simple random variables and $\xi(\omega)=\lim\xi_n(\omega),\omega\in\Omega$. Then $\xi(\omega)$ is also an extended random variable.
+\end{theorem}
+\begin{theorem}
+    Let $\eta=\eta(\omega)$ be an $\mathscr{F}_{\xi}$-measurable random variable. Then there is a Borel function $\varphi$ such that $\eta=\varphi\circ\xi$, i.e., $\eta(\omega)=\varphi(\xi(\omega))$ for every $\omega\in\Omega$.
+\end{theorem}
+\begin{lemma}
+    Let $\xi=\xi(\omega)$ be a $\sigma(\mathscr{D})$-measurable random variable. Then $\xi$ is representable in the form \[\xi(\omega)=\sum_{k=1}^{\infty}x_kI_{D_k}(\omega)\] where $x_k\in R$, i.e., $\xi(\omega)$ is constant on the elements $D_k$ of the decomposition, $k\geq1$.
+\end{lemma}
+\subsubsection{Random Elements}
+\begin{defn}($\mathscr{F}/\mathscr{E}$-measurable/random element).
+    Let $(\Omega,\mathscr{F})$ and $(E,\mathscr{E})$ be measurable spaces. We say that a function $X=X(\omega)$, defined on $\Omega$ and taking values in $E$, is \textit{$\mathscr{F}/\mathscr{E}$-measurable}, or is a \textit{random element} (with values in $E$), if $\{\omega:X(\omega)\in B\}\in\mathscr{F}$ for every $B\in\mathscr{E}$. Random elements (with values in $E$) are sometimes called \textit{$E$-valued random variables}.
+\end{defn}
+\begin{defn}($n$-dimensional random vector).
+    An ordered set $(\eta_1(\omega),\ldots,\eta_n(\omega))$ of random variables is called an $n$-dimensional random vector.
+\end{defn}
+\begin{defn}(Random process).
+    Let $T$ be a subset of the real line. A set of random variables $X=(\xi_t)_{t\in T}$ is called a \textit{random process with time domain $T$}. If $T\in\mathbb{N}$, we call $X=(\xi_1,\xi_2,\ldots)$ a \textit{random process with discrete time}, or a \textit{random sequence}. If $T=[0,1],(-\infty,\infty),[0,\infty),\ldots$, we call $X=(\xi_t)_{t\in T}$ a \textit{random process with continuous time}.
+\end{defn}
+\begin{defn}(Realization/trajectory).
+    Let $X=(\xi_t)_{t\in T}$ be a random process. For each given $\omega\in\Omega$ the function $(\xi_t(\omega))_{t\in T}$ is said to be a \textit{realization} or a \textit{trajectory} of the process corresponding to the outcome $\omega$.
+\end{defn}
+\begin{defn}(Probability distribution).
+    Let $X=(\xi_t)_{t\in T}$ be a random process. The probability measure $P_X$ on $(R^T,\mathscr{B}(R^T))$ defined by $P_X(B)=\p\{\omega:X(\omega)\in B\},B\in\mathscr{B}(R^T)$, is called the \textit{probably distribution of $X$}. The probabilities $P_{t_1,\ldots,t_n}(B)\equiv\p\{\omega:(\xi_{t_1},\ldots,\xi_{t_n})\in B\},B\in\mathscr{B}(R^n)$ with $t_1<t_2<\cdots<t_n,t_i\in T$, are called \textit{finite-dimensional probabilities} (or \textit{probability distributions}). The functions $F_{t_1,\ldots,t_n}(x_1,\ldots,x_n)\equiv\p\{\omega:\xi_{t_1}\leq x_1,\ldots,\xi_{t_n}\leq x_n\}$ with $t_1<t_2<\cdots<t_n,t_i\in T$, are called \textit{finite-dimensional distribution functions} of the process $X=(\xi_t)_{t\in T}$.
+\end{defn}
+\begin{defn}(Independent).
+    We say that the $\mathscr{F}/\mathscr{E}_{\alpha}$-measurable functions $(X_{\alpha}(\omega)),\alpha\in\mathfrak{U}$, are \textit{independent} (or \textit{mutually independent}) if, for every finite set of indices $\alpha_1,\ldots,\alpha_n$ the random elements $X_{\alpha_1},\ldots,X_{\alpha_n}$ are independent, i.e. $\p(X_{\alpha_1}\in B_{\alpha_1},\ldots,X_{\alpha_n}\in B_{\alpha_n})=\p(X_{\alpha_1}\in B_{\alpha_1})\cdots\p(X_{\alpha_n}\in B_{\alpha_n})$, where $B_{\alpha}\in\mathscr{E}_{\alpha}$.
+\end{defn}
+\begin{theorem}
+    A necessary and sufficient condition for the random variables $\xi_1,\ldots,\xi_n$ to be independent is that $F_{\xi}(x_1,\ldots,x_n)=F_{\xi_1}(x_1)\cdots F_{\xi_n}(x_n)$ for all $(x_1,\ldots,x_n)\in R^n$.
+\end{theorem}
+\subsubsection{Lebesgue Integral: Expectation}
+\begin{defn}(Lebesgue integral/expectation).
+    The \textit{Lebesgue integral} of the nonnegative random variable $\xi=\xi(\omega)$, or its \textit{expectation}, is \[\e\xi\equiv\lim_n\e\xi_n\]
+\end{defn}
+\begin{lemma}
+    Let $\eta$ and $\xi_n$ be simple nonnegative random variables, $n\geq1$, and $\xi_n\uparrow\xi\geq\eta$. Then \[\lim_n\e\xi_n\geq\e\eta\]
+\end{lemma}
+\begin{defn}
+    We say that the expectation $\e\xi$ of the random variable $\xi$ \textit{exists}, or \textit{is defined}, if at least one of $\e\xi^+$ and $\e\xi^-$ is finite: $\min(\e\xi^+,\e\xi^-)<\infty$. In this case we define $\e\xi\equiv\e\xi^+-\e\xi^-$. The expectation $\e\xi$ is also called the Lebesgue integral of the function $\xi$ with respect to the probability measure $\p$.
+\end{defn}
+\begin{defn}
+    We say that the expectation of $\xi$ is \textit{finite} if $\e\xi^+<\infty$ and $\e\xi^-<\infty$.
+\end{defn}
+\begin{theorem}(On Monotone Convergence).
+    Let $\eta,\xi,\xi_1,\xi_2,\ldots$ be random variables.
+    \begin{enumerate}
+        \item If $\xi_n\geq\eta$ for all $n\geq1$, $\e\eta>-\infty$, and $\xi_n\uparrow\xi$, then $\e\xi_n\uparrow\e\xi$.
+        \item If $\xi_n\leq\eta$ for all $n\geq1$, $\e\eta<\infty$, and $\xi_n\downarrow\xi$, then $\e\xi_n\downarrow\e\xi$.
+    \end{enumerate}
+\end{theorem}
+\begin{corollary}
+    Let $\{\eta_n\}_{n\geq1}$ be a sequence of nonnegative random variables. Then \[\e\sum_{n=1}^{\infty}\eta_n=\sum_{n=1}^{\infty}\e\eta_n\]
+\end{corollary}
+\begin{theorem}(Fatou's Lemma).
+    Let $\eta,\xi_1,\xi_2,\ldots$ be random variables.
+    \begin{enumerate}
+        \item If $\xi_n\geq\eta$ for all $n\geq1$ and $\e\eta>-\infty$, then $\e\liminf\xi_n\leq\liminf\e\xi_n$.
+        \item If $\xi_n\leq\eta$ for all $n\geq1$ and $\e\eta<\infty$, then $\limsup\e\xi_n\leq\e\limsup\xi_n$.
+        \item If $|\xi_n|\leq\eta$ for all $n\geq1$ and $\e\eta<\infty$, then $\e\liminf\xi_n\leq\liminf\e\xi_n\leq\limsup\e\xi_n\leq\e\limsup\xi_n$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}(Lebesgue's Theorem on Dominated Convergence).
+    Let $\eta,\xi,\xi_1,\xi_2,\ldots$ be random variables such that $|\xi_n|\leq\eta$, $\e\eta<\infty$ and $\xi_n\rightarrow\xi$ (a.s.). Then $\e|\xi|<\infty$, $\e\xi_n\rightarrow\e\xi$ and $\e|\xi_n-\xi|\rightarrow0$ as $n\rightarrow\infty$.
+\end{theorem}
+\begin{corollary}
+    Let $\eta,\xi,\xi_1,\xi_2,\ldots$ be random variables such that $|\xi_n|\leq\eta,\xi_n\rightarrow\xi$ (a.s.) and $\e\eta^p<\infty$ for some $p>0$. Then $\e|\xi|^p<\infty$ and $\e|\xi-\xi_n|^p\rightarrow0,n\rightarrow\infty$.
+\end{corollary}
+\begin{defn}(Uniformly integrable).
+    A family $\{\xi_n\}_{n\geq1}$ of random variables is said to be \textit{uniformly integrable} (with respect to the measure $\p$) if \[\sup_n\int_{\{|\xi_n|>c\}}|\xi_n|\p(\textrm{d}\omega)\rightarrow0,c\rightarrow\infty\] or, in a different notation, \[\sup_n\e[|\xi_n|I_{\{|\xi_n|>c\}}]\rightarrow0,c\rightarrow\infty\]
+\end{defn}
+\begin{theorem}
+    Let $\{\xi_n\}_{n\geq1}$ be a uniformly integrable family of random variables. Then
+    \begin{enumerate}
+        \item $\e\liminf\xi_n\leq\liminf\e\xi_n\leq\limsup\e\xi_n\leq\e\limsup\xi_n$.
+        \item If in addition $\xi_n\rightarrow\xi$ (a.s.) then $\xi$ is integrable and $\e\xi_n\rightarrow\e\xi,n\rightarrow\infty$ and $\e|\xi_n-\xi|\rightarrow0,n\rightarrow\infty$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    Let $0\leq\xi_n\rightarrow\xi$ ($\p$-a.s.) and $\e\xi_n<\infty,n\geq1$. Then $\e\xi_n\rightarrow\e\xi<\infty$ if and only if the family $\{\xi_n\}_{n\geq1}$ is uniformly integrable.
+\end{theorem}
+\begin{lemma}
+    A necessary and sufficient condition for a family $\{\xi_n\}_{n\geq1}$ of random variables to be uniformly integrable is that $\e|\xi_n|,n\geq1$, are uniformly bounded (i.e., $\sup_n\e|\xi_n|<\infty$ holds) and that $\e\{|\xi_n|I_A\},n\geq1$, are uniformly continuous (i.e., $\sup_n\e\{|\xi_n|I_A\}\rightarrow0$ when $\p(A)\rightarrow0$).
+\end{lemma}
+\begin{lemma}
+    Let $\xi_1,\xi_2,\ldots$ be a sequence of integrable random variables and $G=G(t)$ a nonnegative increasing function, defined for $t\geq0$, such that \[\lim_{t\rightarrow\infty}\frac{G(t)}{t}=\infty,\sup_n\e[G(|\xi_n|)]<\infty\] Then the family $\{\xi_n\}_{n\geq1}$ is uniformly integrable.
+\end{lemma}
+\begin{theorem}
+    Let $\xi$ and $\eta$ be independent random variables, $\e|\xi|<\infty,\e|\eta|<\infty$. Then $\e|\xi\eta|<\infty$ and $\e\xi\eta=\e\xi\cdot\e\eta$.
+\end{theorem}
+\begin{theorem}(Chebyshev's (Bienaymé-Chebyshev's) Inequality).
+    Let $\xi$ be a nonnegative random variable. Then for every $\varepsilon>0$ \[\p(\xi\geq\varepsilon)\leq\frac{\e\xi}{\varepsilon}\]
+\end{theorem}
+\begin{theorem}(The Cauchy-Bunyakovskii Inequality).
+    Let $\xi$ and $\eta$ satisfy $\e\xi^2<\infty,\e\eta^2<\infty$. Then $\e|\xi\eta|<\infty$ and $(\e|\xi\eta|)^2\leq\e\xi^2\cdot\e\eta^2$.
+\end{theorem}
+\begin{theorem}(Jensen's Inequality).
+    Let the Borel function $g=g(x)$ defined on $R$ be convex downward and $\xi$ a random variable such that $\e|\xi|<\infty$. Then $g(\e\xi)\leq\e g(\xi)$.
+\end{theorem}
+\begin{theorem}(Lyapunov's Inequality).
+    If $0<s<t$, $(\e|\xi|^s)^{1/s}\leq(\e|\xi|^t)^{1/t}$.
+\end{theorem}
+\begin{theorem}(Hölder's Inequality).
+    Let $1<p<\infty,1<q<\infty$, and $(1/p)+(1/q)=1$. If $\e|\xi|^p<\infty$ and $\e|\eta|^q<\infty$, then $\e|\xi\eta|<\infty$ and $\e|\xi\eta|\leq(\e|\xi|^p)^{1/p}(\e|\eta|^q)^{1/q}$.
+\end{theorem}
+\begin{theorem}(Minkowski's Inequality).
+    If $\e|\xi|^p<\infty,\e|\eta|^p<\infty,1\leq p<\infty$, then we have $\e|\xi+\eta|^p<\infty$ and $(\e|\xi+\eta|^p)^{1/p}\leq(\e|\xi|^p)^{1/p}+(\e|\eta|^p)^{1/p}$.
+\end{theorem}
+\begin{theorem}(Radon-Nikodym).
+    Let $(\Omega,\mathscr{F})$ be a measurable space, $\mu$ a $\sigma$-finite measure, and $\lambda$ a signed measure (i.e., $\lambda=\lambda_1-\lambda_2$, where at least one of the measures $\lambda_1$ and $\lambda_2$ is finite), which is absolutely continuous with respect to $\mu$. Then there is an $\mathscr{F}$-measurable function $f=f(\omega)$ with values in $\overline{R}=[-\infty,\infty]$ such that \[\lambda(A)=\int_Af(\omega)\mu(\textrm{d}\omega),A\in\mathscr{F}\] The function $f(\omega)$ is unique up to sets of $\mu$-measure zero: if $h=h(\omega)$ is another $\mathscr{F}$-measurable function such that $\lambda(A)=\int_Ah(\omega)\mu(\textrm{d}\omega),A\in\mathscr{F}$, then $\mu\{\omega:f(\omega)\neq h(\omega)\}=0$. If $\lambda$ is a measure, then $f=f(\omega)$ has its values in $\overline{R}^+=[0,\infty]$.
+\end{theorem}
+\begin{theorem}(Change of Variables in a Lebesgue Integral).
+    Let $(\Omega,\mathscr{F})$ and $(E,\mathscr{E})$ be measurable spaces and $X=X(\omega)$ an $\mathscr{F}/\mathscr{E}$-measurable function with values in $E$. Let $\p$ be a probability measure on $(\Omega,\mathscr{F})$ and $P_X$ the probability measure on $(E,\mathscr{E})$ induced by $X=X(\omega)$: $P_X(A)=\p\{\omega:X(\omega)\in A\},A\in\mathscr{E}$. Then \[\int_Ag(x)P_X(\textrm{d}x)=\int_{X^{-1}(A)}g(X(\omega))\p(\textrm{d}\omega),A\in\mathscr{E}\] for every $\mathscr{E}$-measurable function $g=g(x),x\in E$.
+\end{theorem}
+\begin{corollary}
+    Let $(E,\mathscr{E})=(R,\mathscr{B}(R))$ and let $\xi=\xi(\omega)$ be a random variable with probability distribution $P_{\xi}$. Then if $g=g(x)$ is a Borel function and either of the integrals $\int_Ag(x)P_{\xi}(\textrm{d}x)$ or $\int_{\xi^{-1}(A)}g(\xi(\omega))\p(\textrm{d}\omega)$ exists, we have \[\int_Ag(x)P_{\xi}(\textrm{d}x)=\int_{\xi^{-1}(A)}g(\xi(\omega))\p(\textrm{d}\omega)\] In particular, for $A=R$ we obtain \[\e g(\xi(\omega))=\int_{\Omega}g(\xi(\omega))\p(\textrm{d}\omega)=\int_Rg(x)P_{\xi}(\textrm{d}x)\]
+\end{corollary}
+\begin{theorem}(Fubini).
+    Let $\xi=\xi(\omega_1,\omega_2)$ be an $\mathscr{F}_1\otimes\mathscr{F}_2$-measurable function, integrable with respect to the measure $\rho_1\times\rho_2$: \[\int_{\Omega_1\times\Omega_2}|\xi(\omega_1,\omega_2)|\textrm{d}(\rho_1\times\rho_2)<\infty\] Then the integrals $\int_{\Omega_1}\xi(\omega_1,\omega_2)\rho_1(\textrm{d}\omega_1)$ and $\int_{\Omega_2}\xi(\omega_1,\omega_2)\rho_2(\textrm{d}\omega_2)$
+    \begin{enumerate}
+        \item Are defined for $\rho_2$-almost all $\omega_2$ and $\rho_1$-almost all $\omega_1$.
+        \item Are respectively $\mathscr{F}_2$- and $\mathscr{F}_1$-measurable functions with \[\rho_2\left\{\omega_2:\int_{\Omega_1}|\xi(\omega_1,\omega_2)|\rho_1(\textrm{d}\omega_1)=\infty\right\}=0,\rho_1\left\{\omega_1:\int_{\Omega_2}|\xi(\omega_1,\omega_2)|\rho_2(\textrm{d}\omega_2)=\infty\right\}=0\]
+        \item \[\int_{\Omega_1\times\Omega_2}\xi(\omega_1,\omega_2)\textrm{d}(\rho_1\times\rho_2)=\int_{\Omega_1}\left[\int_{\Omega_2}\xi(\omega_1,\omega_2)\rho_2(\textrm{d}\omega_2)\right]\rho_1(\textrm{d}\omega_1)=\int_{\Omega_2}\left[\int_{\Omega_1}\xi(\omega_1,\omega_2)\rho_1(\textrm{d}\omega_1)\right]\rho_2(\textrm{d}\omega_2)\]
+    \end{enumerate}
+\end{theorem}
+\begin{corollary}
+    If $\int_{\Omega_1}\left[\int_{\Omega_2}\xi(\omega_1,\omega_2)\rho_2(\textrm{d}\omega_2)\right]\rho_1(\textrm{d}\omega_1)<\infty$, the conclusion of Fubini's Theorem is still valid.
+\end{corollary}
+\begin{theorem}
+    If $g=g(x)$ is continuous on $[a,b]$, it is Riemann-Stieltjes integrable and \[\textrm{(R-S)}\int_a^bg(x)G(\textrm{d}x)=\textrm{(L-S)}\int_a^bg(x)G(\textrm{d}x)\]
+\end{theorem}
+\begin{theorem}
+    Let $g(x)$ be a bounded function on $[a,b]$.
+    \begin{enumerate}
+        \item The function $g=g(x)$ is Riemann integrable on $[a,b]$ if and only if it is continuous almost everywhere (with respect to the Lebesgue measure $\overline{\lambda}$ on $\overline{\mathscr{B}}([a,b])$).
+        \item If $g=g(x)$ is Riemann integrable, it is Lebesgue integrable and \[\textrm{(R)}\int_a^bg(x)\;\textrm{d}x=\textrm{(L)}\int_a^bg(x)\overline{\lambda}(\textrm{d}x)\]
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    The following formulas are valid for all real $a$ and $b$, $a<b$: \[F(b)G(b)-F(a)G(a)=\int_a^bF(s-)\;\textrm{d}G(s)+\int_a^bG(s)\;\textrm{d}F(s)\] or equivalently \[F(b)G(b)-F(a)G(a)=\int_a^bF(s-)\;\textrm{d}G(s)+\int_a^bG(s-)\;\textrm{d}F(s)+\sum_{a<s\leq b}\Delta F(s)\cdot\Delta G(s)\] where $F(s-)=\lim_{t\uparrow s}F(t),\Delta F(s)=F(s)-F(s-)$.
+\end{theorem}
+\begin{corollary}
+    If $F(x)$ and $G(x)$ are distribution functions, then \[F(x)G(x)=\int_{-\infty}^xF(s-)\;\textrm{d}G(s)+\int_{-\infty}^xG(s)\;\textrm{d}F(s)\] If also \[F(x)=\int_{-\infty}^xf(s)\;\textrm{d}s\] then \[F(x)G(x)=\int_{-\infty}^xF(s)\;\textrm{d}G(s)+\int_{-\infty}^xG(s)f(s)\;\textrm{d}s\]
+\end{corollary}
+\begin{corollary}
+    Let $\xi$ be a random variable with distribution function $F(x)$ and $\e|\xi|^n<\infty$. Then \[\int_0^{\infty}x^n\;\textrm{d}F(x)=n\int_0^{\infty}x^{n-1}[1-F(x)]\;\textrm{d}x\] \[\int_{-\infty}^0|x|^n\;\textrm{d}F(x)=-\int_0^{\infty}x^n\;\textrm{d}F(-x)=n\int_0^{\infty}x^{n-1}F(-x)\;\textrm{d}x\] and \[\e|\xi|^n=\int_{-\infty}^{\infty}|x|^n\;\textrm{d}F(x)=n\int_0^{\infty}x^{n-1}[1-F(x)+F(-x)]\;\textrm{d}x\]
+\end{corollary}
+\begin{theorem}
+    There is a unique locally bounded solution of \[Z_t=1+\int_0^tZ_{s-}\;\textrm{d}A(s)\] and it is given by \[\mathscr{E}_t(A)=e^{A(t)-A(0)}\prod_{0\leq s\leq t}(1+\Delta A(s))e^{-\Delta A(s)}\] where $\Delta A(s)=A(s)-A(s-)$ for $s>0$, and $\Delta A(0)=0$.
+\end{theorem}
+\subsubsection{Conditional Probabilities and Conditional Expectations with Respect to a $\sigma$-Algebra}
+\begin{defn}(Conditional expectation).
+    \begin{enumerate}
+        \item The \textit{conditional expectation} of a nonnegative random variable $\xi$ with respect to the $\sigma$-algebra $\mathscr{G}$ is a nonnegative extended random variable, denoted by $\e(\xi\mid\mathscr{G})$ or $\e(\xi\mid\mathscr{G})(\omega)$, such that
+        \begin{itemize}
+            \item $\e(\xi\mid\mathscr{G})$ is $\mathscr{G}$-measurable.
+            \item For every $A\in\mathscr{G}$ \[\int_A\xi\;\textrm{d}\p=\int_A\e(\xi\mid\mathscr{G})\;\textrm{d}\p\]
+        \end{itemize}
+        \item The \textit{conditional expectation} $\e(\xi\mid\mathscr{G})$, or $\e(\xi\mid\mathscr{G})(\omega)$, of any random variable $\xi$ with respect to the $\sigma$-algebra $\mathscr{G}$ is considered to be defined if $\min(\e(\xi^+\mid\mathscr{G}),\e(\xi^-\mid\mathscr{G}))<\infty$ ($\p$-a.s.), and it is given by the formula $\e(\xi\mid\mathscr{G})\equiv\e(\xi^+\mid\mathscr{G})-\e(\xi^-\mid\mathscr{G})$, where, on the set (of probability zero) of sample points for which $\e(\xi^+\mid\mathscr{G})=\e(\xi^-\mid\mathscr{G})=\infty$, the difference $\e(\xi^+\mid\mathscr{G})-\e(\xi^-\mid\mathscr{G})$ is given an arbitrary value, for example zero.
+    \end{enumerate}
+\end{defn}
+\begin{defn}(Conditional probability).
+    Let $B\in\mathscr{F}$. The conditional expectation $\e(I_B\mid\mathscr{G})$ is denoted by $\p(B\mid\mathscr{G})$, or $\p(B\mid\mathscr{G})(\omega)$, and is called the \textit{conditional probability of the event $B$ with respect to the $\sigma$-algebra $\mathscr{G},\mathscr{G}\subseteq\mathscr{F}$}.
+\end{defn}
+\begin{defn}
+    Let $\xi$ be a random variable and $\mathscr{G}_{\eta}$ the $\sigma$-algebra generated by a random element $\eta$. Then $\e(\xi\mid\mathscr{G}_{\eta})$, if defined, is denoted by $\e(\xi\mid\eta)$ or $\e(\xi\mid\eta)(\omega)$, and is called the conditional expectation of $\xi$ with respect to $\eta$. The conditional probability $\p(B\mid\mathscr{G}_n)$ is denoted by $\p(B\mid\eta)$ or $\p(B\mid\eta)(\omega)$, and is called the condition probability of $B$ with respect to $\eta$.
+\end{defn}
+\begin{theorem}
+    If $\mathscr{G}=\sigma(\mathscr{D})$ and $\xi$ is a random variable for which $\e\xi$ is defined, then $\e(\xi\mid\mathscr{G})=\e(\xi\mid D_i)$ ($P$-a.s. on $D_i$) or equivalently \[\e(\xi\mid\mathscr{G})=\frac{\e(\xi I_{D_i})}{\p(D_i)}\] $\p$-a.s. on $D_i$.
+\end{theorem}
+\begin{theorem}(On Taking Limits Under the Conditional Expectation Sign).
+    Let $\{\xi_n\}_{n\geq1}$ be a sequence of extended random variables.
+    \begin{enumerate}
+        \item If $|\xi_n|\leq\eta$, $\e\eta<\infty$, and $\xi_n\rightarrow\xi$ (a.s.), then $\e(\xi_n\mid\mathscr{G})\rightarrow\e(\xi\mid\mathscr{G})$ (a.s.) and $\e(|\xi_n-\xi|\mid\mathscr{G})\rightarrow0$ (a.s.).
+        \item If $\xi_n\geq\eta$, $\e\eta>-\infty$, and $\xi_n\uparrow\xi$ (a.s.), then $\e(\xi_n\mid\mathscr{G})\uparrow\e(\xi\mid\mathscr{G})$ (a.s.).
+        \item If $\xi_n\leq\eta$, $\e\eta<\infty$, and $\xi_n\downarrow\xi$ (a.s.), then $\e(\xi_n\mid\mathscr{G})\downarrow\e(\xi\mid\mathscr{G})$ (a.s.).
+        \item If $\xi_n\geq\eta$, $\e\eta>-\infty$, then $\e(\liminf\xi_n\mid\mathscr{G})\leq\liminf\e(\xi_n\mid\mathscr{G})$ (a.s.).
+        \item If $\xi_n\leq\eta$, $\e\eta<\infty$, then $\limsup\e(\xi_n\mid\mathscr{G})\leq\e(\limsup\xi_n\mid\mathscr{G})$ (a.s.).
+        \item If $\xi_n\geq0$ then $\e(\sum\xi_n\mid\mathscr{G})=\sum\e(\xi_n\mid\mathscr{G})$ (a.s.).
+    \end{enumerate}
+\end{theorem}
+\begin{defn}
+    Let $\xi$ and $\eta$ be random variables (possibly, extended) and let $\e\xi$ be defined. The conditional expectation of the random variable $\xi$ under the condition that $\eta=y$ is any $\mathscr{B}(\overline{R})$-measurable function $m=m(y)$ for which \[\int_{\{\omega:\eta\in B\}}\xi\;\textrm{d}\p=\int_Bm(y)P_{\eta}(\textrm{d}y),B\in\mathscr{B}(\overline{R})\]
+\end{defn}
+\begin{defn}
+    The conditional probability of the event $A\in\mathscr{F}$ under the condition that $\eta=y$ (notation: $\p(A\mid\eta=y)$) is $\e(I_A\mid\eta=y)$.
+\end{defn}
+\begin{defn}(Regular conditional probability).
+    A function $P(\omega;B)$, defined for all $\omega\in\Omega$ and $B\in\mathscr{F}$, is a \textit{regular conditional probability} with respect to $\mathscr{G}\subseteq\mathscr{F}$ if
+    \begin{enumerate}
+        \item $P(\omega;\cdot)$ is a probability measure on $\mathscr{F}$ for every $\omega\in\Omega$.
+        \item For each $B\in\mathscr{F}$ the function $P(\omega;B)$, as a function of $\omega$, is a version of the conditional probability $\p(B\mid\mathscr{G})(\omega)$, i.e., $P(\omega;B)=\p(B\mid\mathscr{G})(\omega)$ (a.s.).
+    \end{enumerate}
+\end{defn}
+\begin{theorem}
+    Let $P(\omega;B)$ be a regular conditional probability with respect to $\mathscr{G}$ and let $\xi$ be an integrable random variable. Then \[\e(\xi\mid\mathscr{G})(\omega)=\int_{\Omega}\xi(\tilde{\omega})P(\omega;\textrm{d}\tilde{\omega})\] (a.s.).
+\end{theorem}
+\begin{corollary}
+    Let $\mathscr{G}=\mathscr{G}_{\eta}$, where $\eta$ is a random variable, and let the pair $(\xi,\eta)$ have a probability distribution with density $f_{\xi,\eta}(x,y)$. Let $\e|g(\xi)|<\infty$. Then \[\e(g(\xi)\mid\eta=y)=\int_{-\infty}^{\infty}g(x)f_{\xi\mid\eta}(x\mid y)\;\textrm{d}x\] where $f_{\xi\mid\eta}(x\mid y)$ is the density of the conditional distribution.
+\end{corollary}
+\begin{defn}(Regular conditional distribution).
+    Let $(E,\mathscr{E})$ be a measurable space, $X=X(\omega)$ a random element with values in $E$, and $\mathscr{G}$ a $\sigma$-subalgebra of $\mathscr{F}$. A function $Q(\omega;B)$, defined for $\omega\in\Omega$ and $B\in\mathscr{E}$, is a \textit{regular conditional distribution} of $X$ with respect to $\mathscr{G}$ if
+    \begin{enumerate}
+        \item For each $\omega\in\Omega$ the function $Q(\omega;B)$ is a probability measure on $(E,\mathscr{E})$.
+        \item For each $B\in\mathscr{E}$ the function $Q(\omega;B)$, as a function of $\omega$, is a version of the conditional probability $\p(X\in B\mid\mathscr{G})(\omega)$, i.e., $Q(\omega;B)=\p(X\in B\mid\mathscr{G})(\omega)$ (a.s.).
+    \end{enumerate}
+\end{defn}
+\begin{defn}
+    Let $\xi$ be a random variable. A function $F=F(\omega;x),\omega\in\Omega,x\in R$, is a regular distribution function for $\xi$ with respect to $\mathscr{G}$ if:
+    \begin{enumerate}
+        \item $F(\omega;x)$ is, for each $\omega\in\Omega$, a distribution function on $R$.
+        \item $F(\omega;x)=\p(\xi\leq x\mid\mathscr{G})(\omega)$ (a.s.), for each $x\in R$.
+    \end{enumerate}
+\end{defn}
+\begin{theorem}
+    A regular distribution function and a regular conditional distribution always exist for the random variable $\xi$ with respect to a $\sigma$-algebra $\mathscr{G}\subseteq\mathscr{F}$.
+\end{theorem}
+\begin{defn}(Borel space).
+    A measurable space $(E,\mathscr{E})$ is a \textit{Borel space} if it is Borel equivalent to a Borel subset of the real line, i.e., there is a one-to-one mapping $\varphi=\varphi(e):(E,\mathscr{E})\rightarrow(R,\mathscr{B}(R))$ such that
+    \begin{enumerate}
+        \item $\varphi(E)\equiv\{\varphi(e):e\in E\}$ is a set in $\mathscr{B}(R)$.
+        \item $\varphi$ is $\mathscr{E}$-measurable ($\varphi^{-1}(A)\in\mathscr{E},A\in\varphi(E)\cap\mathscr{B}(R)$).
+        \item $\varphi^{-1}$ is $\mathscr{B}(R)/\mathscr{E}$-measurable ($\varphi(B)\in\varphi(E)\cap\mathscr{B}(R),B\in\mathscr{E}$).
+    \end{enumerate}
+\end{defn}
+\begin{theorem}
+    Let $X=X(\omega)$ be a random element with values in the Borel space $(E,\mathscr{E})$. Then there is a regular conditional distribution of $X$ with respect to $\mathscr{G}\subseteq\mathscr{F}$.
+\end{theorem}
+\begin{corollary}
+    Let $X=X(\omega)$ be a random element with values in a complete separable metric space $(E,\mathscr{E})$. Then there is a regular conditional distribution of $X$ with respect to $\mathscr{G}$. In particular, such a distribution exists for the spaces $(R^n,\mathscr{B}(R^n))$ and $(R^{\infty},\mathscr{B}(R^{\infty}))$.
+\end{corollary}
+\begin{lemma}
+    Let $(\Omega,\mathscr{F})$ be a measurable space.
+    \begin{enumerate}
+        \item Let $\mu$ and $\lambda$ be $\sigma$-finite measures, $\mu\ll\lambda$, and $f=f(\omega)$ an $\mathscr{F}$-measurable function. Then \[\int_{\Omega}f\;\textrm{d}\mu=\int_{\Omega}f\frac{\textrm{d}\mu}{\textrm{d}\lambda}\;\textrm{d}\lambda\]
+        \item If $\nu$ is a signed measure and $\mu,\lambda$ are $\sigma$-finite measures, $\nu\ll\mu,\mu\ll\lambda$, then \[\frac{\textrm{d}\nu}{\textrm{d}\lambda}=\frac{\textrm{d}\nu}{\textrm{d}\mu}\cdot\frac{\textrm{d}\mu}{\textrm{d}\lambda}\] $\lambda$-a.s. and \[\frac{\textrm{d}\nu}{\textrm{d}\mu}=\frac{\textrm{d}\nu}{\textrm{d}\lambda}/\frac{\textrm{d}\mu}{\textrm{d}\lambda}\] $\mu$-a.s.
+    \end{enumerate}
+\end{lemma}
+\begin{theorem}
+    Let $\p$ and $\tilde{\p}$ be two probability measures on a measurable space $(\Omega,\mathscr{F})$ with $\tilde{\p}$ being absolutely continuous with respect to $\p$ (denoted $\tilde{\p}\ll\p$) and let $\frac{\textrm{d}\tilde{\p}}{\textrm{d}\p}$ be the Radon-Nikodym derivative of $\tilde{\p}$ with respect to $\p$. Let $\mathscr{G}$ be a $\sigma$-subalgebra of $\mathscr{F}$ ($\mathscr{G}\subseteq\mathscr{F}$) and $\e(\cdot\mid\mathscr{G})$ and $\tilde{\e}(\cdot\mid\mathscr{G})$ be conditional expectations with respect to $\p$ and $\tilde{\p}$ given $\mathscr{G}$. Let $\xi$ be a nonnegative ($\mathscr{F}$-measurable) random variable. Then the following 'recalculation formula of conditional expectations' holds: \[\tilde{\e}(\xi\mid\mathscr{G})=\frac{\e\left(\xi\frac{\textrm{d}\tilde{\p}}{\textrm{d}\p}\mid\mathscr{G}\right)}{\e\left(\frac{\textrm{d}\tilde{\p}}{\textrm{d}\p}\mid\mathscr{G}\right)}\] $\tilde{\p}$-a.s. This formula is valid also for any random variable $\xi$ whose conditional expectation $\tilde{\e}(\xi\mid\mathscr{G})$ is well defined.
+\end{theorem}
+\begin{defn}(Sufficient).
+    Let $(\Omega,\mathscr{F},\mathscr{P})$ be a probabilistic-statistical model, $\mathscr{P}=\{\p_{\theta}:\theta\in\Theta\}$, and $\mathscr{G}$ be a $\sigma$-subalgebra of $\mathscr{F}$ ($\mathscr{G}\subseteq\mathscr{F}$). Then $\mathscr{G}$ is said to be \textit{sufficient} for the family $\mathscr{P}$ if there exist versions of conditional probabilities $\p_{\theta}(\cdot\mid\mathscr{G})(\omega),\theta\in\Theta,\omega\in\Omega$, independent of $\eta$, i.e., there is a function $P(A;\omega),A\in\mathscr{F},\omega\in\Omega$, such that $\p_{\theta}(A\mid\mathscr{G})(\omega)=P(A;\omega)$, $P_{\theta}$-a.s. for all $A\in\mathscr{F}$ and $\theta\in\Theta$; in other words, $P(A;\omega)$ is a version of $\p_{\theta}(A\mid\mathscr{G})(\omega)$ for all $\theta\in\Theta$. If $\mathscr{G}=\sigma(T(\omega))$, then the statistic $T=T(\omega)$ is called \textit{sufficient} for the family $\mathscr{P}$.
+\end{defn}
+\begin{theorem}
+    Let $\mathscr{P}=\{\p_{\theta}:\theta\in\Theta\}$ be a dominated family, i.e., there exists a $\sigma$-finite measure $\lambda$ on $(\Omega,\mathscr{F})$ such that the measures $\p_{\theta}$ are absolutely continuous with respect to $\lambda$ ($\p_{\theta}\ll\lambda$) for all $\theta\in\Theta$. Let $g_{\theta}^{(\lambda)}(\omega)=\frac{\textrm{d}\p_{\theta}}{\textrm{d}\lambda}(\omega)$ be a Radon-Nikodym derivative of $\p_{\theta}$ with respect to $\lambda$. The $\sigma$-subalgebra $\mathscr{G}$ is sufficient for the family $\mathscr{P}$ if and only if the functions $g_{\theta}^{(\lambda)}(\omega)$ admit the following factorization: there are nonnegative functions $\hat{g}_{\theta}^{(\lambda)}(\omega)$ and $h(\omega)$ such that $\hat{g}_{\theta}^{(\lambda)}(\omega)$ are $\mathscr{G}$-measurable, $h(\omega)$ is $\mathscr{F}$-measurable and $g_{\theta}^{(\lambda)}(\omega)=\hat{g}_{\theta}^{(\lambda)}(\omega)h(\omega)$, $\lambda$-a.s. for all $\theta\in\Theta$. If we can take the measure $\p_{\theta_0}$ for $\lambda$, where $\theta_0$ is a parameter in $\Theta$, then $\mathscr{G}$ is sufficient if and only if the derivative $g_{\theta}^{(\theta_0)}(\omega)=\frac{\textrm{d}\p_{\theta}}{\textrm{d}\p_{\theta_0}}$ itself is $\mathscr{G}$-measurable.
+\end{theorem}
+\begin{theorem}(Rao-Blackwell).
+    Let $\mathscr{G}$ be a sufficient $\sigma$-algebra for the family $\mathscr{P}$ and $\hat{\theta}=\hat{\theta}(\omega)$ an estimator.
+    \begin{enumerate}
+        \item If $\hat{\theta}$ is an unbiased estimator, then the estimator $T=\e_{\theta}(\hat{\theta}\mid\mathscr{G})$ is also unbiased.
+        \item The estimator $T$ is 'better' than $\hat{\theta}$ in the sense that $\e_{\theta}(T-\theta)^2\leq\e_{\theta}(\hat{\theta}-\theta)^2,\theta\in\Theta$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Random Variables: II}
+\begin{lemma}
+    A necessary and sufficient condition that an $n\times n$ matrix $\mathbb{R}$ is the covariance matrix of a vector $\xi=(\xi_1,\ldots,\xi_n)$ is that the matrix $\mathbb{R}$ is symmetric and positive semi-definite, or equivalently, that there is an $n\times k$ matrix $A$ ($1\leq k\leq n$) such that $\mathbb{R}=AA^*$, where $*$ denotes the transpose.
+\end{lemma}
+\begin{theorem}
+    Let $\e\eta^2<\infty$. Then there is an optimal estimator $\varphi^*=\varphi^*(\xi)$ and $\varphi^*(x)$ can be taken to be the function $\varphi^*(x)=\e(\eta\mid\xi=x)$.
+\end{theorem}
+\begin{theorem}(Theorem on the Normal Correlation).
+    Let $(\xi,\eta)$ be a Gaussian vector with $\Var\xi>0$. Then the optimal estimator of $\eta$ in terms of $\xi$ is \[\e(\eta\mid\xi)=\e\eta+\frac{\Cov(\xi,\eta)}{\Var\xi}(\xi-\e\xi)\] and its error is \[\Delta\equiv\e[\eta-\e(\eta\mid\xi)]^2=\Var\eta-\frac{\Cov^2(\xi,\eta)}{\Var\xi}\]
+\end{theorem}
+\begin{corollary}
+    Let $\varepsilon_1$ and $\varepsilon_2$ be independent Gaussian random variables with mean zero and unit variance, and $\xi=a_1\varepsilon_1+a_2\varepsilon_2,\eta=b_1\varepsilon_1+b_2\varepsilon_2$. Then $\e\xi=\e\eta=0,\Var\xi=a_1^2+a_2^2,\Var\eta=b_1^2+b_2^2,\Cov(\xi,\eta)=a_1b_1+a_2b_2$, and if $a_1^2+a_2^2>0$, then \[\e(\eta\mid\xi)=\frac{a_1b_1+a_2b_2}{a_1^2+a_2^2}\xi,\Delta=\frac{(a_1b_2-a_2b_1)^2}{a_1^2+a_2^2}\]
+\end{corollary}
+\subsubsection{Construction of a Process with Given Finite-Dimensional Distributions}
+\begin{theorem}(Kolmogorov's Theorem on the Existence of a Process).
+    Let $\{F_{t_1,\ldots,t_n}(x_1,\ldots,x_n)\}$, with $t_i\in T\subseteq R,t_1<t_2<\cdots<t_n,n\geq1$, be a given family of finite-dimensional distribution functions, satisfying the consistency condition $F_{t_1,\ldots,t_k,\ldots,t_n}(x_1,\ldots,\infty,\ldots,x_n)=F_{t_1,\ldots,t_{k-1},t_{k+1},\ldots,t_n}(x_1,\ldots,x_{k-1},x_{k+1},\ldots,x_n)$. Then there are a probability space $(\Omega,\mathscr{F},\p)$ and a random process $X=(\xi_t)_{t\in T}$ such that $\p\{\omega:\xi_{t_1}\leq x_1,\ldots,\xi_{t_n}\leq x_n\}=F_{t_1,\ldots,t_n}(x_1,\ldots,x_n)$.
+\end{theorem}
+\begin{corollary}
+    Let $F_1(x),F_2(x),\ldots$ be a sequence of one-dimensional distribution functions. Then there exist a probability space $(\Omega,\mathscr{F},\p)$ and a sequence of independent random variables $\xi_1,\xi_2,\ldots$ such that $\p\{\omega:\xi_i(\omega)\leq x\}=F_i(x)$. In particular, there is a probability space $(\Omega,\mathscr{F},\p)$ on which an infinite sequence of Bernoulli random variables is defined. Notice that $\Omega$ can be taken to be the space $\Omega=\{\omega:\omega=(a_1,a_2,\ldots),a_i=0\;\textrm{or}\;1\}$.
+\end{corollary}
+\begin{corollary}
+    Let $T=[0,\infty)$ and let $\{P(s,x;t,B)\}$ be a family of nonnegative functions defined for $s,t\in T,t>s,x\in R,B\in\mathscr{B}(R)$, and satisfying the following conditions:
+    \begin{enumerate}
+        \item $P(s,x;t,B)$ is a probability measure in $B$ for given $s$, $x$ and $t$.
+        \item For given $s$, $t$ and $B$, the function $P(s,x;t,B)$ is a Borel function of $x$.
+        \item For all $0\leq s<t<\tau$ and $B\in\mathscr{B}(R)$, the Kolmogorov-Chapman equation \[P(s,x;\tau,B)=\int_RP(s,x;t,\textrm{d}y)P(t,y;\tau,B)\] is satisfied.
+    \end{enumerate}
+    Also let $\pi=\pi(\cdot)$ be a probability measure on $(R,\mathscr{B}(R))$. Then there are a probability space $(\Omega,\mathscr{F},\p)$ and a random process $X=(\xi_t)_{t\geq0}$ defined on it, such that \[\p\{\xi_{t_0}\leq x_0,\xi_{t_1}\leq x_1,\ldots,\xi_{t_n}\leq x_n\}=\int_{-\infty}^{x_0}\pi(\textrm{d}y_0)\int_{-\infty}^{x_1}P(0,y_0;t_1,\textrm{d}y_1)\cdots\int_{-\infty}^{x_n}P(t_{n-1},y_{n-1};t_n,\textrm{d}y_n)\] for $0=t_0<t_1<\cdots<t_n$. The process $X$ so constructed is a Markov process with initial distribution $\pi$ and transition probabilities $\{P(s,x;t,B)\}$.
+\end{corollary}
+\begin{corollary}
+    Let $T\in\mathbb{N}_0$ and let $\{P_k(x;B)\}$ be a family of nonnegative functions defined for $k\geq1,x\in R,B\in\mathscr{B}(R)$, and such that $P_k(x;B)$ is a probability measure in $B$ (for given $k$ and $x$) and measurable in $x$ (for given $k$ and $B$). In addition, let $\pi=\pi(B)$ be a probability measure on $(R,\mathscr{B}(R))$. Then there is a probability space $(\Omega,\mathscr{F},\p)$ with a family of random variables $X=\{\xi_0,\xi_1,\ldots\}$ defined on it, such that \[\p\{\xi_0\leq x_0,\xi_1\leq x_1,\ldots,\xi_n\leq x_n\}=\int_{-\infty}^{x_0}\pi(\textrm{d}y_0)\int_{-\infty}^{x_1}P_1(y_0;\textrm{d}y_1)\cdots\int_{-\infty}^{x_n}P_n(y_{n-1};\textrm{d}y_n)\]
+\end{corollary}
+\begin{theorem}(Ionescu Tulcea's Theorem on Extending a Measure and the Existence of a Random Sequence).
+    Let $(\Omega_n,\mathscr{F}_n),n\in\mathbb{N}$, be arbitrary measurable spaces and $\Omega=\prod\Omega_n,\mathscr{F}=\bigotimesprod\mathscr{F}_n$. Suppose that a probability measure $P_1$ is given on $(\Omega_1,\mathscr{F}_1)$ and that, for every set $(\omega_1,\ldots,\omega_n)\in\Omega_1\times\cdots\times\Omega_n,n\geq1$, probability measures $P(\omega_1,\ldots,\omega_n;\cdot)$ are given on $(\Omega_{n+1},\mathscr{F}_{n+1})$. Suppose that for every $B\in\mathscr{F}_{n+1}$ the functions $P(\omega_1,\ldots,\omega_n;B)$ are $\mathscr{F}^n\equiv\mathscr{F}_1\otimes\cdots\otimes\mathscr{F}_n$-measurable functions of $(\omega_1,\ldots,\omega_n)$ and let, for $A_i\in\mathscr{F}_i,n\geq1$, \[P_n(A_1\times\cdots\times A_n)=\int_{A_1}P_1(\textrm{d}\omega_1)\int_{A_2}P(\omega_1;\textrm{d}\omega_2)\cdots\int_{A_n}P(\omega_1,\ldots,\omega_{n-1};\textrm{d}\omega_n)\] Then there is a unique probability measure $\p$ on $(\Omega,\mathscr{F})$ such that $\p\{\omega:\omega_1\in A_1,\ldots,\omega_n\in A_n\}=P_n(A_1\times\cdots\times A_n)$ for every $n\geq1$, and there is a random sequence $X=(X_1(\omega),X_2(\omega),\ldots)$ such that $\p\{\omega:X_1(\omega)\in A_1,\ldots,X_n(\omega)\in A_n\}=P_n(A_1\times\cdots\times A_n)$, where $A_i\in\mathscr{E}_i$.
+\end{theorem}
+\begin{corollary}
+    Let $(E_n,\mathscr{E}_n)_{n\geq1}$ be any measurable spaces and $(P_n)_{n\geq1}$ measures on them. Then there are a probability space $(\Omega,\mathscr{F},\p)$ and a family of independent random elements $X_1,X_2,\ldots$ with values in $(E_1,\mathscr{E}_1),(E_2,\mathscr{E}_2),\ldots$, respectively, such that $\p\{\omega:X_n(\omega)\in B\}=P_n(B),B\in\mathscr{E}_n,n\geq1$.
+\end{corollary}
+\begin{corollary}
+    Let $E\in\mathbb{N}$, and let $\{p_k(x,y)\}$ be a family of nonnegative functions, $k\geq1,x,y\in E$, such that $\sum_{y\in E}p_k(x;y)=1,x\in E,k\geq1$. Also let $\pi=\pi(x)$ be a probability distribution on $E$ (that is, $\pi(x)\geq0,\sum_{x\in E}\pi(x)=1$). Then there are a probability space $(\Omega,\mathscr{F},\p)$ and a family $X=\{\xi_0,\xi_1,\ldots\}$ of random variables on it such that $\p\{\xi_0=x_0,\xi_1=x_1,\ldots,\xi_n=x_n\}=\pi(x_0)p_1(x_0,x_1)\cdots p_n(x_{n-1},x_n)$ for all $x_i\in E$ and $n\geq1$. We may take $\Omega$ to be the space $\Omega=\{\omega:\omega=(x_0,x_1,\ldots),x_i\in E\}$.
+\end{corollary}
+\subsubsection{Various Kinds of Convergence of Sequences of Random Variables}
+\begin{defn}(Converges in probability).
+    The sequence $\xi_1,\xi_2,\ldots$ of random variables (denoted by $(\xi_n)$ or $(\xi_n)_{n\geq1}$) converges \textit{in probability} to the random variable $\xi$ (notation: $\xi_n\overset{\p}{\rightarrow}\xi$) if for every $\varepsilon>0$, $\p\{|\xi_n-\xi|>\varepsilon\}\rightarrow0,n\rightarrow\infty$.
+\end{defn}
+\begin{defn}(Converges with probability one).
+    The sequence $\xi_1,\xi_2,\ldots$ of random variables converges \textit{with probability one (almost surely, almost everywhere)} to the random variable $\xi$ if $\p\{\omega:\xi_n\rightarrow\xi\}=0$, i.e., if the set of sample points $\omega$ for which $\xi_n(\omega)$ does not converge to $\xi$ has probability zero.
+\end{defn}
+\begin{defn}(Converges in the mean of order $p$).
+    The sequence $\xi_1,\xi_2,\ldots$ of random variables converges \textit{in the mean of order $p$}, $0<p<\infty$, to the random variable $\xi$ if $\e|\xi_n-\xi|^p\rightarrow0,n\rightarrow\infty$.
+\end{defn}
+\begin{defn}(Converges in distribution).
+    The sequence $\xi_1,\xi_2,\ldots$ of random variable \textit{converges in distribution} to the random variable $\xi$ (notation: $\xi_n\overset{d}{\rightarrow}\xi$ or $\xi_n\overset{\textrm{law}}{\rightarrow}\xi$) if $\e f(\xi_n)\rightarrow\e f(\xi),n\rightarrow\infty$, for every bounded continuous function $f=f(x)$.
+\end{defn}
+\begin{theorem}
+    \begin{enumerate}
+        \item A necessary and sufficient condition that $\xi_n\rightarrow\xi$ ($\p$-a.s.) is that \[\p\left\{\sup_{k\geq n}|\xi_k-\xi|\geq\varepsilon\right\}\rightarrow0,n\rightarrow\infty\] for every $\varepsilon\rightarrow0$.
+        \item The sequence $\{\xi_n\}_{n\geq1}$ is fundamental with probability 1 if and only if \[\p\left\{\sup_{k\geq n,l\geq n}|\xi_k-\xi_l|\geq\varepsilon\right\}\rightarrow0,n\rightarrow\infty\] for every $\varepsilon>0$; or equivalently \[\p\left\{\sup_{k\geq0}|\xi_{n+k}-\xi_n|\geq\varepsilon\right\}\rightarrow0,n\rightarrow\infty\]
+    \end{enumerate}
+\end{theorem}
+\begin{corollary}
+    Since \[\p\left\{\sup_{k\geq n}|\xi_k-\xi|\geq\varepsilon\right\}=\p\left\{\bigcup_{k\geq n}(|\xi_k-\xi|\geq\varepsilon)\right\}\leq\sum_{k\geq n}\p\{|\xi_k-\xi|\geq\varepsilon\}\] a sufficient condition for $\xi_n\overset{\textrm{a.s.}}{\rightarrow}\xi$ is that \[\sum_{k=1}^{\infty}\p\{|\xi_k-\xi|\geq\varepsilon\}<\infty\] is satisfied for every $\varepsilon>0$.
+\end{corollary}
+\begin{lemma}(Borel-Cantelli Lemma).
+    \begin{enumerate}
+        \item If $\sum\p(A_n)<\infty$ then $\p\{A_n\textrm{i.o.}\}=0$.
+        \item If $\sum\p(A_n)=\infty$ and $A_1,A_2,\ldots$ are independent, then $\p\{A_n\textrm{i.o.}\}=1$.
+    \end{enumerate}
+\end{lemma}
+\begin{corollary}
+    If $A_n^{\varepsilon}=\{\omega:|\xi_n-\xi|\geq\varepsilon\}$ then \[\sum_{k=1}^{\infty}\p\{|\xi_k-\xi|\geq\varepsilon\}<\infty\] means that $\sum_{n=1}^{\infty}\p(A_n^\varepsilon)<\infty,\varepsilon>0$, and then by the Borel-Cantelli Lemma we have $\p(A^\varepsilon)=0,\varepsilon>0$, where $A^\varepsilon=\limsup A_n^\varepsilon$. Therefore \[\sum_{k=1}^{\infty}\p\{|\xi_k-\xi|\geq\varepsilon\}<\infty,\varepsilon>0\Rightarrow\p(A^\varepsilon)=0,\varepsilon>0\Leftrightarrow\p\{\omega:\xi_n\not\rightarrow\xi\}=0\]
+\end{corollary}
+\begin{corollary}
+    Let $(\varepsilon_n)_{n\geq1}$ be a sequence of positive numbers such that $\varepsilon_n\downarrow0,n\rightarrow\infty$. Then if $\xi_n$ converges to $\xi$ in probability sufficiently 'fast' in the sense that \[\sum_{n=1}^{\infty}\p\{|\xi_n-\xi|\geq\varepsilon_n\}<\infty\] then $\xi_n\overset{\textrm{a.s.}}{\rightarrow}\xi$.
+\end{corollary}
+\begin{theorem}
+    We have the following implications:
+    \[\xi_n\overset{\textrm{a.s.}}{\rightarrow}\xi\Rightarrow\xi_n\overset{\p}{\rightarrow}\xi,\xi_n\overset{L^p}{\rightarrow}\xi\Rightarrow\xi_n\overset{\p}{\rightarrow}\xi,p>0,\xi_n\overset{\p}{\rightarrow}\xi\Rightarrow\xi_n\overset{d}{\rightarrow}\xi\]
+\end{theorem}
+\begin{theorem}
+    Let $(\xi_n)$ be a sequence of nonnegative random variable such that $\xi_n\overset{\textrm{a.s.}}{\rightarrow}\xi$ and $\e\xi_n\rightarrow\e\xi<\infty$. Then $\e|\xi_n-\xi|\rightarrow0,n\rightarrow\infty$.
+\end{theorem}
+\begin{theorem}(Cauchy Criterion for Almost Sure Convergence).
+    A necessary and sufficient condition for the sequence $(\xi_n)_{n\geq1}$ of random variables to converge with probability 1 (to a random variable $\xi$) is that it is fundamental with probability 1.
+\end{theorem}
+\begin{theorem}
+    If the sequence $(\xi_n)$ is fundamental (or convergent) in probability, it contains a subsequence $(\xi_{n_k})$ that is fundamental (or convergent) with probability 1.
+\end{theorem}
+\begin{theorem}(Cauchy Criterion for Convergence in Probability).
+    A necessary and sufficient condition for a sequence $(\xi_n)_{n\geq1}$ of random variables to converge in probability is that it is fundamental in probability.
+\end{theorem}
+\begin{theorem}(Cauchy Test for Convergence in the $p$th Mean).
+    A necessary and sufficient condition that a sequence $(\xi_n)_{n\geq1}$ of random variables in $L^p$ converges in the mean of order $p$ to a random variables in $L^p$ is that the sequence is fundamental in the mean of order $p$.
+\end{theorem}
+\subsubsection{The Hilbert Space of Random Variables with Finite Second Moment}
+\begin{theorem}
+    Let $\eta_1,\eta_2,\ldots$ be an orthonormal system of random variables, and $\overline{\mathscr{L}}=\overline{\mathscr{L}}\{\eta_1,\eta_2,\ldots\}$ the closed linear manifold spanned by the system. Then there is a unique element $\hat{\xi}\in\overline{\mathscr{L}}$ such that $\norm{\xi-\hat{\xi}}=\inf\{\norm{\xi-\zeta}:\zeta\in\overline{\mathscr{L}}\}$. Moreover, \[\hat{\xi}=\lim_n\sum_{i=1}^n(\xi,\eta_i)\eta_i\] and $\xi-\hat{\xi}\perp\zeta,\zeta\in\overline{\mathscr{L}}$.
+\end{theorem}
+\subsubsection{Characteristic Functions}
+\begin{defn}(Characteristic function).
+    Let $F=F(x)$ be an $n$-dimensional distribution function in $(R^n,\mathscr{B}(R^n)),x=(x_1,\ldots,x_n)^*$. Its \textit{characteristic function} is \[\varphi(t)=\int_{R^n}e^{i(t,x)}\;\textrm{d}F(x),t\in R^n\]
+\end{defn}
+\begin{defn}
+    If $\xi=(\xi_1,\ldots,\xi_n)^*$ is a random vector defined on the probability space $(\Omega,\mathscr{F},\p)$ with values in $R^n$, its \textit{characteristic function} is \[\varphi_{\xi}(t)=\int_{R^n}e^{i(t,x)}\;\textrm{d}F_{\xi}(x),t\in R^n\] where $F_{\xi}=F_{\xi}(x)$ is the distribution function of the vector $\xi=(\xi_1,\ldots,\xi_n)^*,x=(x_1,\ldots,x_n)^*$.
+\end{defn}
+\begin{theorem}
+    Let $\xi$ be a random variable with distribution function $F=F(x)$ and $\varphi(t)=\e e^{it\xi}$ its characteristic function. Then $\varphi$ has the following properties:
+    \begin{enumerate}
+        \item $|\varphi(t)|\leq\varphi(0)=1$.
+        \item $\varphi(t)$ is uniformly continuous for $t\in R$.
+        \item $\varphi(t)=\overline{\varphi(-t)}$.
+        \item $\varphi(t)$ is real-valued if and only if $F$ is symmetric ($\int_B\textrm{d}F(x)=\int_{-B}\textrm{d}F(x)$), $B\in\mathscr{B}(R),-B=\{-x:x\in B\}$.
+        \item If $\e|\xi|^n<\infty$ for some $n\geq1$, then $\varphi^{(r)}(t)$ exists for every $r\leq n$, and \[\varphi^{(r)}(t)=\int_R(ix)^re^{itx}\;\textrm{d}F(x)\] \[\e\xi^r=\frac{\varphi^{(r)}(0)}{i^r}\] \[\varphi(t)=\sum_{r=0}^n\frac{(it)^r}{r!}\e\xi^r+\frac{(it)^n}{n!}\varepsilon_n(t)\] where $|\varepsilon_n(t)|\leq3\e|\xi|^n$ and $\varepsilon_n(t)\rightarrow0,t\rightarrow0$.
+        \item If $\varphi^{(2n)}(0)$ exists and is finite then $\e\xi^{2n}<\infty$.
+        \item If $\e|\xi|^n<\infty$ for all $n\geq1$ and \[\limsup_n\frac{(\e|\xi|^n)^{1/n}}{n}=\frac{1}{T}<\infty\] then \[\varphi(t)=\sum_{n=0}^{\infty}\frac{(it)^n}{n!}\e\xi^n\] for all $|t|<T$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}(Uniqueness).
+    Let $F$ and $G$ be distribution functions with the same characteristic function, i.e. \[\int_{-\infty}^{\infty}e^{itx}\;\textrm{d}F(x)=\int_{-\infty}^{\infty}e^{itx}\;\textrm{d}G(x)\] for all $t\in R$. Then $F(x)\equiv G(x)$.
+\end{theorem}
+\begin{theorem}(Inversion Formula).
+    Let $F=F(x)$ be a distribution function and \[\varphi(t)=\int_{-\infty}^{\infty}e^{itx}\;\textrm{d}F(x)\] its characteristic function.
+    \begin{enumerate}
+        \item For any pair of points $a$ and $b$ ($a<b$) at which $F=F(x)$ is continuous, \[F(b)-F(a)=\lim_{c\rightarrow\infty}\frac{1}{2\pi}\int_{-c}^c\frac{e^{-ita}-e^{-itb}}{it}\varphi(t)\;\textrm{d}t\]
+        \item If $\int_{-\infty}^{\infty}|\varphi(t)|\;\textrm{d}t<\infty$, the distribution function $F(x)$ has a density $f(x)$, \[F(x)=\int_{-\infty}^xf(y)\;\textrm{d}y\] and \[f(x)=\frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-itx}\varphi(t)\;\textrm{d}t\]
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    A necessary and sufficient condition for the components of the random vector $\xi=(\xi_1,\ldots,\xi_n)^*$ to be independent is that its characteristic function is the product of the characteristic functions of the components: \[\e e^{i(t_1\xi_1+\cdots+t_n\xi_n)}=\prod_{k=1}^n\e e^{it_k\xi_k},(t_1,\ldots,t_n)^*\in R^n\]
+\end{theorem}
+\begin{theorem}(Bochner-Khinchin).
+    Let $\varphi(t)$ be continuous, $t\in R$, with $\varphi(0)=1$. A necessary and sufficient condition that $\varphi(t)$ is a characteristic function is that it is positive semi-definite, i.e., that for all real $t_1,\ldots,t_n$ and all complex $\lambda_1,\ldots,\lambda_n,n\in\mathbb{N}$, \[\sum_{i,j=1}^n\varphi(t_i-t_j)\lambda_i\overline{\lambda}_j\geq0\]
+\end{theorem}
+\begin{theorem}(Pólya).
+    Let a continuous even function $\varphi(t)$ satisfy $\varphi(t)\geq0,\varphi(0)=1,\varphi(t)\rightarrow0$ as $t\rightarrow\infty$ and let $\varphi(t)$ be convex on $(-\infty,0)$. Then $\varphi(t)$ is a characteristic function.
+\end{theorem}
+\begin{theorem}(Marcinkiewicz).
+    If a characteristic function has the form $\exp{\mathscr{P}(t)}$, where $\mathscr{P}(t)$ is a polynomial, then this polynomial is of degree at most two.
+\end{theorem}
+\begin{theorem}
+    Let $\varphi_{\xi}(t)$ be the characteristic function of the random variable $\xi$.
+    \begin{enumerate}
+        \item If $|\varphi_{\xi}(t_0)|=1$ for some $t_0\neq0$, then $\xi$ is a lattice random variable concentrated at the points $a+nh,h=2\pi/|t_0|$, that is, \[\sum_{n=-\infty}^{\infty}\p\{\xi=a+nh\}=1\] where $a$ is a constant.
+        \item If $|\varphi_{\xi}(t)|=|\varphi_{\xi}(\alpha t)|=1$ for two different points $t$ and $\alpha t$, where $\alpha$ is irrational, then $\xi$ is degenerate, that is $\p\{\xi=a\}=1$, where $a$ is some number.
+        \item If $|\varphi_{\xi}(t)|\equiv1$, then $\xi$ is degenerate.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    Let $\xi=(\xi_1,\ldots,\xi_k)^*$ be a random vector with $\e|\xi_i|^n<\infty,i=1,\ldots,k,n\geq1$. Then for $\nu=(\nu_1,\ldots,\nu_k)$ such that $|\nu|\leq n$ \[m_{\xi}^{(\nu)}=\sum_{\lambda^{(1)}+\cdots+\lambda^{(q)}=\nu}\frac{1}{q!}\frac{\nu!}{\lambda^{(1)}!\cdots\lambda^{(q)}!}\prod_{p=1}^qs_{\xi}^{(\lambda^{(p)})}\] \[s_{\xi}^{(\nu)}=\sum_{\lambda^{(1)}+\cdots+\lambda^{(q)}=\nu}\frac{(-1)^{q-1}}{q}\frac{\nu!}{\lambda^{(1)}!\cdots\lambda^{(q)}!}\prod_{p=1}^qm_{\xi}^{(\lambda^{(p)})}\] where $\sum_{\lambda^{(1)}+\cdots+\lambda^{(q)}=\nu}$ indicates summation over all ordered sets of nonnegative integral vectors $\lambda^{(p)}$, $|\lambda^{(p)}|>0$, whose sum is $\nu$.
+\end{theorem}
+\begin{corollary}
+    The following formulas connect moments and semi-invariants: \[m_{\xi}^{(\nu)}=\sum_{\{r_1\lambda^{(1)}+\cdots+r_x\lambda^{(x)}=\nu\}}\frac{1}{r_1!\cdots r_x!}\frac{\nu!}{(\lambda^{(1)}!)^{r_1}\cdots(\lambda^{(x)}!)^{r_x}}\prod_{j=1}^x\left[s_{\xi}^{(\lambda^{(j)})}\right]^{r_j}\] \[s_{\xi}^{(\nu)}=\sum_{\{r_1\lambda^{(1)}+\cdots+r_x\lambda^{(x)}=\nu\}}\frac{(-1)^{q-1}(q-1)!}{r_1!\cdots r_x!}\frac{\nu!}{(\lambda^{(1)}!)^{r_1}\cdots(\lambda^{(x)}!)^{r_x}}\prod_{j=1}^x\left[m_{\xi}^{(\lambda^{(j)})}\right]^{r_j}\] where $\sum_{\{r_1\lambda^{(1)}+\cdots+r_x\lambda^{(x)}=\nu\}}$ denotes summation over all unordered sets of different nonnegative integral vectors $\lambda^{(j)}$, $|\lambda^{(j)}|>0$, and over all ordered sets of positive integral numbers $r_j$ such that $r_1\lambda^{(1)}+\cdots+r_x\lambda^{(x)}=\nu$.
+\end{corollary}
+\begin{corollary}
+    Let us consider the special case when $\nu=(1,\ldots,1)$. In this case the moments $m_{\xi}^{(\nu)}\equiv\e\xi_1\cdots\xi_k$, and the corresponding semi-invariants are called simple.
+\end{corollary}
+\begin{theorem}
+    Let $F=F(x)$ be a distribution function and $\mu_n=\int_{-\infty}^{\infty}|x|^n\;\textrm{d}F(x)$. If \[\limsup_{n\rightarrow\infty}\frac{\mu_n^{1/n}}{n}<\infty\] the moments $\{m_n\}_{n\geq1}$, where $m_n=\int_{-\infty}^{\infty}x^n\;\textrm{d}F(x)$, determine the distribution function $F=F(x)$ uniquely.
+\end{theorem}
+\begin{corollary}
+    The moments uniquely determine the probability distribution if it is concentrated on a finite interval.
+\end{corollary}
+\begin{corollary}
+    A sufficient condition for the moment problem to have a unique solution is that \[\limsup_{n\rightarrow\infty}\frac{(m_{2n})^{1/2n}}{2n}<\infty\]
+\end{corollary}
+\begin{theorem}(Carleman's Test for the Uniqueness of the Moments).
+    \begin{enumerate}
+        \item Let $\{m_n\}_{n\geq1}$ be the moments of a probability distribution, and let \[\sum_{n=0}^{\infty}\frac{1}{(m_{2n})^{1/2n}}=\infty\] Then they determine the probability distribution uniquely.
+        \item If $\{m_n\}_{n\geq1}$ are the moments of a distribution that is concentrated on $[0,\infty)$, then the solution will be unique if we require only that \[\sum_{n=0}^{\infty}\frac{1}{(m_n)^{1/2n}}=\infty\]
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}(Esseen's Inequality).
+    Let $G(x)$ have derivative $G'(x)$ with $\sup|G'(x)|\leq C$. Then for every $T>0$ \[\sup_x|F(x)-G(x)|\leq\frac{2}{\pi}\int_0^T\left|\frac{f(t)-g(t)}{t}\right|\;\textrm{d}t+\frac{24}{\pi T}\sup_x|G'(x)|\]
+\end{theorem}
+\subsubsection{Gaussian Systems}
+\begin{defn}(Gaussian/normally distributed).
+    A random vector $\xi=(\xi_1,\ldots,\xi_n)^*$ is \textit{Gaussian}, or \textit{normally distributed}, if its characteristic function has the form $\varphi_{\xi}(t)=e^{i(t,m)-(1/2)(\mathbb{R}t,t)}$, where $m=(m_1,\ldots,m_n)^*,|m_k|<\infty$, and $\mathbb{R}=\norm{r_{kl}}$ is a symmetric positive semi-definite $n\times n$ matrix; we use the abbreviation $\xi\sim\mathscr{N}(m,\mathbb{R})$.
+\end{defn}
+\begin{theorem}
+    \begin{enumerate}
+        \item The components of a Gaussian vector are uncorrelated if and only if they are independent.
+        \item A vector $\xi=(\xi_1,\ldots,\xi_n)^*$ is Gaussian if and only if, for every vector $\lambda=(\lambda_1,\ldots,\lambda_n)^*\in R^n$ the random variable $(\xi,\lambda)=\lambda_1\xi_1+\cdots+\lambda_n\xi_n$ has a Gaussian distribution.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}(Theorem on Normal Correlation).
+    For a Gaussian vector $(\theta^*,\xi^*)^*$, the optimal estimator $\e(\theta\mid\xi)$ of $\theta$ in terms of $\xi$, and its error matrix $\Delta=\e[\theta-\e(\theta\mid\xi)][\theta-\e(\theta\mid\xi)]^*$ are given by the formulas $\e(\theta\mid\xi)=m_{\theta}+\mathbb{R}_{\theta\xi}\mathbb{R}_{\xi\xi}^{-1}(\xi-m_{\xi}),\Delta=\mathbb{R}_{\theta\theta}-\mathbb{R}_{\theta\xi}\mathbb{R}_{\xi\xi}^{-1}(\mathbb{R}_{\theta\xi})^*$.
+\end{theorem}
+\begin{corollary}
+    Let $(\theta,\xi_1,\ldots,\xi_n)^*$ be an $(n+1)$-dimensional Gaussian vector, with $\xi_1,\ldots,\xi_n$ independent. Then \[\e(\theta\mid\xi_1,\ldots,\xi_n)=\e\theta+\sum_{i=1}^n\frac{\Cov(\theta,\xi_i)}{\Var\xi_i}(\xi_i-\e\xi_i)\] \[\Delta=\Var\theta-\sum_{i=1}^n\frac{\Cov^2(\theta,\xi_i)}{\Var\xi_i}\]
+\end{corollary}
+\begin{defn}(Gaussian system).
+    A collection of random variables $\xi=(\xi_{\alpha})$, where $\alpha$ belongs to some index set $\mathfrak{U}$, is a \textit{Gaussian system} if the random vector $(\xi_{\alpha_1},\ldots,\xi_{\alpha_n})^*$ is Gaussian for every $n\geq1$ and all indices $\alpha_1,\ldots,\alpha_n$ chosen from $\mathfrak{U}$.
+\end{defn}
+\begin{theorem}
+    Let $B=(B_t)_{t\geq0}$ be the standard Brownian motion. Then, with probability one, \[\lim_{n\rightarrow\infty}\sum_{k=1}^{2^nT}[B_{k2^{-n}}-B_{(k-1)2^{-n}}]^2=T\] for any $T>0$.
+\end{theorem}
+\subsection{Convergence of Probability Measures, Central Limit Theorem}
+\subsubsection{Weak Convergence of Probability Measures and Distributions}
+\begin{defn}(Converges in general).
+    A sequence of distribution functions $\{F_n\}$, defined on the real line, converges \textit{in general} to the distribution function $F$ (notation: $F_n\Rightarrow F$) if, as $n\rightarrow\infty$, $F_n(x)\rightarrow F(x),x\in\mathbb{C}(F)$, where $\mathbb{C}(F)$ is the set of points of continuity of $F=F(x)$.
+\end{defn}
+\begin{defn}(Converges weakly).
+    A sequence of probability measures $\{\p_n\}$ \textit{converges weakly} to the probability measure $\p$ (notation: $\p_n\overset{w}{\rightarrow}\p$ if \[\int_Ef(x)\p_n(\textrm{d}x)\rightarrow\int_Ef(x)\p(\textrm{d}x)\] for every function $f=f(x)$ in the class $C(E)$ of continuous bounded functions on $E$.
+\end{defn}
+\begin{defn}
+    A sequence of probability measures $\{\p_n\}$ \textit{converges in general} to the probability measure $\p$ (notation: $\p_n\Rightarrow\p$) if $\p_n(A)\rightarrow\p(A)$ for every set $A$ of $\mathscr{E}$ for which $\p(\partial A)=0$.
+\end{defn}
+\begin{theorem}
+    The following statements are equivalent.
+    \begin{enumerate}
+        \item $\p_n\overset{w}{\rightarrow}\p$.
+        \item $\limsup\p_n(A)\leq\p(A)$, $A$ closed.
+        \item $\liminf\p_n(A)\geq\p(A)$, $A$ open.
+        \item $\p_n\Rightarrow\p$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    The following conditions are equivalent:
+    \begin{enumerate}
+        \item $P_n\overset{w}{\rightarrow}P$.
+        \item $P_n\Rightarrow P$.
+        \item $F_n\overset{w}{\rightarrow}F$.
+        \item $F_n\Rightarrow F$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Relative Compactness and Tightness of Families of Probability Distributions}
+\begin{defn}(Relatively compact).
+    A family of probability measures $\mathscr{P}=\{\p_{\alpha}:\alpha\in\mathfrak{U}\}$ is \textit{relatively compact} if every sequence of measures from $\mathscr{P}$ contains a subsequence which converges weakly to a probability measure.
+\end{defn}
+\begin{defn}(Tight).
+    A family of probability measures $\mathscr{P}=\{\p_{\alpha}:\alpha\in\mathfrak{U}\}$ is \textrm{tight} if, for every $\varepsilon>0$, there is a compact set $K\subseteq E$ such that \[\sup_{\alpha\in\mathfrak{U}}\p_{\alpha}(E\backslash K)\leq\varepsilon\]
+\end{defn}
+\begin{defn}
+    A family of distribution functions $F=\{F_{\alpha}:\alpha\in\mathfrak{U}\}$ defined on $R^n,n\geq1$, is \textit{relatively compact} (or \textit{tight}) if the same property is possessed by the family $\mathscr{P}=\{\p_{\alpha}:\alpha\in\mathfrak{U}\}$ of probability measures, where $\p_{\alpha}$ is the measure constructed from $F_{\alpha}$.
+\end{defn}
+\begin{theorem}(Prokhorov).
+    Let $\mathscr{P}=\{\p_{\alpha}:\alpha\in\mathfrak{U}\}$ be a family of probability measures defined on a complete separable metric space $(E,\mathscr{E},\rho)$. Then $\mathscr{P}$ is relatively compact if and only if it is tight.
+\end{theorem}
+\begin{theorem}(Helly).
+    The class $\mathscr{I}=\{G\}$ of generalized distribution functions is sequentially compact, i.e., for every sequence $\{G_n\}$ of functions from $\mathscr{I}$ we can find a function $G\in\mathscr{I}$ and a subsequence $\{n_k\}\subseteq\{n\}$ such that $G_{n_k}(x)\rightarrow G(x),k\rightarrow\infty$, for every point $x$ of the set $\mathbb{C}(G)$ of points of continuity of $G=G(x)$.
+\end{theorem}
+\subsubsection{Proof of Limit Theorems by the Method of Characteristic Functions}
+\begin{theorem}(Continuity Theorem).
+    Let $\{F_n\}$ be a sequence of distribution functions $F_n=F_n(x),x\in R$, and let $\{\varphi_n\}$ be the corresponding sequence of characteristic functions, \[\varphi_n(t)=\int_{-\infty}^{\infty}e^{itx}\;\textrm{d}F_n(x),t\in R\]
+    \begin{enumerate}
+        \item If $F_n\overset{w}{\rightarrow}F$, where $F=F(x)$ is a distribution function, then $\varphi_n(t)\rightarrow\varphi(t),t\in R$, where $\varphi(t)$ is the characteristic function of $F=F(x)$.
+        \item If $\lim_n\varphi_n(t)$ exists for each $t\in R$ and $\varphi(t)=\lim_n\varphi_n(t)$ is continuous at $t=0$, then $\varphi(t)$ is the characteristic function of a probability distribution $F=F(x)$, and $F_n\overset{w}{\rightarrow}F$.
+    \end{enumerate}
+\end{theorem}
+\begin{lemma}
+    Let $\{\p_n\}$ be a tight family of probability measures. Suppose that every weakly convergent subsequence $\{\p_{n'}\}$ of $\{\p_n\}$ converges to the same probability measure $\p$. Then the whole sequence $\{\p_n\}$ converges to $\p$.
+\end{lemma}
+\begin{lemma}
+    Let $\{\p_n\}$ be a tight family of probability measures on $(R,\mathscr{B}(R))$. A necessary and sufficient condition for the sequence $\{\p_n\}$ to converge weakly to a probability measure is that for each $t\in R$ the limit $\lim_n\varphi_n(t)$ exists, where $\varphi_n(t)$ is the characteristic function of $\p_n$: \[\varphi_n(t)=\int_Re^{itx}\p_n(\textrm{d}x)\]
+\end{lemma}
+\begin{lemma}
+    Let $F=F(x)$ be a distribution function on the real line and let $\varphi=\varphi(t)$ be its characteristic function. Then there is a constant $K>0$ such that for every $a>0$ \[\int_{|x|\geq1/a}\textrm{d}F(x)\leq\frac{K}{a}\int_0^a[1-\Re{\varphi(t)}]\;\textrm{d}t\]
+\end{lemma}
+\begin{corollary}
+    Let $\{F_n\}$ be a sequence of distribution functions and $\{\varphi_n\}$ the corresponding sequence of characteristic functions. Also let $F$ be a distribution function and $\varphi$ its characteristic function. Then $F_n\overset{w}{\rightarrow}F$ if and only if $\varphi_n(t)\rightarrow\varphi(t)$ for all $t\in R$.
+\end{corollary}
+\begin{theorem}(Khinchin's Law of Large Numbers).
+    Let $\xi_1,\xi_2,\ldots$ be a sequence of independent identically distributed random variables with $\e|\xi_1|<\infty$, $S_n=\xi_1+\cdots+\xi_n$ and $\e\xi_1=m$. Then $S_n/n\overset{\p}{\rightarrow}m$, that is, for every $\varepsilon>0$ \[\p\left\{\left|\frac{S_n}{n}-m\right|\geq\varepsilon\right\}\rightarrow0,n\rightarrow\infty\]
+\end{theorem}
+\begin{theorem}(Central Limit Theorem for Independent Identically Distributed Random Variables).
+    Let $\xi_1,\xi_2,\ldots$ be a sequence of independent identically distributed (nondegenerate) random variables with $\e\xi_1^2<\infty$ and $S_n=\xi_1+\cdots+\xi_n$. Then as $n\rightarrow\infty$ \[\p\left\{\frac{S_n-\e S_n}{\sqrt{\Var{S_n}}}\leq x\right\}\rightarrow\Phi(x),x\in R\] where \[\Phi(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^xe^{-u^2/2}\;\textrm{d}u\]
+\end{theorem}
+\begin{theorem}(Poisson).
+    For each $n\geq1$ let the independent random variables $\xi_{n1},\ldots,\xi_{nn}$ be such that $\p(\xi_{nk}=1)=p_{nk},\p(\xi_{nk}=0)=q_{nk}$ with $p_{nk}+q_{nk}=1$. Suppose that \[\max_{1\leq k\leq n}p_{nk}\rightarrow0,\sum_{k=1}^np_{nk}\rightarrow\lambda>0,n\rightarrow\infty\] Then, for each $m\in\mathbb{N}_0$ \[\p(S_n=m)\rightarrow\frac{e^{-\lambda}\lambda^m}{m!},n\rightarrow\infty\]
+\end{theorem}
+\subsubsection{Central Limit Theorem for Sums of Independent Random Variables: I - Lindeberg's Condition}
+\begin{theorem}
+    Let $\xi_1,\xi_2,\ldots$ be a sequence of independent random variables with finite second moments. Let $m_k=\e\xi_k,\sigma_k^2=\Var\xi_k>0,S_n=\xi_1+\cdots+\xi_n,D_n^2=\sum_{k=1}^n\sigma_k^2$ and let $F_k=F_k(x)$ be the distribution function of $\xi_k$. Suppose that the following 'Lindeberg's condition' holds: for any $\varepsilon>0$ \[\frac{1}{D_n^2}\sum_{k=1}^n\int_{\{x:|x-m_k|\geq\varepsilon D_n\}}(x-m_k)^2\;\textrm{d}F_k(x)\rightarrow0,n\rightarrow\infty\] Then \[\frac{S_n-\e S_n}{\sqrt{\Var{S_n}}}\overset{d}{\rightarrow}\mathscr{N}(0,1)\]
+\end{theorem}
+\begin{theorem}
+    Let for each $n\geq1$, $\xi_{n1},\xi_{n2},\ldots,\xi_{nn}$ be independent random variables such that $\e\xi_{nk}=0$ and $\Var{S_n}=1$, where $S_n=\xi_{n1}+\cdots+\xi_{nn}$. Then Lindeberg's condition \[\sum_{k=1}^n\e[\xi_{nk}^2I(|\xi_{nk}|\geq\varepsilon)]\rightarrow0,n\rightarrow\infty\] is sufficient for convergence $S_n\overset{d}{\rightarrow}\mathscr{N}(0,1)$.
+\end{theorem}
+\begin{theorem}
+    Let for each $n\geq1$, $\xi_{n1},\xi_{n2},\ldots,\xi_{nn}$ be independent random variables such that $\e\xi_{nk}=0$ and $\Var{S_n}=1$, where $S_n=\xi_{n1}+\cdots+\xi_{nn}$. Suppose that \[\max_{1\leq k\leq n}\e\xi_{kn}^2\rightarrow0,n\rightarrow\infty\] is fulfilled. Then Lindeberg's condition is necessary and sufficient for the Central Limit Theorem, $S_n\overset{d}{\rightarrow}\mathscr{N}(0,1)$.
+\end{theorem}
+\begin{lemma}
+    Let $\xi$ be a random variable with distribution function $F=F(x),\e\xi=0,\Var\xi=\gamma>0$. Then for any $a>0$ \[\int_{|x|\geq1/a}x^2\;\textrm{d}F(x)\leq\frac{1}{a^2}[\Re f(\sqrt{6}a)-1+3\gamma a^2]\] where $f(t)=\e e^{it\xi}$ is the characteristic function of $\xi$.
+\end{lemma}
+\subsubsection{Central Limit Theorem for Sums of Independent Random Variables: II - Nonclassical Conditions}
+\begin{theorem}
+    To have $S_n\overset{d}{\rightarrow}\mathscr{N}(0,1)$, it is sufficient (and necessary) that for every $\varepsilon>0$ the condition \[\sum_{k=1}^n\int_{|x|>\varepsilon}|x||F_{nk}-\Phi_{nk}(x)|\;\textrm{d}x\rightarrow0,n\rightarrow\infty\] is satisfied.
+\end{theorem}
+\begin{theorem}
+    \begin{enumerate}
+        \item The Lindeberg condition stated in Theorem 3.202 implies the condition stated in Theorem 3.205.
+        \item If $\max_{1\leq k\leq n}\e\xi_{nk}^2\rightarrow0$ as $n\rightarrow\infty$, the condition stated in Theorem 3.205 implies the Lindeberg condition stated in Theorem 3.202.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Infinitely Divisible and Stable Distributions}
+\begin{defn}(Infinitely divisible).
+    A random variable $T$, its distribution $F_T$, and its characteristic function $\varphi_T$ are said to be \textit{infinitely divisible} if, for each $n\geq1$, there are independent identically distributed random variables $\eta_1,\ldots,\eta_n$ such that $T\overset{d}{=}\eta_1+\cdots+\eta_n$ (or, equivalently, $F_T=F_{\eta_1}*\cdots*F_{\eta_n}$, or $\varphi_T=(\varphi_{\eta_1})^n$).
+\end{defn}
+\begin{theorem}
+    A random variable $T$ can be a limit in distribution of sums $T_n=\sum_{k=1}^n\xi_{n,k}$ if and only if $T$ is infinitely divisible.
+\end{theorem}
+\begin{theorem}(Kolmogorov-Lévy-Khinchin Representation).
+    A random variable $T$ is infinitely divisible if and only if its characteristic function has the form $\varphi(t)=\exp\psi(t)$ with \[\psi(t)=it\beta-\frac{t^2\sigma^2}{2}+\int_{-\infty}^{\infty}\left(e^{itx}-1-\frac{itx}{1+x^2}\right)\frac{1+x^2}{x^2}\;\textrm{d}\lambda(x)\] where $\beta\in R$, $\sigma^2\geq0$ and $\lambda$ is a measure on $(R,\mathscr{B}(R))$ with $\lambda\{0\}=0$.
+\end{theorem}
+\begin{defn}(Stable).
+    A random variable $T$, its distribution function $F(x)$, and its characteristic function $\varphi(t)$ are \textit{stable} if, for every $n\geq1$, there are constants $a_n>0$, $b_n$ and independent random variables $\xi_1,\ldots,\xi_n$ distributed like $T$, such that $a_nT+b_n\overset{d}{=}\xi_1+\cdots+\xi_n$ or, equivalently, $F((x-b_n)/a_n)=F*\cdots*F(x)$, or $[\varphi(t)]^n=[\varphi(a_nt)]e^{ib_nt}$.
+\end{defn}
+\begin{theorem}
+    A necessary and sufficient condition for the random variable $T$ to be a limit in distribution of random variables $(S_n-b_n)/a_n$, $a_n>0$, is that $T$ is stable.
+\end{theorem}
+\begin{lemma}
+    Let $\xi_n\overset{d}{\rightarrow}\xi$ and let there be constants $a_n>0$ and $b_n$ such that $a_n\xi_n+b_n\overset{d}{\rightarrow}\tilde{\xi}$, where the random variables $\xi$ and $\tilde{\xi}$ are not degenerate. Then there are constants $a>0$ and $b$ such that $\lim a_n=a$, $\lim b_n=b$ and $\tilde{\xi}\overset{d}{=}a\xi+b$.
+\end{lemma}
+\begin{theorem}(Lévy-Khinchin Representation).
+    A random variable $T$ is stable if and only if its characteristic function $\varphi(t)$ has the form $\varphi(t)=\exp\psi(t)$, \[\psi(t)=it\beta-d|t|^{\alpha}\left(1+i\theta\frac{t}{|t|}G(t,\alpha)\right)\] where $0<\alpha<2,\beta\in R,d\geq0,|\theta|\leq1,t/|t|=0$ for $t=0$, and \[G(t,\alpha)=\begin{cases}\tan{\frac{1}{2}\pi\alpha}&\textrm{if}\;\alpha\neq1\\(2/\pi)\log|t|&\textrm{if}\;\alpha=1\end{cases}\]
+\end{theorem}
+\subsubsection{Metrizability of Weak Convergence}
+\begin{defn}(Lévy-Prokhorov Metric).
+    Let $\rho(x,A)=\inf\{\rho(x,y):y\in A\}$ and $A^{\varepsilon}=\{x\in E:\rho(x,A)<\varepsilon\},A\in\mathscr{E}$. For any two measures $P$ and $\tilde{P}\in\mathscr{P}(E)$, we set $\sigma(P,\tilde{P})=\inf\{\varepsilon>0:P(F)\leq\tilde{P}(F^{\varepsilon})+\varepsilon\;\textrm{for all closed sets}\;F\in\mathscr{E}\}$ and $L(P,\tilde{P})=\max[\sigma(P,\tilde{P}),\sigma(\tilde{P},P)]$.
+\end{defn}
+\begin{lemma}
+    The function $L(P,\tilde{P})$ has the following properties:
+    \begin{enumerate}
+        \item $L(P,\tilde{P})=L(\tilde{P},P)$.
+        \item $L(P,\tilde{P})\leq L(P,\hat{P})+L(\hat{P},\tilde{P})$.
+        \item $L(P,\tilde{P})=0$ if and only if $\tilde{P}=P$.
+    \end{enumerate}
+\end{lemma}
+\begin{theorem}
+    The Lévy-Prokhorov metric $L(P,\tilde{P})$ metrizes weak convergence: $L(P_n,P)\rightarrow0\Leftrightarrow P_n\overset{w}{\rightarrow}P$.
+\end{theorem}
+\begin{defn}($\norm{P-\tilde{P}}_{BL}^*$).
+    We denote by $BL$ the set of bounded continuous functions $f=f(x),x\in E$ (with $\norm{f}_{\infty}=\sup_x|f(x)|<\infty$) that also satisfy the Lipschitz condition \[\norm{f}_L=\sup_{x\neq y}\frac{|f(x)-f(y)|}{\rho(x,y)}<\infty\] We set $\norm{f}_{BL}=\norm{f}_{\infty}+\norm{f}_L$. The space $BL$ with the norm $\norm{\cdot}_{BL}$ is a Banach space. We define the metric $\norm{P-\tilde{P}}_{BL}^*$ by setting \[\norm{P-\tilde{P}}_{BL}^*=\sup_{f\in BL}\left\{\left|\int f\;\textrm{d}(P-\tilde{P})\right|:\norm{f}_{BL}\leq1\right\}\]
+\end{defn}
+\begin{theorem}
+    The metric $\norm{P-\tilde{P}}_{BL}^*$ metrizes weak convergence: $\norm{P_n-P}_{BL}^*\rightarrow0\Leftrightarrow P_n\overset{w}{\rightarrow}P$.
+\end{theorem}
+\begin{lemma}
+    Weak convergence $P_n\overset{w}{\rightarrow}P$ occurs if and only if \[\int_Ef(x)P_n(\textrm{d}x)\rightarrow\int_Ef(x)P(\textrm{d}x)\] is satisfied for every function $f=f(x)$ of class $BL$.
+\end{lemma}
+\subsubsection{On the Connection of Weak Convergence of Measures with Almost Sure Convergence of Random Elements}
+\begin{defn}(Converge in distribution/law).
+    A sequence of random elements $X_n,n\geq1$, is said to \textit{converge in distribution}, or \textit{in law} (notation: $X_n\overset{\mathscr{D}}{\rightarrow}X$, or $X_n\overset{\mathscr{L}}{\rightarrow}X$), if $P_n\overset{w}{\rightarrow}P$.
+\end{defn}
+\begin{defn}(Converge in probability).
+    A sequence of random elements $X_n,n\geq1$, is said to converge \textit{in probability} to $X$ if $\p\{\omega:\rho(X_n(\omega),X(\omega))\geq\varepsilon\}\rightarrow0,n\rightarrow\infty$.
+\end{defn}
+\begin{defn}(Converge with probability one).
+    A sequence of random elements $X_n,n\geq1$, is said to converge to $X$ \textit{with probability one (almost surely, almost everywhere)} if $\rho(X_n(\omega),X(\omega))\overset{\textrm{a.s.}}{\rightarrow}0$ as $n\rightarrow\infty$.
+\end{defn}
+\begin{defn}(Equivalent in distribution).
+    Random elements $X=X(\omega')$ and $Y=Y(\omega'')$, defined on probability spaces $(\Omega',\mathscr{F}',\p')$ and $(\Omega'',\mathscr{F}'',\p'')$ and with values in the same space $E$, are said to be \textit{equivalent in distribution} (notation: $X\overset{\mathscr{D}}{=}Y$), if they have the same probability distribution.
+\end{defn}
+\begin{theorem}
+    Let $(E,\mathscr{E},\rho)$ be a separable metric space.
+    \begin{enumerate}
+        \item Let random elements $X,X_n,n\geq1$, defined on a probability space $(\Omega,\mathscr{F},\p)$, and with values in $E$, have the property that $X_n\overset{\mathscr{D}}{\rightarrow}X$. Then we can find a probability space $(\Omega^*,\mathscr{F}^*,\p^*)$ and random elements $X^*,X_n^*,n\geq1$, defined on it, with values in $E$, such that $X_n^*\overset{\textrm{a.s.}}{\rightarrow}X^*$ and $X^*\overset{\mathscr{D}}{=}X,X_n^*\overset{\mathscr{D}}{=}X_n,n\geq1$.
+        \item Let $P,P_n,n\geq1$, be probability measures on $(E,\mathscr{E},\rho)$ such that $P_n\overset{w}{\rightarrow}P$. Then there is a probability space $(\Omega^*,\mathscr{F}^*,\p^*)$ and random elements $X^*,X_n^*,n\geq1$, defined on it, with values in $E$, such that $X_n^*\overset{\textrm{a.s.}}{\rightarrow}X^*$ and $P^*=P,P_n^*=P_n,n\geq1$, where $P^*$ and $P_n^*$ are the probability distributions of $X^*$ and $X_n^*$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    \begin{enumerate}
+        \item Let $(E,\mathscr{E},\rho)$ and $(E',\mathscr{E}',\rho')$ be separable metric spaces, and let $X_n\overset{\mathscr{D}}{\rightarrow}X$. Let the mapping $h=h(x),x\in E$, have the property that $\p\{\omega:X(\omega)\in\Delta_h\}=0$. Then $h(X_n)\overset{\mathscr{D}}{\rightarrow}h(X)$.
+        \item Let $P,P_n,n\geq1$, be probability distributions on the separable metric space $(E,\mathscr{E},\rho)$ and $h=h(x)$ a measurable mapping of $(E,\mathscr{E},\rho)$ on a separable metric space $(E',\mathscr{E}',\rho')$. Let $P\{x:x\in\Delta_h\}=0$. Then $P_n^h\overset{w}{\rightarrow}P^h$, where $P_n^h(A)=P_n\{h(x)\in A\},P^h(A)=P\{h(x)\in A\},A\in\mathscr{E}'$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    Let $P$ and $P_n,n\geq1$, be probability measures on $(E,\mathscr{E},\rho)$ for which $P_n\overset{w}{\rightarrow}P$. Then \[\sup_{g\in\mathscr{G}}\left|\int_Eg(x)P_n(\textrm{d}x)-\int_Eg(x)P(\textrm{d}x)\right|\rightarrow0,n\rightarrow\infty\]
+\end{theorem}
+\begin{theorem}
+    For each pair $P,\tilde{P}$ of measures we can find a probability space $(\Omega^*,\mathscr{F}^*,\p^*)$ and random elements $X$ and $\tilde{X}$ on it with values in $E$ such that their distributions coincide respectively with $P$ and $\tilde{P}$ and $L(P,\tilde{P})\leq d_{\p^*}(X,\tilde{X})=\inf\{\varepsilon>0:\p^*(\rho(X,\tilde{X})\geq\varepsilon)\leq\varepsilon\}$.
+\end{theorem}
+\begin{corollary}
+    Let $X$ and $\tilde{X}$ be random elements defined on a probability space $(\Omega,\mathscr{F},\p)$ with values in $E$. Let $P_X$ and $P_{\tilde{X}}$ be their probability distributions. Then $L(P_X,P_{\tilde{X}})\leq d_{\p}(X,\tilde{X})$.
+\end{corollary}
+\subsubsection{The Distance in Variation Between Probability Measures: Kakutani-Hellinger Distance and Hellinger Integrals - Application to Absolute Continuity and Singularity of Measures}
+\begin{defn}(Distance in variation).
+    The \textit{distance in variation} between measures $P$ and $\tilde{P}$ in $\mathscr{P}$ (notation: $\norm{P-\tilde{P}}$) is the total variation of $P-\tilde{P}$, i.e., \[\norm{P-\tilde{P}}=\Var(P-\tilde{P})\equiv\sup\left|\int_{\Omega}\varphi(\omega)\;\textrm{d}(P-\tilde{P})\right|\] where the supremum is over the class of all $\mathscr{F}$-measurable functions that satisfy the condition that $|\varphi(\omega)|\leq1$.
+\end{defn}
+\begin{lemma}
+    The distance in variation is given by \[\norm{P-\tilde{P}}=2\sup_{A\in\mathscr{F}}|P(A)-\tilde{P}(A)|\]
+\end{lemma}
+\begin{defn}(Convergent in variation).
+    A sequence of probability measures $P_n,n\geq1$, is said to be \textit{convergent in variation} to the measure $P$ (denoted $P_n\overset{\Var}{\rightarrow}P$ if $\norm{P_n-P}\rightarrow0,n\rightarrow\infty$.
+\end{defn}
+\begin{lemma}
+    Let $Q$ be a $\sigma$-finite measure such that $P\ll Q,\tilde{P}\ll Q$ and let $z=\textrm{d}P/\textrm{d}Q,\tilde{z}=\textrm{d}\tilde{P}/\textrm{d}Q$ be the Radon-Nikodym derivatives of $P$ and $\tilde{P}$ with respect to $Q$. Then $\norm{P-\tilde{P}}=E_Q|z-\tilde{z}|$ and if $Q=(P+\tilde{P})/2$, we have $\norm{P-\tilde{P}}=E_Q|z-\tilde{z}|=2E_Q|1-z|=2E_Q|1-\tilde{z}|$.
+\end{lemma}
+\begin{corollary}
+    Let $P$ and $\tilde{P}$ be two probability distributions on $(R,\mathscr{B}(R))$ with probability densities (with respect to Lebesgue measure $\textrm{d}x$) $p(x)$ and $\tilde{p}(x),x\in R$. Then \[\norm{P-\tilde{P}}=\int_{-\infty}^{\infty}|p(x)-\tilde{p}(x)|\;\textrm{d}x\]
+\end{corollary}
+\begin{corollary}
+    Let $P$ and $\tilde{P}$ be two discrete measures, $P=(p_1,p_2,\ldots),\tilde{P}=(\tilde{p}_1,\tilde{p}_2,\ldots)$, concentrated on a countable set of points $x_1,x_2,\ldots$. Then \[\norm{P-\tilde{P}}=\sum_{i=1}^{\infty}|p_i-\tilde{p}_i|\]
+\end{corollary}
+\begin{defn}(Kakutani-Hellinger distance).
+    The \textit{Kakutani-Hellinger distance} between the measures $P$ and $\tilde{P}$ is the nonnegative number $\rho(P,\tilde{P})$ such that $\rho^2(P,\tilde{P})=\frac{1}{2}E_Q[\sqrt{z}-\sqrt{\tilde{z}}]^2$.
+\end{defn}
+\begin{lemma}
+    \begin{enumerate}
+        \item The Hellinger integral of order $\alpha\in(0,1)$ (and consequently also $\rho(P,\tilde{P})$) is independent of the choice of the dominating measure $Q$.
+        \item The function $\rho$ defined in Definition 3.235 is a metric on the set of probability measures.
+    \end{enumerate}
+\end{lemma}
+\begin{theorem}
+    We have the following inequalities: $2[1-H(P,\tilde{P})]\leq\norm{P-\tilde{P}}\leq\sqrt{8[1-H(P,\tilde{P})]},\norm{P-\tilde{P}}\leq2\sqrt{1-H^2(P,\tilde{P})}$. In particular, $2\rho^2(P,\tilde{P})\leq\norm{P-\tilde{P}}\leq\sqrt{8}\rho(P,\tilde{P})$.
+\end{theorem}
+\begin{corollary}
+    Let $P$ and $P^n,n\geq1$, be probability measures on $(\Omega,\mathscr{F})$. Then (as $n\rightarrow\infty$), $\norm{P^n-P}\rightarrow0\Leftrightarrow H(P^n,P)\rightarrow1\Leftrightarrow\rho(P^n,P)\rightarrow0,\norm{P^n-P}\rightarrow2\Leftrightarrow H(P^n,P)\rightarrow0\Leftrightarrow\rho(P^n,P)\rightarrow1$.
+\end{corollary}
+\begin{corollary}
+    Since by $\mathscr{E}r(P,\tilde{P})=1-\frac{1}{2}E_Q|z-\tilde{z}|=1-\frac{1}{2}\norm{P-\tilde{P}}$, we have, by Theorem 3.237, $\frac{1}{2}H^2(P,\tilde{P})\leq1-\sqrt{1-H^2(P,\tilde{P})}\leq\mathscr{E}r(P,\tilde{P})\leq H(P,\tilde{P})$.
+\end{corollary}
+\begin{theorem}
+    The following conditions are equivalent:
+    \begin{enumerate}
+        \item $\tilde{P}\ll P$.
+        \item $\tilde{P}(z>0)=1$.
+        \item $H(\alpha;P,\tilde{P})\rightarrow1,\alpha\downarrow0$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    The following conditions are equivalent:
+    \begin{enumerate}
+        \item $\tilde{P}\perp P$.
+        \item $\tilde{P}(z>0)=0$.
+        \item $H(\alpha;P,\tilde{P})\rightarrow0,\alpha\downarrow0$.
+        \item $H(\alpha;P,\tilde{P})=0$ for all $\alpha\in(0,1)$.
+        \item $H(\alpha;P,\tilde{P})=0$ for some $\alpha\in(0,1)$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Contiguity and Entire Asymptotic Separation of Probability Measures}
+\begin{defn}(Contiguous).
+    We say that a sequence $(\tilde{P}^n)$ of measures is \textit{contiguous} to the sequence $(P^n)$ (notation: $(\tilde{P}^n)\triangleleft(P^n)$) if, for all $A^n\in\mathscr{F}^n$ such that $P^n(A^n)\rightarrow0$ as $n\rightarrow\infty$, we have $\tilde{P}^n(A^n)\rightarrow0,n\rightarrow\infty$.
+\end{defn}
+\begin{defn}(Entirely (asymptotically) separated).
+    We say that sequences $(\tilde{P}^n)$ and $(P^n)$ of measures are \textit{entirely (asymptotically) separated} (or for short: $(\tilde{P}^n)\vartriangle(P^n)$), if there is a subsequence $n_k\uparrow\infty$, $k\rightarrow\infty$ and sets $A^{n_k}\in\mathscr{F}^{n_k}$ such that $P^{n_k}(A^{n_k})\rightarrow1$ and $\tilde{P}^{n_k}(A^{n_k})\rightarrow0,k\rightarrow\infty$.
+\end{defn}
+\begin{defn}(Tight).
+    A sequence $(\xi^n)$ of random variables is \textit{tight} with respect to a sequence of measures $(Q^n)$ (notation: $(\xi^n\mid Q^n)$ is \textit{tight}) if \[\lim_{N\uparrow\infty}\limsup_nQ^n(|\xi^n|>N)=0\]
+\end{defn}
+\begin{theorem}
+    The following statements are equivalent:
+    \begin{enumerate}
+        \item $(\tilde{P}^n)\triangleleft(P^n)$.
+        \item $(1/z^n\mid\tilde{P}^n)$ is tight.
+        \item $(Z^n\mid\tilde{P}^n)$ is tight.
+        \item $\lim_{\alpha\downarrow0}\liminf_nH(\alpha;P^n,\tilde{P}^n)=1$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    The following statements are equivalent:
+    \begin{enumerate}
+        \item $(\tilde{P}^n)\vartriangle(P^n)$.
+        \item $\liminf_n\tilde{P}^n(z^n\geq\varepsilon)=0$ for every $\varepsilon>0$.
+        \item $\limsup_n\tilde{P}^n(Z^n\leq N)=0$ for every $N>0$.
+        \item $\lim_{\alpha\downarrow0}\liminf_nH(\alpha;P^n,\tilde{P}^n)=0$.
+        \item $\liminf_nH(\alpha;P^n,\tilde{P}^n)=0$ for all $\alpha\in(0,1)$.
+        \item $\liminf_nH(\alpha;P^n,\tilde{P}^n)=0$ for some $\alpha\in(0,1)$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Rate of Convergence in the Central Limit Theorem}
+\begin{theorem}(Berry-Esseen).
+    We have the bound \[\sup_x|F_n(x)-\Phi(x)|\leq\frac{C\e|\xi_1|^3}{\sigma^3\sqrt{n}}\] where $C$ is an absolute constant.
+\end{theorem}
+\subsubsection{Rate of Convergence in Poisson's Theorem}
+\begin{theorem}
+    Let $\lambda=\sum_{k=1}^np_k$. Then \[\norm{B-\Pi}=\sum_{k=0}^{\infty}|B_k-\pi_k|\leq2\sum_{k=1}^np_k^2\]
+\end{theorem}
+\begin{corollary}
+    Since $\sum_{k=1}^np_k^2\leq\lambda\max_{1\leq k\leq n}p_k$, we obtain \[\norm{B-\Pi}\leq C_3(\lambda)\max_{1\leq k\leq n}p_k\]
+\end{corollary}
+\subsubsection{Fundamental Theorems of Mathematical Statistics}
+\begin{theorem}
+    Assume that $F(x)$ is continuous. With $D_N^+=\sup_x(F_N(x)-F(x))$, we have $\p(\sqrt{N}D_N^+\leq y)\rightarrow1-e^{-2y^2},y\geq0$ and $\p(\sqrt{N}D_N\leq y)\rightarrow K(y)$, where \[K(y)=\sum_{k=-\infty}^{\infty}(-1)^ke^{-2k^2y^2},y\geq0\]
+\end{theorem}
+\begin{lemma}
+    Let $\mathbb{F}$ be the class of continuous distribution functions $F=F(x)$. For any $N\geq1$ the probability distribution of $D_N(\omega)$ is the same for all $F\in\mathbb{F}$. The same is true also for $D_N^+(\omega)$.
+\end{lemma}
+\begin{theorem}
+    Suppose $X_i$'s have a (common) finite covariance matrix $\mathbb{R}$. Denote by $P_N$ the distribution of $S_N=(S_{N1},\ldots,S_{Nk})$, where \[S_{Nj}=\frac{1}{\sqrt{N}}\sum_{i=1}^N(X_{ij}-\e X_{ij}),j=1,\ldots,k\] Then $P_N\overset{w}{\rightarrow}\mathscr{N}(0,\mathbb{R})$ as $N\rightarrow\infty$, where $\mathscr{N}(0,\mathbb{R})$ is the $k$-dimensional normal distribution with zero mean and covariance matrix $\mathbb{R}$.
+\end{theorem}
+
+\end{document}

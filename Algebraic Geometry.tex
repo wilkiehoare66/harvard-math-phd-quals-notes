@@ -1,0 +1,845 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[sorting=none]{biblatex}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{pdfpages}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{minted}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage[table]{xcolor}
+\addbibresource{references.bib}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arsinh}{arsinh}
+\DeclareMathOperator{\arcosh}{arcosh}
+\DeclareMathOperator{\artanh}{artanh}
+\DeclareMathOperator{\arcsch}{arcsch}
+\DeclareMathOperator{\arsech}{arsech}
+\DeclareMathOperator{\arcoth}{arcoth}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\N}{N}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Cent}{Cent}
+\DeclareMathOperator{\Rad}{Rad}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\NS}{NS}
+\newcommand{\characteristic}{\mathrel{\textrm{char}}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{exmp}[theorem]{Example}
+\newtheorem{defn}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\lf{\left\lfloor}   
+\def\rf{\right\rfloor}
+
+\title{Algebraic Geometry}
+\author{Wilkie Hoare}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+%%CONTENT STARTS HERE
+
+\newpage
+\section{Shafarevich: Basic Algebraic Geometry 1}
+\subsection{Varieties in Projective Space}
+\subsubsection{Algebraic Curves in the Plane}
+\begin{lemma}
+    Let $k$ be an arbitrary field, $f\in k[x,y]$ an irreducible polynomial, and $g\in k[x,y]$ an arbitrary polynomial. If $g$ is not divisible by $f$ then the system of equations $f(x,y)=g(x,y)=0$ has only a finite number of solutions.
+\end{lemma}
+\begin{prop}
+    The parametrisation $x=\varphi(t),y=\psi(t)$ has the following properties:
+    \begin{enumerate}
+        \item Except possibly for a finite number of points, any $(x_0,y_0)\in X$ has a representation $(x_0,y_0)=(\varphi(t_0),\psi(t_0))$ for some $t_0$.
+        \item Except possibly for a finite number of points, this representation is unique.
+    \end{enumerate}
+\end{prop}
+\begin{theorem}
+    At any nonsingular point $P$ of an irreducible algebraic curve, there exists a regular function $t$ that vanishes at $P$ and such that every rational function $u$ that is not identically 0 on the curve can be written in the form $u=t^kv$, with $v$ regular at $P$ and $v(P)\neq0$. The function $u$ is regular at $P$ if and only if $k\geq0$.
+\end{theorem}
+\begin{theorem}
+    A rational map from a projective plane curve $C$ to $\mathbb{P}^2$ is regular at every nonsingular point of $C$.
+\end{theorem}
+\begin{corollary}
+    A birational map between nonsingular projective plane curves is regular at every point, and is a one-to-one correspondence.
+\end{corollary}
+\begin{theorem}
+    Let $X$ and $Y$ be projective curves, with $X$ nonsingular and not contained in $Y$. Then the sum of the multiplicities of intersection of $X$ and $Y$ at all points of $X\cap Y$ equals the product of the degrees of $X$ and $Y$.
+\end{theorem}
+\subsubsection{Closed Subsets of Affine Space}
+\begin{defn}(Closed subset).
+    A \textit{closed subset} of $\mathbb{A}^n$ is a subset $X\subset\mathbb{A}^n$ consisting of all common zeros of a finite number of polynomials with coefficients in $k$. We will sometimes say simply \textit{closed set} for brevity.
+\end{defn}
+\begin{defn}(Regular function).
+    A function $f$ defined on $X$ with values in $k$ is \textit{regular} if there exists a polynomial $F(T)$ with coefficients in $k$ such that $f(x)=F(x)$ for all $x\in X$.
+\end{defn}
+\begin{defn}(Regular map).
+    A map $f:X\rightarrow Y$ is \textit{regular} if there exist $m$ regular functions $f_1,\ldots,f_m$ on $X$ such that $f(x)=(f_1(x),\ldots,f_m(x))$ for all $x\in X$.
+\end{defn}
+\begin{defn}(Isomorphism).
+    A regular map $f:X\rightarrow Y$ of closed sets is an \textit{isomorphism} if it has an inverse, that is, if there exists a regular map $g:Y\rightarrow X$ such that $f\circ g=1$ and $g\circ f=1$. In this case we say that $X$ and $Y$ are \textit{isomorphic}.
+\end{defn}
+\begin{theorem}
+    An algebra $A$ over a field $k$ is isomorphic to a coordinate ring $k[X]$ of some closed subset $X$ if and only if $A$ has no nilpotents (that is $f^m=0$ implies that $f=0$ for $f\in A$) and is finitely generated as an algebra over $k$.
+\end{theorem}
+\begin{theorem}
+    A curve $X\subset\mathbb{A}^2$ is isomorphic to $\mathbb{A}^1$ if and only if there exists an automorphism of $\mathbb{A}^2$ that takes $X$ to a line.
+\end{theorem}
+\subsubsection{Rational Functions}
+\begin{defn}(Reducible, irreducible).
+    A closed algebraic set $X$ is \textit{reducible} if there exist proper closed subsets $X_1,X_2\subsetneq X$ such that $X=X_1\cup X_2$. Otherwise $X$ is \textit{irreducible}.
+\end{defn}
+\begin{theorem}
+    Any closed set $X$ is a finite union of irreducible closed sets.
+\end{theorem}
+\begin{theorem}
+    The irredundant representation of $X$ as a finite union of irreducible closed sets is unique.
+\end{theorem}
+\begin{theorem}
+    A product of irreducible closed sets is irreducible.
+\end{theorem}
+\begin{defn}(Function field/field of rational functions).
+    If a closed set $X$ is irreducible then the field of fractions of the coordinate ring $k[X]$ is the \textit{function field} or \textit{field of rational functions} of $X$; it is denoted by $k(X)$.
+\end{defn}
+\begin{defn}(Regular rational function, value).
+    A rational function $\varphi\in k(X)$ is \textit{regular} at $x\in X$ if it can be written in the form $\varphi=f/g$ with $f,g\in k[X]$ and $g(x)\neq0$. In this case we say that the element $f(x)/g(x)\in k$ is the \textit{value} of $\varphi$ at $x$, and denote it by $\varphi(x)$.
+\end{defn}
+\begin{theorem}
+    A rational function $\varphi$ that is regular at all points of a closed subset $X$ is a regular function on $X$.
+\end{theorem}
+\begin{defn}(Rational map, image).
+    A \textit{rational map} $\varphi:X\rightarrow Y\subset\mathbb{A}^m$ is an $m$-tuple of rational functions $\varphi_1,\ldots,\varphi_m\in k(X)$ such that, for all points $x\in X$ at which all the $\varphi_i$ are regular, $\varphi(x)=(\varphi_1(x),\ldots,\varphi_m(x))\in Y$; we say that $\varphi$ is \textit{regular} at such a point $x$, and $\varphi(x)\in Y$ is the \textit{image} of $x$. The \textit{image} of $X$ under a rational map $\varphi$ is the set of points $\varphi(X)=\{\varphi(x):x\in X\;\textrm{and}\;\varphi\;\textrm{is regular at}\;x\}$.
+\end{defn}
+\begin{defn}(Birational, birational equivalence).
+    A rational map $\varphi:X\rightarrow Y$ is \textit{birational} or is a \textit{birational equivalence} if $\varphi$ has an inverse rational map $\psi:Y\rightarrow X$, that is, $\varphi(X)$ is dense in $Y$ and $\psi(Y)$ in $X$, and $\psi\circ\varphi=1,\varphi\circ\psi=1$ (where defined). In this case we say that $X$ and $Y$ are \textit{birational} or \textit{birationally equivalent}.
+\end{defn}
+\begin{theorem}
+    Any irreducible closed set $X$ is birational to a hypersurface of some affine space $\mathbb{A}^m$.
+\end{theorem}
+\subsubsection{Quasiprojective Varieties}
+\begin{defn}(Hypersurface, degree of a polynomial, quadric).
+    $X\subset\mathbb{P}^n$ is a \textit{closed subset} if it consists of all points at which a finite number of polynomials with coefficients in $k$ vanish. A closed subset defined by one homogeneous equation $F=0$ is call a \textit{hypersurface}, as in the affine case. The degree of the polynomial is the \textit{degree} of the hypersurface. A hypersurface of degree 2 is called a \textit{quadric}.
+\end{defn}
+\begin{lemma}
+    A homogeneous ideal $\mathfrak{A}\subset k[S]$ defines the empty set if and only if it contains the ideal $I_s$ for some $s>0$.
+\end{lemma}
+\begin{defn}(Quasiprojective variety).
+    A \textit{quasiprojective variety} is an open subset of a closed projective set.
+\end{defn}
+\begin{defn}(Regular map between quasiprojective varieties).
+    Let $f:X\rightarrow Y$ be a map between quasiprojective varieties, with $Y\subset\mathbb{P}^m$. This map is \textit{regular} if for every point $x\in X$ and for some affine piece $\mathbb{A}_i^m$ containing $f(x)$ there exists a neighbourhood $U\ni x$ such that $f(U)\subset\mathbb{A}_i^m$ and the map $f:U\rightarrow\mathbb{A}_i^m$ is regular.
+\end{defn}
+\begin{defn}(Regular map of an irreducible quasiprojective variety to a projective space).
+    A \textit{regular map} $f:X\rightarrow\mathbb{P}^m$ of an irreducible quasiprojective variety $X$ to projective space $\mathbb{P}^m$ is given by an $(m+1)$-tuple of forms $(F_0:\cdots:F_m)$ of the same degree in the homogeneous coordinates of $x\in\mathbb{P}^n$. We require that for every $x\in X$ there exists an expression above for $f$ such that $F_i(x)\neq0$ for at least one $i$; then we write $f(x)$ to denote the point $(F_0(x):\cdots:F_m(x))$. Two maps $f(x)=(F_0(x):\cdots:F_m(x))$ and $g(x)=(G_0(x):\cdots:G_m(x))$ are considered equal if $F_iG_j=F_jG_i$ on $X$ for $0\leq i,j\leq m$.
+\end{defn}
+\begin{lemma}
+    The property that a subset $Y\subset X$ is closed in a quasiprojective variety $X$ is a local property.
+\end{lemma}
+\begin{lemma}
+    Every point $x\in X$ has a neighbourhood isomorphic to an affine variety.
+\end{lemma}
+\begin{defn}(Principal open set).
+    An open set $D(f)=X\backslash V(f)$ consisting of the points of an affine variety $X$ such that $f(x)\neq0$ is called a \textit{principal open set}.
+\end{defn}
+\begin{prop}
+    Two irreducible varieties $X$ and $Y$ are birational if and only if they contain isomorphic open subsets $U\subset X$ and $V\subset Y$.
+\end{prop}
+\subsubsection{Products and Maps of Quasiprojective Varieties}
+\begin{theorem}
+    A subset $X\subset\mathbb{P}^n\times\mathbb{P}^m$ is a closed algebraic subvariety if and only if it is given by a system of equations $G_k(u_0:\cdots:u_n;v_0:\cdots:v_m)=0$ for $k=1,\ldots,t$, homogeneous separately in each set of variables $u_i$ and $v_j$. Every closed algebraic subvariety of $\mathbb{P}^n\times\mathbb{A}^m$ is given by a system of equations $g_k(u_0:\cdots:u_n;y_1:\cdots:y_m)=0$ for $k=1,\ldots,t$ that are homogeneous in $u_0,\ldots,u_n$.
+\end{theorem}
+\begin{theorem}
+    The image of a projective variety under a regular map is closed.
+\end{theorem}
+\begin{lemma}
+    The graph of a regular map is closed in $X\times Y$.
+\end{lemma}
+\begin{theorem}
+    If $X$ is a projective variety, and $Y$ a quasiprojective variety, the second projection $p:X\times Y\rightarrow Y$ takes closed sets to closed sets.
+\end{theorem}
+\begin{corollary}
+    If $\varphi$ is a regular function on an irreducible projective variety then $\varphi\in k$, that is, $\varphi$ is constant.
+\end{corollary}
+\begin{corollary}
+    A regular map $f:X\rightarrow Y$ from an irreducible projective variety $X$ to an affine variety $Y$ maps $X$ to a point.
+\end{corollary}
+\begin{prop}
+    Points $\xi\in\mathbb{P}^N$ corresponding to reducible homogeneous polynomials $F$ form a closed set.
+\end{prop}
+\begin{defn}(Finite map).
+    $f$ is a \textit{finite map} if $k[X]$ is integral over $k[Y]$.
+\end{defn}
+\begin{theorem}
+    A finite map is surjective.
+\end{theorem}
+\begin{lemma}
+    If a ring $B$ is a finite $A$-module where $A\subset B$ is a subring containing $1_B$, then for an ideal $\mathfrak{a}$ of $A$, $\mathfrak{a}\subsetneq A\Rightarrow\mathfrak{a}B\subsetneq B$.
+\end{lemma}
+\begin{corollary}
+    A finite map takes closed sets to closed sets.
+\end{corollary}
+\begin{theorem}
+    If $f:X\rightarrow Y$ is a regular map of affine varieties, and every point $x\in Y$ has an affine neighbourhood $U\ni x$ such that $V=f^{-1}(U)$ is affine and $f:V\rightarrow U$ is finite, then $f$ itself is finite.
+\end{theorem}
+\begin{defn}(Finite regular map).
+    A regular map $f:X\rightarrow Y$ of quasiprojective varieties is \textit{finite} if and point $y\in Y$ has an affine neighbourhood $V$ such that the set $U=f^{-1}V$ is affine and $f:U\rightarrow V$ is a finite map between affine varieties.
+\end{defn}
+\begin{theorem}
+    If $f:X\rightarrow Y$ is a regular map and $f(X)$ is dense in $Y$ then $f(X)$ contains an open set of $Y$.
+\end{theorem}
+\begin{theorem}
+    If $X\subset\mathbb{P}^n$ is a closed subvariety disjoint from a $d$-dimensional linear subspace $E\subset\mathbb{P}^n$ then the projection $\pi:X\rightarrow\mathbb{P}^{n-d-1}$ with centre $E$ defines a finite map $X\rightarrow\pi(X)$.
+\end{theorem}
+\begin{theorem}
+    Suppose that $F_0,\ldots,F_s$ are forms of degree $m$ on $\mathbb{P}^n$ having no common zeros on a closed variety $X\subset\mathbb{P}^n$. Then $\varphi(x)=(F_0(x):\cdots:F_s(x))$ defines a finite map $\varphi:X\rightarrow\varphi(X)$.
+\end{theorem}
+\begin{theorem}
+    For an irreducible projective variety $X$ there exists a finite map $\varphi:X\rightarrow\mathbb{P}^m$ to a projective space.
+\end{theorem}
+\begin{theorem}
+    For an irreducible affine variety $X$ there exists a finite map $\varphi:X\rightarrow\mathbb{A}^m$ to an affine space.
+\end{theorem}
+\subsubsection{Dimension}
+\begin{defn}(Dimension. codimension, curve, surface).
+    The \textit{dimension} of an irreducible quasiprojective variety $X$ is the transcendence degree of the function field $k(X)$; it is denoted by $\dim{X}$. The dimension of a reducible variety is the maximum of the dimension of its irreducible components. If $Y\subset X$ is a closed subvariety of $X$ then the number $\dim{X}-\dim{Y}$ is called the \textit{codimension} of $Y$ in $X$, and written $\codim{Y}$ or $\codim_X{Y}$. Algebraic varieties of dimension 1 and 2 are called \textit{curves} and \textit{surfaces}.
+\end{defn}
+\begin{theorem}
+    If $X\subset Y$ then $\dim{X}\leq\dim{Y}$. If $Y$ is irreducible and $X\subset Y$ is a closed subvariety with $\dim{X}=\dim{Y}$ then $X=Y$.
+\end{theorem}
+\begin{theorem}
+    Every irreducible component of a hypersurface in $\mathbb{A}^n$ or $\mathbb{P}^n$ has codimension 1.
+\end{theorem}
+\begin{theorem}
+    Let $X\subset\mathbb{A}^n$ be a variety, and suppose that all the components of $X$ have dimension $n-1$. Then $X$ is a hypersurface and the ideal $\mathfrak{A}_X$ is principal.
+\end{theorem}
+\begin{theorem}
+    Let $X\subset\mathbb{P}^{n_1}\times\cdots\times\mathbb{P}^{n_k}$ be a variety, and suppose that all the components of $X$ have dimension $n_1+\cdots+n_k-1$. Then $X$ is defined by one equation that is homogeneous in each of the $k$ sets of variables.
+\end{theorem}
+\begin{theorem}
+    If a form $F$ is not 0 on an irreducible projective variety $X$ then $\dim{X_F}=\dim{X}-1$.
+\end{theorem}
+\begin{corollary}
+    A projective variety $X$ contains subvarieties of any dimension $s<\dim{X}$.
+\end{corollary}
+\begin{corollary}(Inductive definition of dimension).
+    If $X$ is an irreducible projective variety then $\dim{X}=1+\sup\dim{Y}$, where $Y$ runs through all proper subvarieties of $X$.
+\end{corollary}
+\begin{corollary}
+    The dimension of a projective variety $X$ can be defined as the maximal integer $n$ for which there exists a strictly decreasing chain $Y_0\supsetneq Y_1\supsetneq\cdots\supsetneq Y_n\supsetneq\emptyset$ of length $n$ of irreducible subvarieties $Y_i\subset X$.
+\end{corollary}
+\begin{corollary}
+    The dimension $n$ of a projective variety $X\subset\mathbb{P}^N$ can be defined as $N-s-1$, where $s$ is the maximum dimension of a linear subspace of $\mathbb{P}^N$ disjoint from $X$.
+\end{corollary}
+\begin{corollary}
+    The variety of common zeros of $r$ forms $F_1,\ldots,F_r$ on an $n$-dimensional projective variety has dimension at least $n-r$.
+\end{corollary}
+\begin{prop}
+    If $r\leq n$ then $r$ forms have a common zero on an $n$-dimensional projective variety. For example, in the case $X=\mathbb{P}^n$, this says that $n$ homogeneous equations in $n+1$ variables have a nonzero solution.
+\end{prop}
+\begin{corollary}
+    Any two curves of $\mathbb{P}^2$ intersect.
+\end{corollary}
+\begin{corollary}
+    Theorem 1.53 fails already for the curves on a nonsingular quadric surface $Q$: there exist curves $C\subset Q$ that cannot be defined by setting to zero a single form on $\mathbb{P}^3$.
+\end{corollary}
+\begin{corollary}
+    Any curve of degree at least 3 has an inflexion point.
+\end{corollary}
+\begin{corollary}(Tsen's Theorem).
+    Let $F(x_1,\ldots,x_n)$ be a form in $n$ variables of degree $m<n$ whose coefficients are polynomials in one variable $t$. Then the equation $F(x_1,\ldots,x_n)=0$ has a solution in polynomials $x_i=p_i(t)$.
+\end{corollary}
+\begin{corollary}
+    A nondegenerate pencil of conics over $\mathbb{A}^1$ is a rational surface.
+\end{corollary}
+\begin{theorem}
+    Under the assumptions of Theorem 1.55, every component of $X_F$ has dimension $\dim{X}-1$.
+\end{theorem}
+\begin{lemma}
+    Set $B=k[T_1,\ldots,T_n]$, and let $A\supset B$ be an integral domain that is integral over $B$; write $x=T_1$, and let $y=P(T_2,\ldots,T_n)\neq0$. Then for any $u\in A$, $x\mid(yu)^l$ in $A$ for some $l>0$ implies that $x\mid u^k$ for some $k>0$.
+\end{lemma}
+\begin{corollary}
+    If $X\subset\mathbb{P}^N$ is an irreducible quasiprojective variety and $F$ a form that is not identically 0 on $X$, then every (nonempty) component of $X_F$ has codimension 1.
+\end{corollary}
+\begin{corollary}
+    Let $X\subset\mathbb{P}^N$ be an irreducible $n$-dimensional quasiprojective variety, and $Y\subset X$ the set of zeros of $m$ forms on $X$. Then every (nonempty) component of $Y$ has dimension at least $n-m$.
+\end{corollary}
+\begin{theorem}
+    Let $X,Y\subset\mathbb{P}^N$ be irreducible quasiprojective varieties with $\dim{X}=n$ and $\dim{Y}=m$. Then any (nonempty) component $Z$ of $X\cap Y$ has $\dim{Z}\geq n+m-N$. Moreover, if $X$ and $Y$ are projective and $n+m\geq N$ then $X\cap Y=\emptyset$.
+\end{theorem}
+\begin{theorem}
+    Let $f:X\rightarrow Y$ be a regular map between irreducible varieties. Suppose that $f$ is surjective: $f(X)=Y$, and that $\dim{X}=n,\dim{Y}=m$. Then $m\leq n$, and
+    \begin{enumerate}
+        \item $\dim{F}\geq n-m$ for any $y\in Y$ and for any component $F$ of the fibre $f^{-1}(y)$.
+        \item There exists a nonempty open subset $U\subset Y$ such that $\dim{f^{-1}(y)}=n-m$ for $y\in U$.
+    \end{enumerate}
+\end{theorem}
+\begin{corollary}
+    The sets $Y_k=\{y\in Y:\dim{f^{-1}(y)}\geq k\}$ are closed in $Y$.
+\end{corollary}
+\begin{theorem}
+    Let $f:X\rightarrow Y$ be a regular map between projective varieties, with $f(X)=Y$. Suppose that $Y$ is irreducible, and that all the fibres $f^{-1}(y)$ for $y\in Y$ are irreducible and of the same dimension. Then $X$ is irreducible.
+\end{theorem}
+\begin{lemma}
+    The conditions that the line $l$ with Plücker coordinates $p_{ij}$ be contained in the surface $X$ with equation $F=0$ are algebraic relations between the $p_{ij}$ and the coefficients of $F$, homogeneous in both the $p_{ij}$ and the coefficients of $F$.
+\end{lemma}
+\begin{theorem}
+    For any $m>3$, there exist surfaces of degree $m$ that do not contain any lines. Moreover, such surfaces correspond to an open set of $\mathbb{P}^N$.
+\end{theorem}
+\begin{theorem}
+    Every cubic surface contains at least one line. There exists an open subset $U$ of the space $\mathbb{P}^{19}$ parametrising all cubic surfaces such that a surface corresponding to a point of $U$ contains only finitely many lines.
+\end{theorem}
+\subsection{Local Properties}
+\subsubsection{Singular and Nonsingular Points}
+\begin{lemma}
+    If $A$ is a Noetherian ring then so is every local ring $A_{\mathfrak{p}}$.
+\end{lemma}
+\begin{defn}(Intersection multiplicity).
+    The \textit{intersection multiplicity} of a line $L$ with a variety $X$ at 0 is the multiplicity of $t=0$ as a root of the polynomial $f(t)=\gcd(F_1(ta),\ldots,F_m(ta))$.
+\end{defn}
+\begin{defn}(Tangent).
+    A line $L$ is \textit{tangent} to $X$ at 0 if it has intersection multiplicity at least 2 with $X$ at 0.
+\end{defn}
+\begin{defn}(Tangent space).
+    The geometric locus of points on lines tangent to $X$ at $x$ is called the \textit{tangent space} to $X$ at $x$. It is denoted by $\Theta_x$, or by $\Theta_{X,x}$ if we need to specify which variety is intended.
+\end{defn}
+\begin{defn}(Differential).
+    The linear function $\textrm{d}_xg$ defined by $\textrm{d}_xg=\textrm{d}_xG_{|\Theta_x}$ is called the \textit{differential} of $g$ at $x$.
+\end{defn}
+\begin{theorem}
+    The map $\textrm{d}_x$ defines an isomorphism of the vector spaces $\mathfrak{m}_x/\mathfrak{m}_x^2$ and $\Theta_x^*$.
+\end{theorem}
+\begin{corollary}
+    The tangent space $\Theta_x$ at a point $x$ is isomorphic to the vector space of all linear forms on $\mathfrak{m}_x/\mathfrak{m}_x^2$.
+\end{corollary}
+\begin{corollary}
+    Under an isomorphism of varieties, the tangent spaces at corresponding points are isomorphic. In particular the dimension of the tangent space at a point is invariant under isomorphism.
+\end{corollary}
+\begin{theorem}
+    The tangent space $\Theta_{X,x}$ is a local invariant of a point $x$ of a variety $X$. Namely, $\Theta_{X,x}$ is the dual vector space of the vector space $\mathfrak{m}_x/\mathfrak{m}_x^2$, where $\mathfrak{m}_x$ is the maximal ideal of the local ring $\mathcal{O}_x$ of $x$.
+\end{theorem}
+\begin{defn}(Singular, nonsingular).
+    Let $X$ be an irreducible variety and set $s=\min_{x\in X}\dim{\Theta_x}$. We say that a point $x\in X$ is \textit{nonsingular} if $\dim{\Theta_x}=s$; we also say that $X$ is nonsingular at $x$. A variety $X$ is nonsingular if it is nonsingular at every $x\in X$. If $\dim{\Theta_x}>s$ then $x$ is a \textit{singular} point of $X$.
+\end{defn}
+\begin{theorem}
+    The dimension of the tangent space at a nonsingular point equals the dimension of the variety.
+\end{theorem}
+\begin{defn}(Nonsingular point of an affine variety).
+    A point $x$ of an affine variety is \textit{nonsingular} if $\dim{\Theta_x}=\dim_x{X}$.
+\end{defn}
+\subsubsection{Power Series Expansions}
+\begin{defn}(Local parameters).
+    Functions $u_1,\ldots,u_n\in\mathcal{O}_x$ are \textit{local parameters} at $x$ if each $u_i\in\mathfrak{m}_x$, and the images of $u_1,\ldots,u_n$ form a basis of the vector space $\mathfrak{m}_x/\mathfrak{m}_x^2$.
+\end{defn}
+\begin{theorem}
+    If $u_1,\ldots,u_n$ are local parameters at $x$ such that the $u_i$ are regular on $X$, and $X_i=V(u_i)$, then $x$ is a nonsingular point on each of the $X_i$ and $\cap\Theta_i=0$, where $\Theta_i$ is the tangent space to $X_i$ at $x$.
+\end{theorem}
+\begin{defn}(Transversal).
+    Subvarieties $Y_1,\ldots,Y_r$ of a nonsingular variety $X$ are \textit{transversal} at a point $x\in\cap Y_i$ if \[\codim_{\Theta_{X,x}}\left(\bigcap_{i=1}^r\Theta_{Y_i,x}\right)=\sum_{i=1}^r\codim_X{Y_i}\]
+\end{defn}
+\begin{theorem}
+    Local parameters at $x$ generate the maximal ideal $\mathfrak{m}_x$ of $\mathcal{O}_x$.
+\end{theorem}
+\begin{defn}(Formal power series ring).
+    The \textit{formal power series ring} in variables $(T_1,\ldots,T_n)=T$ is the ring whose elements are infinite expressions of the form $\Phi=F_0+F_1+F_2+\cdots$, where $F_i\in k[T]$ is a form of degree $i$, and the ring operations are defined by the rules: if $\Psi=G_0+G_1+G_2+\cdots$ then $\Phi+\Psi=(F_0+G_0)+(F_1+G_1)+(F_2+G_2)+\cdots$, and $\Phi\Psi=H_0+H_1+H_2+\cdots$, where $H_i=\sum_{j+l=i}G_jF_l$.
+\end{defn}
+\begin{defn}(Taylor series).
+    A formal power series $\Phi$ is called the \textit{Taylor series} of a function $f\in\mathcal{O}_x$ if for every $k\geq0$ we have $f-S_k(u_1,\ldots,u_n)\in\mathfrak{m}_x^{k+1}$ with $S_k=\sum_{i=0}^kF_i$.
+\end{defn}
+\begin{theorem}
+    Every function $f$ has at least one Taylor series.
+\end{theorem}
+\begin{theorem}
+    If $x$ is nonsingular, then a function has a unique Taylor series.
+\end{theorem}
+\begin{theorem}
+    A function $f\in\mathcal{O}_x$ is uniquely determined by any of its Taylor series. In other words, $\tau$ is an isomorphic inclusion of the local ring $\mathcal{O}_x$ into the formal power series ring $k[[T]]$.
+\end{theorem}
+\begin{theorem}
+    If $x$ is a nonsingular point of $X$ then there is a unique component of $X$ passing through $x$.
+\end{theorem}
+\begin{corollary}
+    The set of singular points of an algebraic variety $X$ is closed.
+\end{corollary}
+\subsubsection{Properties of Nonsingular Points}
+\begin{defn}(Local equations).
+    Functions $f_1,\ldots,f_m\in\mathcal{O}_x$ are \textit{local equations} of a subvariety $Y\subset X$ in a neighbourhood of $x$ if there exists an affine neighbourhood $X'$ of $x$ such that $f_1,\ldots,f_m\in k[X']$ and $a_{Y'}=(f_1,\ldots,f_m)$ in $k[X']$, where $Y'=Y\cap X'$.
+\end{defn}
+\begin{lemma}
+    Functions $f_1,\ldots,f_m\in\mathcal{O}_x$ are local equations of $Y$ in a neighbourhood of $x$ if and only if $a_{Y,x}=(f_1,\ldots,f_m)$.
+\end{lemma}
+\begin{theorem}
+    An irreducible subvariety $Y\subset X$ of codimension 1 has a local equation in a neighbourhood of any nonsingular point $x\in X$.
+\end{theorem}
+\begin{theorem}
+    The local ring $\mathcal{O}_x$ of a nonsingular point is a UFD.
+\end{theorem}
+\begin{lemma}(Weierstrass Preparation Theorem).
+    Suppose that a power series $\Phi\in k[[T]]$ is regular with respect to $T_n$ and has initial form of degree $m$; then there exists a power series $U\in k[[T]]$ with nonzero constant term such that the series $\Phi U$ is a polynomial in $T_n$ over $k[[T_1,\ldots,T_{n-1}]]$, that is, $\Phi U=T_n^m+R_1T_n^{m-1}+\cdots+R_m$, with $R_i=R_i(T_1,\cdots,T_{n-1})\in k[[T_1,\cdots,T_{n-1}]]$ for $i=1,\ldots,m$.
+\end{lemma}
+\begin{lemma}
+    The formal power series ring $k[[T]]$ is a UFD.
+\end{lemma}
+\begin{theorem}
+    If $X$ is a nonsingular variety and $\varphi:X\rightarrow\mathbb{P}^N$ a rational map to projective space, then the set of points at which $\varphi$ is not regular has codimension at least 2.
+\end{theorem}
+\begin{corollary}
+    Any rational map of a nonsingular curve to projective space is regular.
+\end{corollary}
+\begin{corollary}
+    If two nonsingular projective curves are birational then they are isomorphic.
+\end{corollary}
+\begin{theorem}
+    Let $X$ be an affine variety, $x\in X$ a nonsingular point, and suppose that $u_1,\ldots,u_n$ are regular functions on $X$ that form a system of local parameters at $x$. Then for $m\leq n$, the subvariety $Y$ defined by $u_1=\cdots=u_m=0$ is nonsingular at $x$, we have $\mathfrak{a}_Y=(u_1,\ldots,u_m)$ in some affine neighbourhood of $x$, and $u_{m+1},\ldots,u_n$ form a system of local parameters on $Y$ at $x$.
+\end{theorem}
+\begin{theorem}
+    Let $X$ be a variety, $Y\subset X$ a subvariety, and suppose that $x\in Y$ is a nonsingular point of both $X$ and $Y$. Then we can choose a system of local parameters $u_1,\ldots,u_n$ on $X$ at $x$ and an affine neighbourhood $U$ of $x$ such that $\mathfrak{a}_Y=(u_1,\ldots,u_m)$ in $U$.
+\end{theorem}
+\subsubsection{The Structure of Birational Maps}
+\begin{defn}(Blowup).
+    The map $\sigma:\Pi\rightarrow\mathbb{P}^n$ defined by restricting the first projection $\mathbb{P}^n\times\mathbb{P}^{n-1}\rightarrow\mathbb{P}^n$ is called the \textit{blowup} of $\mathbb{P}^n$ \textit{centred} at $\xi$.
+\end{defn}
+\begin{theorem}
+    Suppose that $X\subset\mathbb{P}^N$ is an irreducible quasiprojective variety, with $\overline{X}\neq\mathbb{P}^N$, and that $X$ is nonsingular at $\xi$. Then the inverse image $\sigma^{-1}(X)$ of $X$ under the blowup of $\mathbb{P}^N$ centred at $\xi$ is reducible, consisting of two components $\sigma^{-1}(X)=(\xi\times\mathbb{P}^{N-1})\cup Y$. The restriction of $\sigma$ to the component $Y$ defines a regular map $\sigma:Y\rightarrow X$, which is an isomorphism of some neighbourhood $U$ of $x$ if $x\neq\xi$ and a local blowup $\sigma^{-1}(U)\rightarrow U$ with centre $\xi$ if $x=\xi$.
+\end{theorem}
+\begin{theorem}
+    Let $f:X\rightarrow Y$ be a regular birational map. For $x\in X$, assume that $y=f(x)$ is a nonsingular point of $Y$ and that the inverse map $g=f^{-1}$ is not regular at $y$. Then there exists a subvariety $Z\subset X$ with $Z\ni x$ such that $\codim{Z}=1$, but $\codim{f(Z)}\geq2$.
+\end{theorem}
+\begin{defn}(Exceptional).
+    Let $f:X\rightarrow Y$ be a regular birational map. A subvariety $Z\subset X$ is \textit{exceptional} for $f$ if $\codim{Z}=1$, but $\codim{f(Z)}\geq2$.
+\end{defn}
+\begin{corollary}
+    If $f:X\rightarrow Y$ is a regular birational map between nonsingular varieties, not an isomorphism, then $f$ has an exceptional subvariety.
+\end{corollary}
+\begin{corollary}
+    Let $f:X\rightarrow Y$ be a regular birational map between curves $X$ and $Y$, and suppose that $Y$ is nonsingular; then $f(X)$ is open in $Y$ and $f$ defines an isomorphism from $X$ to $f(X)$.
+\end{corollary}
+\subsubsection{Normal Varieties}
+\begin{defn}(Normal).
+    An irreducible affine variety $X$ is \textit{normal} if $k[X]$ is integrally closed. An irreducible quasiprojective variety $X$ is normal if every point has a normal affine neighbourhood.
+\end{defn}
+\begin{lemma}
+    If $X$ is a normal variety then its local ring $\mathcal{O}_Y$ at any irreducible subvariety $Y\subset X$ is integrally closed. Conversely, if $X$ is irreducible and the local ring $\mathcal{O}_x$ at each point $x\in X$ is integrally closed then $X$ is normal.
+\end{lemma}
+\begin{theorem}
+    A nonsingular variety is normal.
+\end{theorem}
+\begin{theorem}
+    If $X$ is a normal variety and $Y\subset X$ a codimension 1 subvariety then there exists an affine open set $X'\subset X$ with $X'\cap Y\neq\emptyset$ such that the ideal of $Y'=X'\cap Y$ in $k[X']$ is principal.
+\end{theorem}
+\begin{theorem}
+    The set of singular points or a normal variety has codimension at least 2.
+\end{theorem}
+\begin{corollary}
+    For algebraic curves, normal and nonsingular are equivalent conditions.
+\end{corollary}
+\begin{theorem}
+    An affine irreducible variety has a normalisation that is also affine.
+\end{theorem}
+\begin{theorem}
+    An irreducible quasiprojective curve $X$ has a normalisation $X^{\nu}$, and $X^{\nu}$ is again quasiprojective.
+\end{theorem}
+\begin{theorem}
+    The normalisation of a projective curve is projective.
+\end{theorem}
+\begin{corollary}
+    An irreducible algebraic curve is birational to a nonsingular projective curve.
+\end{corollary}
+\begin{theorem}
+    A regular map $\varphi:X\rightarrow Y$ from an irreducible nonsingular projective curve $X$ is finite if $Y=\varphi(X)$ is a variety with $\dim{Y}>0$.
+\end{theorem}
+\begin{theorem}
+    A nonsingular projective $n$-dimensional variety is isomorphic to a subvariety of $\mathbb{P}^{2n+1}$.
+\end{theorem}
+\begin{lemma}
+    A finite map $f$ from a variety $X$ is an isomorphic embedding if and only if it is one-to-one and $\textrm{d}_xf$ is an isomorphic embedding of the tangent space $\Theta_x$ for every $x\in X$.
+\end{lemma}
+\begin{corollary}
+    Let $X\subset\mathbb{P}^N$ be a variety and $\xi\in\mathbb{P}^N\backslash X$. Suppose that every line through $\xi$ intersects $X$ in at most one point, and $\xi$ is not contained in the tangent space to $X$ at any point then the projection from $\xi$ is an isomorphic embedding $X\hookrightarrow\mathbb{P}^{N-1}$.
+\end{corollary}
+\begin{corollary}
+    Any nonsingular quasiprojective curve is isomorphic to a curve in $\mathbb{P}^3$.
+\end{corollary}
+\subsubsection{Singularities of a Map}
+\begin{theorem}(The First Bertini Theorem).
+    Let $X$ and $Y$ be irreducible varieties defined over a field of characteristic 0, and $f:X\rightarrow Y$ a regular map such that $f(X)$ is dense in $Y$. Suppose that $X$ remains irreducible over the algebraic closure $\overline{k(Y)}$ of $k(Y)$. Then there exists an open dense set $U\subset Y$ such that all the fibres $f^{-1}(y)$ over $y\in U$ are irreducible.
+\end{theorem}
+\begin{theorem}(The Second Bertini Theorem).
+    Let $f:X\rightarrow Y$ be a regular map of varieties defined over a field of characteristic 0, with $f(X)$ dense in $Y$; assume that $X$ is nonsingular. Then there exists a dense open set $U\subset Y$ such that the fibre $f^{-1}(y)$ is nonsingular for every $y\in U$.
+\end{theorem}
+\begin{lemma}
+    The fibre $f^{-1}(y)$ is nonsingular if $\textrm{d}_xf:\Theta_{X,x}\rightarrow\Theta_{Y,y}$ is surjective for all points $x\in f^{-1}(y)$.
+\end{lemma}
+\begin{lemma}
+    There exists a nonempty open subset $V\subset X$ such that $\textrm{d}_xf$ is surjective for $x\in V$.
+\end{lemma}
+\begin{defn}(Degree of a field extension).
+    Let $X$ and $Y$ be irreducible varieties of the same dimension and $f:X\rightarrow Y$ a regular map such that $f(X)\subset Y$ is dense. The degree of the field extension $f^*(k(Y))\subset k(X)$, which is finite under these assumptions, is called the \textit{degree} of $f$: $\deg{f}=[k(X):f^*(k(Y))]$.
+\end{defn}
+\begin{theorem}
+    If $f:X\rightarrow Y$ is a finite map of irreducible varieties, and $Y$ is normal, then the number of inverse images of any point $y\in Y$ is at most $\deg{f}$.
+\end{theorem}
+\begin{defn}(Unramified, ramified, ramification/branch point).
+    $f$ is \textit{unramified} over $y\in Y$ if the number of inverse images of $y$ equals the degree of the map. Otherwise, we say that $f$ is \textit{ramified} at $y$, or that $y$ is a \textit{ramification point} or a \textit{branch point} of $f$.
+\end{defn}
+\begin{theorem}
+    The set of points at which a map is unramified is open, and is nonempty if $f^*(k(Y))\subset k(X)$ is a separable field extension.
+\end{theorem}
+\begin{theorem}
+    An unramified finite map $f:X\rightarrow Y$ to a nonsingular variety $Y$ is locally described as the projection to $Y$ of a subvariety $X\subset Y\times\mathbb{A}^1$, where $X$ is defined by an equation $F(T)=0$ and $D(F)\neq0$ on $Y$. The differential $\textrm{d}_xf$ defines an isomorphism $\Theta_{X,x}\overset{\sim}{\rightarrow}\Theta_{Y,f(x)}$ on the tangent spaces.
+\end{theorem}
+\begin{prop}
+    The quadric bundle $X$ is a nonsingular variety if and only if its discriminant has no repeated roots. The singular fibres are precisely the fibres over the roots of the discriminant. In particular, the number of singular fibres of $X\rightarrow\mathbb{A}^1$ equals the degree of the discriminant.
+\end{prop}
+\begin{prop}
+    The pencil of elliptic curves $X\rightarrow\mathbb{A}^1$ is a nonsingular surface if the discriminant has simple roots or are common roots of $a$ and $b$ that are simple roots of $b$. Singular fibres correspond to roots of the discriminant.
+\end{prop}
+\begin{theorem}
+    The Frobenius map of an algebraic curve has degree $p$. Every inseparable rational map of curves $f:X\rightarrow Y$ factors as a composite $f=g\circ\varphi$ where $g:X'\rightarrow Y$ is some map and $\varphi:X\rightarrow X'$ The Frobenius map.
+\end{theorem}
+\subsection{Divisors and Differential Forms}
+\subsubsection{Divisors}
+\begin{defn}(Divisor, effective, prime divisor, support).
+    Let $X$ be an irreducible variety. A collection of irreducible closed subvarieties $C_1,\ldots,C_r$ of codimension 1 in $X$ with assigned integer multiplicities $k_1,\ldots,k_r$ will be called a \textit{divisor} on $X$. A divisor is written $D=k_1C_1+\cdots+k_rC_r$. If all the $k_i=0$, we write $D=0$. If all $k_i\geq0$ and some $k_i>0$ then we write $D>0$; in this case $D$ is said to be \textit{effective}. An irreducible codimension 1 subvariety $C_i$ taken with multiplicity 1 is called a \textit{prime divisor}. If all the $k_i\neq0$ in $D$ then the variety $C_1\cup\cdots\cup C_r$ is called the \textit{support} of $D$ and denoted by $\Supp{D}$.
+\end{defn}
+\begin{defn}(Locally principal/Cartier divisor).
+    A \textit{locally principal divisor} or \textit{Cartier divisor} on an irreducible variety $X$ is a system of rational functions $\{f_i\}$ corresponding to the open sets $U_i$ of a cover $X=\cup U_i$ satisfying the conditions:
+    \begin{enumerate}
+        \item The $f_i$ are not identically 0.
+        \item $f_i/f_j$ and $f_j/f_i$ are both regular on $U_i\cap U_j$. Here functions $\{f_i\}$ and open sets $U_i$ define the same divisor as functions $\{g_j\}$ and open sets $V_j$ if $f_i/g_j$ and $g_j/f_i$ are regular on $U_i\cap V_j$.
+    \end{enumerate}
+\end{defn}
+\begin{theorem}
+    For any divisor $D$ on a nonsingular variety $X$, and any finite number of points $x_1,\ldots,x_m\in X$, there exists a divisor $D'$ with $D'\sim D$ such that $x_i\notin\Supp(D')$ for $i=1,\ldots,m$.
+\end{theorem}
+\begin{theorem}
+    The rational map $\varphi=(f_0:\cdots:f_n)$ with $f_i\in k(X)$ fails to be regular precisely at the points of $\cap\Supp(D_i')$, where $D_i'=\Div(f_i)-\gcd\{\Div(f_0),\ldots,\Div(f_n)\}\geq0$ for $i=0,\ldots,n$.
+\end{theorem}
+\begin{theorem}
+    Linearly equivalent divisors have the same dimension.
+\end{theorem}
+\begin{prop}
+    Let $X\subset\mathbb{P}^{n+1}$ be an irreducible hypersurface defined by $F=0$ with $\deg{F}=k$. Then $\mathcal{L}(X,mE)$ is the vector space of forms of degree $m$ modulo the subspace of multiples of $F$ by forms of degree $m-k$. Therefore $l(mE)=\begin{pmatrix}n+1\\m\end{pmatrix}$ if $m<k$ or $\begin{pmatrix}n+1\\m\end{pmatrix}-\begin{pmatrix}n+1\\m-k\end{pmatrix}$ if $m\geq k$.
+\end{prop}
+\begin{theorem}
+    The divisor class group $\Cl{X}$ is a free Abelian group with $m+2$ generators, the classes defined by $L_1,\ldots,L_m$, $F$ and $S$.
+\end{theorem}
+\subsubsection{Divisors on Curves}
+\begin{theorem}
+    If $f:X\rightarrow Y$ is a regular map between nonsingular projective curves and $f(X)=Y$ then $\deg{f}=\deg(f^*(y))$ for any point $y\in Y$.
+\end{theorem}
+\begin{corollary}
+    The degree of a principal divisor on a nonsingular projective curve equals 0.
+\end{corollary}
+\begin{theorem}
+    $\tilde{\mathcal{O}}$ is a principal ideal domain with a finite number of prime ideals. There exist elements $t_i\in\tilde{\mathcal{O}}$ such that $v_{x_i}(t_j)=\delta_{ij}$ for $1\leq i,j\leq r$. If $u\in\tilde{\mathcal{O}}$ and $u\neq0$ then $u=t_1^{k_1}\cdots t_r^{k_r}v$, where $k_i=v_{x_i}(u)$ and $v$ is invertible in $\tilde{\mathcal{O}}$.
+\end{theorem}
+\begin{theorem}
+    If $\{x_1,\ldots,x_r\}=f^{-1}(y)$ then $\tilde{\mathcal{O}}$ is a free $\mathcal{O}_y$-module of rank $n=\deg{f}$, that is, $\tilde{\mathcal{O}}\cong\mathcal{O}_y^{\otimes n}$.
+\end{theorem}
+\begin{lemma}
+    Let $f:X\rightarrow Y$ be a finite map of curves, with $X$ nonsingular; for $y\in Y$, write $f^{-1}(y)=\{x_1,\ldots,x_r\}$ and $\tilde{\mathcal{O}}=\cap\mathcal{O}_{x_i}$. Then $\tilde{\mathcal{O}}$ is a finite $\mathcal{O}_y$-module.
+\end{lemma}
+\begin{theorem}
+    A nonsingular projective curve $X$ is rational if and only if $\Cl^0{X}=0$.
+\end{theorem}
+\begin{defn}(Degree of a curve).
+    The \textit{degree} of a curve $X\subset\mathbb{P}^N$, denoted by $\deg{X}$, is the maximum number of points of intersection of $X$ with a hyperplane not containing any component of $X$.
+\end{defn}
+\begin{lemma}
+    Let $X\subset\mathbb{P}^n$ be a curve, $F$ an irreducible form and $Y=\mathbb{P}_F^n\subset\mathbb{P}^n$ the hypersurface given by $F=0$. Then $v_x(\Div{F})=1$ is equivalent to $F(x)=0$ and $\Theta_{Y,x}\not\supset\Theta_{X,x}$. Here we view both these spaces as vector subspaces of $\Theta_{\mathbb{P}^n,x}$.
+\end{lemma}
+\begin{theorem}
+    $\mathcal{L}(D)$ is finite dimensional for any effective divisor $D$ on a nonsingular projective algebraic curve.
+\end{theorem}
+\subsubsection{The Plane Cubic}
+\begin{theorem}
+    Pick any point $\alpha_0$ of a nonsingular plane cubic curve $X$, and consider the map $X\rightarrow\Cl^0{X}$ that sends $\alpha\in X$ to the divisor class $C_{\alpha}$ containing $\alpha-\alpha_0$. Then $\alpha\mapsto C_{\alpha}$ defines a one-to-one correspondence between points $\alpha\in X$ and divisor classes $C\in\Cl^0{X}$.
+\end{theorem}
+\begin{theorem}
+    Let $X\subset\mathbb{P}^2$ be a nonsingular cubic; then $l(D)=\deg{D}$ for every effective divisor $D>0$ on $X$. Conversely, a curve for which this holds is isomorphic to a nonsingular cubic.
+\end{theorem}
+\begin{theorem}
+    The maps $\varphi:X\rightarrow X$ given by $\varphi(\alpha)=\Theta\alpha$ and $\psi:X\times X\rightarrow X$ given by $\psi(\alpha,\beta)=\alpha\otimes\beta$ are regular.
+\end{theorem}
+\begin{lemma}
+    The differential $\textrm{d}\psi:\Theta_{(\alpha,\beta)}\rightarrow\Theta_{\alpha\otimes\beta}$ of the group law $\psi:X\times X\rightarrow X$ is given by $\textrm{d}\psi=\textrm{d}t_{\alpha}+\textrm{d}t_{\beta}$. In particular, it is surjective.
+\end{lemma}
+\begin{theorem}
+    There exists a scalar product $(\lambda,\mu)$ on the group of regular maps $\lambda:X\rightarrow X$ with $\lambda(o)=o$ such that $(\lambda,\lambda)=n(\lambda)$.
+\end{theorem}
+\begin{lemma}
+    The linear equivalence $\Delta+\Sigma\sim2(o\times X+X\times o)=2(p_1^*(o)+p_2^*(o))$ holds on the surface $X\times X$.
+\end{lemma}
+\subsubsection{Algebraic Groups}
+\begin{defn}(Algebraic group).
+    An \textit{algebraic group} is an algebraic variety $G$ which is at the same time a group, in such a way that the following conditions are satisfied: the maps $\varphi:G\rightarrow G$ given by $\varphi(g)=g^{-1}$ and $\psi:G\times G\rightarrow G$ given by $\psi(g_1,g_2)=g_1g_2$ are regular maps (here $g^{-1}$ and $g_1g_2$ are the inverse and product in the group $G$).
+\end{defn}
+\begin{theorem}
+    The variety of an algebraic group is nonsingular.
+\end{theorem}
+\begin{defn}(Algebraic subgroup, normal subgroup, homomorphism).
+    An \textit{algebraic subgroup} of an algebraic group $G$ is a subgroup $H\subset G$ that is a closed subset in $G$. As in the theory of abstract groups, a subgroup $H\subset G$ is a \textit{normal subgroup} if $g^{-1}Hg=H$ for every $g\in G$. Finally, a \textit{homomorphism} $\varphi:G_1\rightarrow G_2$ of algebraic groups is a regular map that is a homomorphism of abstract groups.
+\end{defn}
+\begin{theorem}
+    The abstract group $G/N$ can be made into an algebraic variety in such a way that the following conditions are satisfied:
+    \begin{enumerate}
+        \item The natural map $\varphi:G\rightarrow G/N$ is a homomorphism of algebraic groups.
+        \item For every homomorphism of algebraic groups $\psi:G\rightarrow G_1$ whose kernel contains $N$, there exists a homomorphism of algebraic groups $f:G/N\rightarrow G_1$ such that $\psi=f\circ\varphi$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}
+    An affine algebraic group is isomorphic to an algebraic subgroup of the general linear group.
+\end{theorem}
+\begin{theorem}(Chevalley's Theorem).
+    Every algebraic group $G$ has a normal subgroup $N$ such that $N$ is an affine group, and $G/N$ an Abelian variety. The subgroup $N$ is uniquely determined by these properties.
+\end{theorem}
+\begin{lemma}
+    Suppose that $X$ and $Y$ are irreducible varieties with $X$ projective, and let $f:X\times Y\rightarrow Z$ be a family of maps from $X$ to a variety $Z$ with base $Y$. Suppose that for some point $y_0\in Y$, the image $f(X\times y_0)=z_0\in Z$ is a point. Then $f(X\times y)$ is a point for every $y\in Y$.
+\end{lemma}
+\begin{theorem}
+    An Abelian variety is an Abelian group.
+\end{theorem}
+\begin{theorem}
+    If $\psi:G\rightarrow H$ is a regular map of an Abelian variety $G$ to an algebraic group $H$, then $\psi(g)=\psi(e)\varphi(g)$ where $e\in G$ is the identity element, and $\varphi:G\rightarrow H$ a group homomorphism.
+\end{theorem}
+\begin{corollary}
+    If two Abelian varieties are isomorphic as algebraic varieties, they are isomorphic as groups; that is, 'the geometry determines the algebra'.
+\end{corollary}
+\begin{defn}(Family of divisors, algebraic family of divisors, algebraically equivalent).
+    A \textit{family of divisors} on $X$ with base $T$ is any map $f:T\rightarrow\Div{X}$. We say that the family $f$ is an \textit{algebraic family of divisors} if there exists a divisor $C\in\Div(X\times T)$ such that $j_t^*(C)$ is defined for each $t\in T$ and $j_t^*(C)=f(t)$. Divisors $D_1,D_2$ on $X$ are \textit{algebraically equivalent} if there exists an algebraic family of divisors $f$ on $X$ with base $T$, and two points $t_1,t_2\in T$ such that $f(t_1)=D_1$ and $f(t_2)=D_2$. This equivalence relation is denoted by $D_1\equiv D_2$.
+\end{defn}
+\begin{theorem}(The Néron-Severi Theorem).
+    For $X$ a nonsingular projective variety, the group $\NS{X}=\Div{X}/\Div^{\mathfrak{a}}{X}$ is finitely generated. 
+\end{theorem}
+\subsubsection{Differential Forms}
+\begin{defn}(Regular differential form).
+    An element $\varphi\in\Phi[X]$ is a \textit{regular differential form} on $X$ if every point $x\in X$ has a neighbourhood $U$ such that the restriction of $\varphi$ to $U$ belongs to the $k[U]$-submodule of $\Phi[U]$ generated by the elements $\textrm{d}f$ with $f\in k[U]$.
+\end{defn}
+\begin{theorem}
+    Any nonsingular point $x$ of an algebraic variety $X$ has an affine neighbourhood $U$ such that $\Omega[U]$ is a free $k[U]$-module of rank $\dim_x{X}$.
+\end{theorem}
+\begin{corollary}
+    If $u_1,\ldots,u_n$ is any system of local parameters at a point $x$, then $\textrm{d}u_1,\ldots,\textrm{d}u_n$ generate $\Omega[U]$ as a $k[U]$-module for some affine neighbourhood $U$ of $x$.
+\end{corollary}
+\begin{prop}
+    $\Omega$ is generated as an $A$-module by the elements $\textrm{d}f$ with $f\in A$.
+\end{prop}
+\begin{prop}
+    If $X$ is a nonsingular affine variety and $A=k[X]$ then the $A$-module $\Omega$ is defined by the relations $\textrm{d}(f+g)=\textrm{d}f+\textrm{d}g$, $\textrm{d}(fg)=f\textrm{d}g+g\textrm{d}g$ and $\textrm{d}\alpha=0$ for $\alpha\in k$.
+\end{prop}
+\begin{defn}(Regular differential $r$-form).
+    An element $\varphi\in\Phi^r[X]$ is a \textit{regular differential $r$-form} on $X$ if any point $x\in X$ has a neighbourhood $U$ such that $\varphi$ on $U$ belongs to the submodule of $\Phi^r[U]$ generated over $k[U]$ by the elements $\textrm{d}f_1\wedge\cdots\wedge\textrm{d}f_r$ with $f_1,\ldots,f_r\in k[U]$. In terms of this definition, the differential forms considered earlier are regular differential 1-forms.
+\end{defn}
+\begin{theorem}
+    Any nonsingular point $x\in X$ of an $n$-dimensional variety has a neighbourhood $U$ such that $\Omega^r[U]$ is a free $k[U]$-module of rank $\begin{pmatrix}n\\r\end{pmatrix}$.
+\end{theorem}
+\begin{lemma}
+    The set of points at which a regular differential form $\omega$ is 0 is closed.
+\end{lemma}
+\begin{theorem}
+    $\Omega^r(X)$ is a vector space over $k(X)$ of dimension $\begin{pmatrix}n\\r\end{pmatrix}$.
+\end{theorem}
+\begin{theorem}
+    If $u_1,\ldots,u_n$ is a separable transcendence basis of $k(X)$ then the forsm $\textrm{d}u_{i_1}\wedge\cdots\wedge\textrm{d}u_{i_r}$ for $1\leq i_1<\cdots<i_r\leq n$ form a basis of $\Omega^r(X)$ over $k(X)$.
+\end{theorem}
+\subsubsection{Examples and Applications of Differential Forms}
+\begin{theorem}
+    If $k(X)$ has a separable transcendence basis over $k(Y)$ then $\varphi^*:\Omega^r(Y)\rightarrow\Omega^r(X)$ is an inclusion. Here we identify $k(Y)$ with the subfield $\varphi^*(k(Y))\subset k(X)$.
+\end{theorem}
+\begin{theorem}
+    If $X$ and $Y$ are nonsingular varieties with $Y$ projective, and $\varphi:X\rightarrow Y$ a rational map such that $\varphi(X)$ is dense in $Y$, then $\varphi^*\Omega^r[Y]\subset\Omega^r[X]$.
+\end{theorem}
+\begin{corollary}
+    If two nonsingular projective varieties $X$ and $Y$ are birational then the vector space $\Omega^r[X]$ and $\Omega^r[Y]$ are isomorphic.
+\end{corollary}
+\begin{prop}
+    The map $\omega\mapsto\omega(e)$ establishes an isomorphism from the vector space of invarient regular differential $r$-forms on $G$ to $\bigwedge^r\Theta_e^*$.
+\end{prop}
+\begin{lemma}
+    Let $X$ be a nonsingular projective curve $X$. Then there exists a constant $\gamma=\gamma(X)$ such that $l(D)\geq\deg{D}-\gamma$ for every divisor $D$ on $X$.
+\end{lemma}
+\begin{corollary}
+    Setting $D=K$, since $l(K)=g$ and $l(K-K)=l(0)=1$, we get that $\deg{K}=2g-2$.
+\end{corollary}
+\begin{corollary}
+    If $\deg{D}>2g-2$ then $l(D)=1-g+\deg{D}$.
+\end{corollary}
+\begin{corollary}
+    $g(X)=0$ is a necessary and sufficient condition for $X\cong\mathbb{P}^1$.
+\end{corollary}
+\begin{corollary}
+    If $g=1$ then $X$ is isomorphic to a cubic in $\mathbb{P}^2$.
+\end{corollary}
+\begin{corollary}
+    Consider a basis $f_0,\ldots,f_n$ of the space $\mathcal{L}(D)$ with $D\geq0$, and the corresponding rational map $\varphi=(f_0,\ldots,f_n):X\rightarrow\mathbb{P}^n$. Then $\varphi$ is an embedding provided that $l(D-x)=l(D)-1$ and $l(D-x-y)=l(D)-2$ for all $x,y\in X$. In particular, this holds if $\deg{D}\geq 2g+1$ by Corollary 1.195, so that in this case $\varphi$ is an embedding.
+\end{corollary}
+\begin{theorem}(Rationality Criterion).
+    A surface $X$ is rational if and only if $\Omega^1[X]=0$ and $P_1=P_2=0$.
+\end{theorem}
+\begin{theorem}(Ruledness Criterion).
+    A surface $X$ is ruled if and only if $P_3=P_4=0$.
+\end{theorem}
+\subsection{Intersection Numbers}
+\subsubsection{Definition and Basic Properties}
+\begin{defn}(Intersection multiplicity/local intersection number).
+    If $D_1,\ldots,D_n$ are effective divisors on an $n$-dimensional nonsingular variety $X$, in general position at a point $x\in X$, and having local equations $f_1,\ldots,f_n$ in some neighbourhood of $x$, then the number $l(\mathcal{O}_x/(f_1,\ldots,f_n))$ is the \textit{intersection multiplicity} or \textit{local intersection number} of $D_1,\ldots,D_n$ at $x$. We denote it by $(D_1\cdots D_n)_x$.
+\end{defn}
+\begin{defn}(Intersection number).
+    If divisors $D_1,\ldots,D_n$ on an $n$-dimensional variety $X$ are in general position, then the number \[D_1\cdots D_n=\sum_{x\in\cap\Supp{D_i}}(D_1\cdots D_n)_x\] is called their \textit{intersection number}.
+\end{defn}
+\begin{theorem}
+    If $D_1,\ldots,D_{n-1},D_n'$ and $D_1,\ldots,D_{n-1},D_n''$ are in general position at $x$ then $(D_1\cdots D_{n-1}(D_n'+D_n''))_x=(D_1\cdots D_{n-1}D_n')_x+(D_1\cdots D_{n-1}D_n'')_x$.
+\end{theorem}
+\begin{lemma}
+    If the divisors $D_1,\ldots,D_n$ are in general position at a nonsingular point $x$, then their local equations $f_1,\ldots,f_n$ form a regular sequence.
+\end{lemma}
+\begin{lemma}
+    The property that a sequence of elements is a regular sequence is preserved under permuting the elements of the sequence.
+\end{lemma}
+\begin{theorem}
+    Let $X$ be a nonsingular projective variety and $D_1,\ldots,D_n,D_n'$ divisors such that both $D_1,\ldots,D_{n-1},D_n$ and $D_1,\ldots,D_{n-1},D_n'$ are in general position, and suppose that $D_n$ and $D_n'$ are linearly equivalent. Then $D_1\cdots D_{n-1}D_n=D_1\cdots D_{n-1}D_n'$.
+\end{theorem}
+\begin{defn}(Finite length, length).
+    A module $M$ over a ring $A$ is \textit{of finite length} if it has a finite chain of $A$-submodules $M=M_0\supset M_1\supset\cdots\supset M_n=0$ with $M_i\neq M_{i+1}$, such that each quotient $M_i/M_{i+1}$ is a simple $A$-module, that is, does not contain a submodule other than 0 and the module itself. It follows from the Jordan-Hölder theorem that all such chains are made up of the same number $n$ of modules; this common length $n$ is called the \textit{length} of $M$, and denoted by $l(M)$, or $l_A(M)$.
+\end{defn}
+\begin{lemma}
+    $\mathcal{O}_C/\mathfrak{a}$ is a module of finite length over $\mathcal{O}_C$.
+\end{lemma}
+\begin{defn}(Intersection multiplicity along a component of an irreducible variety).
+    The number $l_{\mathcal{O}_C}(\mathcal{O}_C/\mathfrak{a})$ is called the \textit{intersection multiplicity} of $D_1,\ldots,D_k$ along $C$, and denoted by $(D_1\cdots D_k)_C$.
+\end{defn}
+\begin{lemma}
+    For a fixed point $x\in X$, suppose that $C_1,\ldots,C_r$ are the components of the intersection $D_1\cap\cdots\cap D_{n-1}$ through $x$. Then $\overline{\mathfrak{p}}_1,\ldots,\overline{\mathfrak{p}}_r$ and $\overline{\mathfrak{m}}$ are all the prime ideals of $\overline{\mathcal{O}}$.
+\end{lemma}
+\begin{lemma}
+    For any $n$ divisors $D_1,\ldots,D_n$ on an $n$-dimensional variety $X$, there exist $n$ divisors $D_1',\ldots,D_n'$ such that $D_i\sim D_i'$ (linear equivalence) for $i=1,\ldots,n$ and $D_1',\ldots,D_n'$ are in general position.
+\end{lemma}
+\begin{lemma}
+    If $D_1,\ldots,D_n$ and $D_1',\ldots,D_n'$ are two $n$-tuples of divisors in general position and $D_i\sim D_i'$ for $i=1,\ldots,n$ then $D_1\cdots D_n=D_1'\cdots D_n'$.
+\end{lemma}
+\subsubsection{Applications of Intersection Numbers}
+\begin{theorem}
+    A system of $n$ homomgeneous real equations in $n+1$ variables has a nonzero real solution if the degree of each equation is odd.
+\end{theorem}
+\begin{theorem}
+    A system of real equations $F_i(x_0:\cdots:x_n;y_0:\cdots:y_m)=0$ for $i=1,\ldots,n+m$ has a nonzero real solution if the number $\sum k_{i_1}\cdots k_{i_n}l_{j_1}\cdots l_{j_m}$ is odd. Here $k_i$ and $l_i$ are the degrees of homogeneity of $F_i$ in the two sets of variables, and we consider a solution to be zero if either $x_0=\cdots=x_n=0$ or $y_0=\cdots=y_m=0$.
+\end{theorem}
+\begin{theorem}
+    The rank of a division algebra over $\mathbb{R}$ is a power of 2.
+\end{theorem}
+\begin{theorem}(Hodge Index Theorem).
+    If $D$ is a divisor on a surface $X$ and $DE=0$ where $E$ is the hyperplane section, then $D^2\leq0$.
+\end{theorem}
+\begin{prop}
+    Every line $L$ on a nonsingular projective cubic surface $X$ meets exactly 10 other lines on $X$, which break up into 5 pairs of intersecting lines.
+\end{prop}
+\begin{prop}
+    $\Cl{X}$ is a free group with 7 generators, the classes of the lines $L_1,L_2,L_3,L_4,L_5$, $M$ and $F$.
+\end{prop}
+\begin{theorem}
+    A nonsingular cubic surface of $\mathbb{P}^3$ contains exactly 27 lines.
+\end{theorem}
+\subsubsection{Birational Maps of Surfaces}
+\begin{theorem}
+    If $C$ is a prime divisor on $X$ passing through the centre $\xi$ of a blowup $\sigma$ then the inverse image $\sigma^*(C)$ of $C$ is given by $\sigma^*(C)=\sigma'(C)+kL$, where $\sigma'(C)\subset Y$ is a prime divisor, $L=\sigma^{-1}(\xi)$ and $k$ is the multiplicity of $C$ at $\xi$.
+\end{theorem}
+\begin{theorem}
+    \begin{enumerate}
+        \item If $D_1$ and $D_2$ are divisors on $X$ then $f^*(D_1)f^*(D_2)=D_1D_2$.
+        \item If $\overline{D}$ is a divisor on $Y$ all of whose components are exceptional curves of $f$ and $D$ is any divisor on $X$ then $f^*(D)\overline{D}=0$.
+    \end{enumerate}
+\end{theorem}
+\begin{corollary}
+    $L^2=-1$.
+\end{corollary}
+\begin{corollary}
+    If $C\subset X$ is a curve with multiplicity $k$ at $\xi$ then $\sigma'(C)L=k$.
+\end{corollary}
+\begin{corollary}
+    $\sigma'(C_1)\sigma'(C_2)=C_1C_2-k_1k_2$ where $k_1,k_2$ are the multiplicities of $C_1,C_2$ at $\xi$.
+\end{corollary}
+\begin{theorem}
+    Let $X$ be a nonsingular projective surface and $\varphi:X\rightarrow\mathbb{P}^n$ a rational map. Then there exists a chain of blowups $X_m\rightarrow\cdots\rightarrow X_1\rightarrow X$ such that the composite ratinoal map $\psi=\varphi\circ\sigma_1\circ\cdots\circ\sigma_m:X_m\rightarrow\mathbb{P}^n$ is regular.
+\end{theorem}
+\begin{theorem}
+    Let $\varphi:X\rightarrow Y$ be a birational map of nonsingular projective surfaces. Then there exist a surface $Z$, surfaces $X_i$ and $Y_j$ with $X_0=X,Y_0=Y,X_k=Y_l=Z$, and maps $\sigma_i:X_i\rightarrow X_{i-1}$ for $i=1,\ldots,k$ and $\tau_j:Y_j\rightarrow Y_{j-1}$ for $j=1,\ldots,l$ such that each $\sigma_i$ and $\tau_j$ is a blowup, and $\varphi\circ\sigma_1\circ\cdots\circ\sigma_k=\tau_1\circ\cdots\circ\tau_i$.
+\end{theorem}
+\begin{theorem}
+    Let $\varphi:X\rightarrow Y$ be a regular map between nonsingular projective surfaces which is birational. Then there exists a chain of surfaces and blowups $\sigma_i:Y_i\rightarrow Y_{i-1}$ for $i=1,\ldots,k$ such that $Y_0=Y$, $Y_k=X$ and $\varphi=\sigma_1\circ\cdots\circ\sigma_k$.
+\end{theorem}
+\begin{lemma}
+    Let $\varphi:X\rightarrow Y$ be a birational map of nonsingular projective surfaces, and suppose that $\varphi^{-1}$ is not regular at some point $y\in Y$. Then there exists a curve $C\subset X$ such that $\varphi(C)=y$.
+\end{lemma}
+\subsubsection{Singularities}
+\begin{theorem}
+    Let $C$ be an irreducible curve on a nonsingular surface $X$; then there exists a surface $Y$ and a regular map $f:Y\rightarrow X$, such that $f$ is a composite of blowups $Y\rightarrow X_1\rightarrow\cdots\rightarrow X_n\rightarrow X$ and the birational transform $C'$ of $C$ on $Y$ is nonsingular.
+\end{theorem}
+\begin{theorem}
+    Let $f:Y\rightarrow X$ be a regular map of algebraic surfaces, with $Y$ nonsingular and $C_1,\ldots,C_r\subset Y$ projective curves that are contracted to $x\in X$; suppose that $f:Y\backslash(C_1\cup\cdots\cup C_r)\overset{\sim}{\rightarrow}X\backslash x$ is an isomorphism. Then the matrix of intersection numbers $\{C_iC_j\}$ is negative definite.
+\end{theorem}
+\begin{prop}
+    Let $M$ be a $\mathbb{Z}$-module with a scalar product $ab\in\mathbb{Z}$ defined for $a,b\in M$, and $e_1,\ldots,e_r$ a set of generators of $M$ with $e_ie_j\geq0$ for $i\neq j$; suppose that there exists an element $d=\sum m_ie_i$ with $m_i>0$ such that $de_i<0$ for $i=1,\ldots,r$. Then every nonzero $m\in M$ satisfies $m^2<0$ and $e_1,\ldots,e_r$ is a free basis of $M$.
+\end{prop}
+\begin{defn}(Du Val singularity).
+    A point $x\in X$ of a normal surface iscalled a \textit{Du Val singularity} if there exists a minimal resolution $f:Y\rightarrow X$ contracting curves $C_1,\ldots,C_r$ to $x$ such that $K_YC_i=0$ for all $i$, where $K_Y$ is the canonical class of $Y$.
+\end{defn}
+\begin{theorem}
+    Suppose that $\characteristic{k}=0$ and that $G$ is a finite group of linear transformations of the plane $\mathbb{A}^2$ with $\deg{g}=1$ for all $g\in G$. Then the image of the origin $0\in\mathbb{A}^2$ is a Du Val singularity $y_0\in\mathbb{A}^2/G$.
+\end{theorem}
+\begin{lemma}
+    If $\varphi:U\rightarrow V$ is a finite map of nonsingular surfaces and $\omega_1$ a rational differential 2-form on $V$ such that $\varphi^*(\omega_1)$ is regular, then $\omega_1$ is also regular.
+\end{lemma}
+\begin{theorem}
+    Consider the divisor $s_0$ on $S$ consisting of one point, and suppose that its inverse image $f^*(s_0)$ decomposes as $f^*(s_0)=\sum r_iC_i$ where the $C_i$ are irreducible components and $r_i>0$. Then any divisor $D=\sum l_iC_i$ satisfies $D^2\leq0$, with $D^2=0$ if and only if $D$ is proportional to $\sum r_iC_i$.
+\end{theorem}
+\begin{prop}
+    Let $M$ be a free $\mathbb{Z}$-module with a scalar product $ab\in\mathbb{Z}$ for $a,b\in M$. Suppose that $M$ has a basis $e_1,\ldots,e_r$ satisfying $e_ie_j\geq0$ for each $i\neq j$, and that the $\{e_i\}$ cannot be split up into two components with $e_ie_j=0$ for $e_i,e_j$ in different components; assume that there exists an element $d=\sum l_ie_i$ with $l_i>0$ such that $de_i=0$ for $i=1,\ldots,r$. Then every $m\in M$ satisfies $m^2\leq0$, with equality only if $m$ is proportional to $d$.
+\end{prop}
+
+\end{document}

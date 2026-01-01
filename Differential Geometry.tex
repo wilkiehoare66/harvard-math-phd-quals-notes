@@ -1,0 +1,453 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[sorting=none]{biblatex}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{pdfpages}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{mathrsfs}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage[table]{xcolor}
+\addbibresource{references.bib}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arsinh}{arsinh}
+\DeclareMathOperator{\arcosh}{arcosh}
+\DeclareMathOperator{\artanh}{artanh}
+\DeclareMathOperator{\arcsch}{arcsch}
+\DeclareMathOperator{\arsech}{arsech}
+\DeclareMathOperator{\arcoth}{arcoth}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\N}{N}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Cent}{Cent}
+\DeclareMathOperator{\Rad}{Rad}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\NS}{NS}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Sl}{Sl}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\Gl}{Gl}
+\DeclareMathOperator{\TGl}{TGl}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\TSO}{TSO}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\lie}{lie}
+\DeclareMathOperator{\genus}{genus}
+\DeclareMathOperator{\Ric}{Ric}
+\newcommand{\characteristic}{\mathrel{\textrm{char}}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\rel}[1]{\allowbreak\mkern18mu\mathrm{rel}\,\,#1}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{exmp}[theorem]{Example}
+\newtheorem{defn}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+\def\lf{\left\lfloor}   
+\def\rf{\right\rfloor}
+
+\title{Differential Geometry}
+\author{Wilkie Hoare}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+%%CONTENT STARTS HERE
+
+\newpage
+\section{Taubes: Differential Geometry}
+\subsection{Smooth manifolds}
+\subsubsection{The inverse function theorem and implicit function theorem}
+\begin{theorem}(The Inverse Function Theorem).
+    Let $U\subset\mathbb{R}^m$ denote a neighborhood of the origin, and let $\psi:U\rightarrow\mathbb{R}^m$ denote a smooth map. Suppose that $p\in U$ and that the matrix $\psi_*$ at $p$ is invertible. Then there is a neighborhood $V\subset\mathbb{R}^m$ of $\psi(p)$ and a smooth map $\sigma:V\rightarrow U$ such that $\sigma(\psi(p))=p$ and
+    \begin{enumerate}
+        \item $\sigma\circ\psi$ is the identity on some neighborhood $U'\subset U$ of $p$.
+        \item $\psi\circ\sigma$ is the identity on $V$.
+    \end{enumerate}
+    Conversely, if $\psi_*$ is not invertible at $p$, then there is no such set $V$ and map $\sigma$ with these properties.
+\end{theorem}
+\begin{theorem}(The Implicit Function Theorem).
+    Fix nonnegative integers $m\geq n$. Suppose that $U\subset\mathbb{R}^m$ is an open set, $\psi:U\rightarrow\mathbb{R}^{m-n}$ is a smooth map, and $a\in\mathbb{R}^{m-n}$ is a regular value of $\psi$. Then $\psi^{-1}(a)\subset U$ has the structure of a smooth, $n$-dimensional manifold whose smooth structure is defined by coordinate charts of the following sort: Fix a point $p\in\psi^{-1}(a)$. Then there is a ball $B\subset\mathbb{R}^m$ centered at $p$ such that the orthogonal projection from $B$ to the kernel of $\psi_*|_p$ restricts to $\psi^{-1}(a)\cap B$ as a coordinate chart. In addition, there is a diffeomorphism, $\varphi:B\rightarrow\mathbb{R}^m$ such that $\varphi(B\cap\psi^{-1}(a))$ is a neighborhood of the origin in the $n$-dimensional linear subspace of points $(x_1,\ldots,x_m)$ with $x_{n+1}=\ldots=x_m=0$.
+\end{theorem}
+\begin{theorem}(Sard).
+    Suppose that $U\subset\mathbb{R}^m$ is an open set, $\psi:U\rightarrow\mathbb{R}^n$ is a smooth map. Then the set of regular values of $\psi$ have full measure.
+\end{theorem}
+\subsubsection{Submanifolds of $\mathbb{R}^m$}
+\begin{defn}(Submanifold).
+    A \textit{submanifold} in $\mathbb{R}^m$ of dimension $n<m$ is a subset, $\Sigma$, with the following property: Let $p$ denote any given point in $\Sigma$. There is a ball $U_p\subset\mathbb{R}^m$ around $p$ and a map $\psi_p:U_p\rightarrow\mathbb{R}^{m-n}$ with 0 as a regular value and such that $\Sigma\cap U_p=\psi_p^{-1}(0)$.
+\end{defn}
+\begin{lemma}
+    Suppose that $n\leq m$ and that $B\subset\mathbb{R}^n$ is an open ball centered on the origin. Let $\varphi:B\rightarrow\mathbb{R}^m$ denote a smooth, 1-1 map whose differential is everywhere injective. Let $W\subset B$ denote any given open set with compact closure. Then $\varphi(W)$ is a submanifold of $\mathbb{R}^m$ such that $\varphi|_W:W\rightarrow\varphi(W)$ is a diffeomorphism.
+\end{lemma}
+\subsection{Matrices and Lie groups}
+\subsubsection{Lie groups}
+\begin{lemma}
+    A subgroup of a Lie group that is also a submanifold is a Lie group with respect to the induced smooth structure.
+\end{lemma}
+\subsection{Introduction to vector bundles}
+\subsubsection{The definition}
+\begin{lemma}
+    A map $\psi:\mathbb{R}^n\rightarrow\mathbb{R}^n$ with the property that $\psi(rv)=r\psi(v)$ for all $r\in\mathbb{R}$ is linear.
+\end{lemma}
+\subsection{Maps and vector bundles}
+\subsubsection{Pull-backs and Grassmannians}
+\begin{prop}
+    Let $M$ denote a smooth manifold, let $n$ denote a positive integer, and let $\pi:E\rightarrow M$ denote a given rank $n$ vector bundle. If $m$ is sufficiently large, there exists a map $\psi_m:M\rightarrow\Gr(m;n)$ and an isomorphism between $E$ and the pull-back via $\psi_m$ of the tautological bundle over $\Gr(m;n)$.
+\end{prop}
+\subsubsection{Immersion, submersion and transversality}
+\begin{defn}(Immersion, submersion).
+    The map $\psi$ is respectively an \textit{immersion} or \textit{submersion} when the vector bundle homomorphism $\psi_*:TY\rightarrow\psi^*TM$ is injective on each fiber or surjective on each fiber.
+\end{defn}
+\begin{prop}
+    Let $M$ and $Y$ be smooth manifolds with $Z\subset M$ a submanifold where $\dim{M}=m$, $\dim{Y}=n$ and $\dim{Z}=d$, and suppose that $\psi:Y\rightarrow M$ is transversal to $Z$. Then $\psi^{-1}(Z)$ is a smooth submanifold of $Y$ of dimension $n+d-m$.
+\end{prop}
+\subsection{Vector bundles with $\mathbb{C}^n$ as fiber}
+\subsubsection{Definitions}
+\begin{defn}(Complex vector bundle, almost complex structure).
+    A \textit{complex vector bundle} of rank $n$ is a vector bundle, $\pi:E\rightarrow M$, with fiber dimension $2n$, but equipped with a bundle endomorphism $\mathfrak{j}:E\rightarrow E$ such that $\mathfrak{j}^2=-1$. This $\mathfrak{j}$ allows one to define an action of $\mathbb{C}$ on $E$ such that the real numbers in $\mathbb{C}$ act as $\mathbb{R}$ on the underlying real bundle of fiber dimension $2n$; and such that the number $i$ acts as $\mathfrak{j}$. Doing this identifies each fiber of $E$ with $\mathbb{C}^n$ up to the action of $\Gl(n;\mathbb{C})$. The endomorphism $\mathfrak{j}$ is said to be an \textit{almost complex structure} for $E$. The underlying real bundle with fiber $\mathbb{R}^{2n}$ is denoted by $E_{\mathbb{R}}$ when a distinction between the two is germaine at any given time.
+\end{defn}
+\begin{defn}(Complex vector bundle).
+    A \textit{complex vector bundle} $E$ over $M$ of fiber dimension $n$ is a smooth manifold with the following additional structure:
+    \begin{enumerate}
+        \item A smooth map $\pi:E\rightarrow M$.
+        \item A smooth map $\hat{o}:M\rightarrow E$ such that $\pi_o\hat{o}$ is the identity.
+        \item A smooth map $\mu:\mathbb{C}\times E\rightarrow E$ such that
+        \begin{itemize}
+            \item $\pi(\mu(c,v))=\pi(v)$.
+            \item $\mu(c,\mu(c',v))=\mu(cc',v)$.
+            \item $\mu(1,v)=v$.
+            \item $\mu(c,v)=v$ for $c\neq1$ if and only if $v\in\im(\hat{o})$.
+        \end{itemize}
+        \item Let $p\in M$. There is a neighborhood, $U\subset M$, of $p$ and a map $\lambda_U:\pi^{-1}(U)\rightarrow\mathbb{C}^n$ such that $\lambda_U:\pi^{-1}(x)\rightarrow\mathbb{C}^n$ for each $x\in U$ is a diffeomorphism obeying $\lambda_U(\mu(c,v))=c\lambda_U(v)$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}(Complex vector bundle).
+    A \textit{complex vector bundle} of rank $n\geq1$ is given by a locally finite open cover $\mathfrak{U}$ of $M$ with the following additional data: An assignment to each pair $U,V\in\mathfrak{U}$ a map $g_{U,V}:U\cap V\rightarrow\Gl(n;\mathbb{C})$ such that $g_{U,V}=g_{V,U}^{-1}$ with the constraint that if $U,V,W\in\mathfrak{U}$, then $g_{U,V}g_{V,W}g_{W,U}=\iota$ on $U\cap V\cap W$. Given this data, define the bundle $E$ to be the quotient of the disjoint union $\cup_{U\in\mathfrak{U}}(U\times\mathbb{C}^n)$ by the equivalence relation that puts $(p',v')\in U'\times\mathbb{C}^n$ equivalent to $(p,v)\in U\times\mathbb{C}^n$ if and only if $p=p'$ and $v'=g_{U',U}(p)v$. The constraint involving the overlap of three sets guarantees that this does, indeed, specify an equivalence relation.
+\end{defn}
+\begin{lemma}
+    Let $\pi:E_{\mathbb{R}}\rightarrow M$ denote a real vector bundle with fiber dimension $2n$ with an almost complex structure $\mathfrak{j}:E\rightarrow E$. There is a locally finite cover $\mathfrak{U}$ for $M$ of the following sort: Each set $U\in\mathfrak{U}$ comes with an isomorphism $\varphi_U:E_{\mathbb{R}}|_U\rightarrow U\times\mathbb{R}^{2n}$ that obeys $\varphi_U\circ\mathfrak{j}\circ\varphi_U^{-1}=\mathfrak{j}_0$ at each point of $U$.
+\end{lemma}
+\subsubsection{Pull-back}
+\begin{prop}
+    Let $M$ denote a smooth manifold, let $n$ denote a positive integer, and let $\pi:E\rightarrow M$ denote a given rank $n$, complex vector bundle. If $m$ is sufficiently large, there exists a map $\psi_m:M\rightarrow\Gr_{\mathbb{C}}(m;n)$ and an isomorphism between $E$ and the pull-back via $\psi_m$ of the tautological bundle over $\Gr_{\mathbb{C}}(m;n)$.
+\end{prop}
+\subsection{Metrics on vector bundles}
+\subsubsection{Metrics and transition functions for real vector bundles}
+\begin{defn}(Orientable).
+    A real vector bundle $E\rightarrow M$ is said to be \textit{orientable} if it has a trivializing cover such that the corresponding vector bundle transition functions on the overlaps have positive determinant.
+\end{defn}
+\begin{lemma}
+    A real vector bundle $E\rightarrow M$ with some given fiber dimension $n\geq1$ is orientable if and only if the real line bundle $\det(E)=\wedge^nE$ is isomorphic to the product bundle $M\times\mathbb{R}$.
+\end{lemma}
+\subsubsection{Metrics and transition functions for complex vector bundles}
+\begin{lemma}
+    The bundle $\det(E)$ is isomorphic to the product bundle $E\times\mathbb{C}$ if ad only if the following is true: There is a locally finite cover, $\mathfrak{U}$, of $M$ such that each $U\in\mathfrak{U}$ comes with an isomorphism from $E|_U$ to $U\times\mathbb{C}^n$ and such that all transition functions map to $\SU(n)$.
+\end{lemma}
+\subsection{Geodesics}
+\subsubsection{Length minimizing curves}
+\begin{theorem}(The Geodesic Theorem).
+    Suppose that $M$ is a compact manifold and that $g$ is a Riemannian metric on $M$. Fix any points $p$ and $q$ in $M$.
+    \begin{enumerate}
+        \item There is a smooth curve from $p$ to $q$ whose length is the distance between $p$ and $q$.
+        \item Any length minimizing curve is an embedded, 1-dimensional submanifold that can be reparametrized to have constant speed; thus $g(\dot{\gamma},\dot{\gamma})$ is constant.
+        \item A length minimizing, constant speed curve is characterized as follows: Let $U\subset M$ denote an open set with a diffeomorphism $\varphi:U\rightarrow\mathbb{R}^n$. Introduce the Euclidean coordinates $(x^1,\ldots,x^n)$ for $\mathbb{R}^n$ and let $g_{ij}$ denote the components of the metric in these coordinates. This is to say that the metric on $U$ is given by $g|_U=\varphi^*(g_{ij}\textrm{d}x^i\otimes\textrm{d}x^j)$. Denote the coordinates of the $\varphi$-image of a length minimizing curve by $\gamma=(\gamma^1,\ldots,\gamma^n)$. Then the latter curve in $\mathbb{R}^n$ obeys the equation: $\ddot{\gamma}^i+\Gamma_{km}^j\dot{\gamma}^k\dot{\gamma}^m=0$ where $\Gamma_{km}^j=\frac{1}{2}g^{jp}(\partial_mg_{pk}+\partial_kg_{pm}-\partial_pg_{km})$. Here, $\dot{\gamma}^i=\frac{\textrm{d}}{\textrm{d}t}\gamma^i$ and $\ddot{\gamma}^i=\frac{\textrm{d}^2}{\textrm{d}t^2}\gamma^i$.
+        \item Any curve that obeys this equation in coordinate charts is locally length minimizing. This is to say that there exists $c_0>1$ such that when $p$ and $q$ are two points on such a curve with $\dist(p,q)\leq c_0^{-1}$, then there is a segment of the curve with one endpoint $p$ and the other $q$ whose length is $\dist(p,q)$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{The existence of geodesics}
+\begin{theorem}(The Vector Field Theorem).
+    Let $m$ denote a positive integer and let $\mathfrak{v}:\mathbb{R}^m\rightarrow\mathbb{R}^m$ denote a given smooth map. Fix $y_0\in\mathbb{R}^m$ and there exists an interval $I\subset R$ centered on 0, a ball $B\subset\mathbb{R}^m$ about the point $y_0$, and a smooth map $z:I\times B\rightarrow\mathbb{R}^m$ with the following property: If $y\in B$, then the map $t\rightarrow z(t)=\mathfrak{z}(t,y)$ obeys \[\frac{\textrm{d}}{\textrm{d}t}z=\mathfrak{v}(z)\] with the initial condition $z|_{t=0}=y$. Moreover, there is only one solution of this equation that equals $y$ at $t=0$.
+\end{theorem}
+\begin{prop}
+    Let $M$ be a smooth manifold and let $g$ denote a Riemannian metric on $M$. Let $p\in M$ and let $v\in TM|_p$. There exists $\varepsilon>0$ and a unique map from the interval $(-\varepsilon,\varepsilon)$ to $M$ that obeys the geodesic equation, sends 0 to $p$, and whose differential at 0 sends the vector $\frac{\partial}{\partial t}$ to $v$.
+\end{prop}
+\begin{prop}
+    Let $M$ be a smooth manifold and let $g$ denote a Riemannian metric on $M$. Fix a point in $TM$. Then there exists an open neighborhood $O\subset TM$ of this point, a positive number $\varepsilon>0$ and a smooth map $\gamma_O:(-\varepsilon,\varepsilon)\times O\rightarrow M$ with the following property: If $v\in O$, then the map $\gamma_O(\cdot,v):(-\varepsilon,\varepsilon)\rightarrow M$ is a geodesic with $\gamma_O(0,v)=\pi(v)$ and with $\gamma_O(\cdot,v)_*\left(\frac{\partial}{\partial t}|_{t=0}\right)$ equal to the vector $v$.
+\end{prop}
+\subsubsection{Geodesics on $\SO(n)$}
+\begin{prop}
+    Identify $\TSO(n)$ with $\SO(n)\times\mathbb{A}(n;\mathbb{R})$. With the metric $g=\sum_{1\leq i\leq n(n-1)/2}\omega^i\otimes\omega^i$, any solution to the geodesic equation on $\SO(n)$ and has the form $t\rightarrow\mathfrak{m}e^{t\mathfrak{a}}$ where $\mathfrak{m}\in\SO(n)$ and $\mathfrak{a}\in\mathbb{A}(n;\mathbb{R})$. Conversely, any such map from $\mathbb{R}$ into $\SO(n)$ parametrizes a geodesic.
+\end{prop}
+\begin{prop}
+    Identify $\TGl(n;\mathbb{R})$ with $\Gl(n;\mathbb{R})\times\mathbb{M}(n;\mathbb{R})$. With the metric $g$ as in Proposition 1.23, paths of the form $t\rightarrow\mathfrak{m}e^{t\mathfrak{a}}$ with $\mathfrak{m}\in\Gl(n;\mathbb{R})$ and $\mathfrak{a}\in\mathbb{M}(n;\mathbb{R})$ obeying $\mathfrak{a}\mathfrak{a}^T-\mathfrak{a}^T\mathfrak{a}=0$ are geodesics. In particular, paths of the form $t\rightarrow\mathfrak{m}e^{t\mathfrak{a}}$ are geodesics in $\Gl(n;\mathbb{R})$ if $\mathfrak{a}=\pm\mathfrak{a}^T$.
+\end{prop}
+\subsubsection{Geodesics on $\U(n)$ and $\SU(n)$}
+\begin{prop}
+    Identify $\TGl(n;\mathbb{C})$ with $\Gl(n;\mathbb{C})\times\mathbb{M}(n;\mathbb{C})$. With the metric $g$ as in Proposition 1.23, any path of the form $t\rightarrow\mathfrak{m}e^{t\mathfrak{a}}$ with $\mathfrak{m}\in\Gl(n;\mathbb{C})$ and $\mathfrak{a}\in\mathbb{M}(n;\mathbb{C})$ obeying $[\mathfrak{a},\mathfrak{a}^{\dagger}]=0$ is a geodesic.
+\end{prop}
+\begin{prop}
+    The geodesics for the metric defined by $g=\sum_{1\leq i\leq n^2}\omega^i\otimes\omega^i$ on $U(n)$ are of the form $t\rightarrow\mathfrak{m}e^{t\mathfrak{a}}$ where $\mathfrak{m}\in U(n)$ and $\mathfrak{a}\in\mathbb{A}(n;\mathbb{C})$. The geodesic for the metric defined by $g=\sum_{1\leq i\leq n^2-1}\omega^i\otimes\omega^i$ on $\SU(n)$ are of this form with $\mathfrak{m}\in\SU(n)$ and $\mathfrak{a}$ a traceless matrix in $\mathbb{A}(n;\mathbb{C})$.
+\end{prop}
+\subsubsection{Geodesics and matrix groups}
+\begin{prop}
+    Suppose that $G$ is a compact matrix group, and let $\mathfrak{m}\in G$.
+    \begin{enumerate}
+        \item The map $\mathfrak{a}\rightarrow\mathfrak{m}e^{\mathfrak{a}}$ from $\lie(G)$ to the general linear group has image in $G$.
+        \item This map restricts to some ball about the origin in $\lie(G)$ as a diffeomorphism of the latter onto a neighborhood of $\mathfrak{m}$ in $G$.
+        \item For any given $\mathfrak{a}\in\lie(G)$, the map $t\rightarrow\mathfrak{m}e^{t\mathfrak{a}}$ from $\mathbb{R}$ to $G$ is a geodesic; and all geodesics through $\mathfrak{m}\in G$ are of this sort.
+    \end{enumerate}
+\end{prop}
+\subsection{Properties of geodesics}
+\subsubsection{The exponential map}
+\begin{prop}
+    There exists a smooth map, $\mathfrak{e}:\mathbb{R}\times TM\rightarrow M$ with the following property: Fix $v\in TM$. Then the corresponding map $\mathfrak{e}_v=\mathfrak{e}(\cdot,v):\mathbb{R}\rightarrow M$ is the unique solution to the geodesic equation with the property that $\mathfrak{e}_v(0)=\pi(v)$ and $(\mathfrak{e}_v)_*\left(\frac{\partial}{\partial t}|_{t=0}\right)=1$.
+\end{prop}
+\subsubsection{Gaussian coordinates}
+\begin{prop}
+    Let $(x^1,\ldots,x^n)$ denote Gaussian coordinates centered at any given point in $M$. Then the metric in these coordinates has the form $g_{ij}=\delta_{ij}+K_{ij}(x)$ where $K_{ij}(x)x^j=0$ and also $|K_{ij}|\leq c_0|x|^2$. Moreover, the geodesics through the given point appear in these coordinates as the straight lines through the origin.
+\end{prop}
+\subsubsection{The proof of the geodesic theorem}
+\begin{lemma}
+    Let $p\in M$ denote a given point. There exists $\varepsilon>0$ such that if $q\in M$ has distance $\varepsilon$ or less from $p$, then there is a unique geodesic that starts at $p$, ends at $q$ and has length equal to the distance between $p$ and $q$. Moreover, this is the only path in $M$ between $p$ and $q$ with this length.
+\end{lemma}
+\begin{lemma}
+    Let $p,q$ be points in $M$ and suppose that $\gamma\subset M$ is a path from $p$ to $q$ whose length is the distance between $p$ and $q$. Then $\gamma$ is an embedded closed subset of a geodesic.
+\end{lemma}
+\subsection{Principal bundles}
+\subsubsection{Quotients of Lie groups by subgroups}
+\begin{prop}
+    The stabilizer of $\mathfrak{v}\in V$ is a Lie subgroup $H\subset G$ whose tangent space at the identity is the subspace $\mathfrak{H}=\{\mathfrak{q}\in\lie(G):(\rho_*(\mathfrak{q}))\mathfrak{v}=0\}$. If $G$ is compact, then the following is also true:
+    \begin{enumerate}
+        \item The subspace $M_{\mathfrak{v}}=\{\rho(\mathfrak{g})\mathfrak{v}:\mathfrak{g}\in G\}\subset V$ is a smooth manifold, homeomorphic to the quotient space $G/H$.
+        \item The tangent space to $M_{\mathfrak{v}}$ at $\mathfrak{v}$ is canonically isomorphic to the orthogonal complement of $\mathfrak{H}$ in $\lie(G)$ with the map that sends any given $\mathfrak{z}$ in this orthogonal complement to $\rho_*(\mathfrak{z})\mathfrak{v}$.
+        \item The map $\pi:G\rightarrow M_{\mathfrak{v}}$ defines a principal $H$-bundle.
+    \end{enumerate}
+\end{prop}
+\subsubsection{Associated vector bundles}
+\begin{prop}
+    Let $G$ denote either $\Gl(n;\mathbb{R})$ or $\SO(n)$ in the real case, and either $\Gl(n;\mathbb{C})$ or $\U(n)$ in the complex case. Let $M$ denote a smooth manifold and let $P\rightarrow M$ denote a principal $G$-bundle. There exists $m\geq n$ and a smooth map from $M$ to the Grassmannian $\Gr$ whose pull-back of the principal $G$-bundle $P_T\rightarrow\Gr$ is isomorphic to $P$.
+\end{prop}
+\subsection{Covariant derivatives and connections}
+\subsubsection{The space of covariant derivatives}
+\begin{lemma}
+    Suppose that $E$ and $E'$ are vector bundles (either real or complex) and that $\mathcal{L}$ is an $\mathbb{R}$- or $\mathbb{C}$-linear map (as the case may be) that takes a section of $E$ to one of $E'$. Suppose in addition that $\mathcal{L}(f\mathfrak{s})=f\mathcal{L}(\mathfrak{s})$ for all functions $f$. Then there exists a unique section, $L$, of $\Hom(E;E')$ such that $\mathcal{L}(\cdot)=L(\cdot)$.
+\end{lemma}
+\subsubsection{An application to the classification of principal $G$-bundles up to isomorphism}
+\begin{theorem}
+    Let $f_0$ and $f_1$ denote a pair of smooth maps from $M$ to $X$. The principal $G$-bundles $f_0^*P_X$ and $f_1^*P_X$ are isomorphic if $f_0$ is homotopic to $f_1$.
+\end{theorem}
+\begin{corollary}
+    Let $P\rightarrow M$ denote a principal $G$-bundle and let $U$ denote a contractible, open set in $M$. Then there is an isomorphism $\varphi:P|_U\rightarrow U\times G$.
+\end{corollary}
+\begin{corollary}
+    Let $M$ denote a compact 2-dimensional manifold and let $f_0$ and $f_1$ denote homotopic maps from $M$ to $S^2$. Let $\pi:E\rightarrow S^2$ denote a complex, rank 1 bundle. Then $f_0^*E$ is isomorphic to $f_1^*E$ if $f_0$ is homotopic to $f_1$.
+\end{corollary}
+\subsection{Covariant derivatives, connections and curvature}
+\subsubsection{Closed forms, exact forms, diffeomorphisms and De Rham cohomology}
+\begin{prop}
+    Let $U\subset M$ denote a contractible open set. This is to say that there exists a smooth map $\psi:[0,1]\times U\rightarrow M$ such that $\psi(1,\cdot)$ is the identity map on $U$ and $\psi(0,\cdot)$ maps $U$ to a point $p\in M$. Let $p\geq1$ and let $\omega$ denote a closed $p$-form on $M$. Then there exists a $(p-1)$-form $\alpha$ on $U$ such that $\textrm{d}\alpha=\omega$.
+\end{prop}
+\begin{corollary}(The Poincaré Lemma).
+    Let $U$ denote a contractible manifold, for instance $\mathbb{R}^n$. Then any closed form $p$-form on $U$ for $p\geq1$ is the exterior derivative of a $(p-1)$-form.
+\end{corollary}
+\subsection{Flat connections and holonomy}
+\subsubsection{Foliations}
+\begin{theorem}(Frobenius).
+    Suppose that $X$ has dimension $n$ and that $H\subset TX$ is an involutive subbundle of dimension $m\leq n$. Then any point $p\in X$ has a neighborhood, $U$, with a coordinate chart $\varphi:U\rightarrow\mathbb{R}^n=\mathbb{R}^m\times\mathbb{R}^{n-m}$ such that $\varphi_*H$ consists of the tangent vectors to the $\mathbb{R}^m$ factor in $\mathbb{R}^m\times\mathbb{R}^n$.
+\end{theorem}
+\subsubsection{The flat connections on bundles over $M$}
+\begin{theorem}(Classification Theorem for Flat Connections).
+    The set $\mathfrak{F}_{M,G}$ is in 1-1 correspondence with the set $\Hom(\pi_1(M);G)/G$.
+\end{theorem}
+\subsubsection{Holonomy and curvature}
+\begin{prop}
+    Let $*:S^1\rightarrow M$ map all of $S^1$ to a point in $M$. Then $\mathfrak{h}_{A,*}(p)=\iota$.
+\end{prop}
+\begin{prop}
+    Let $\gamma^{-1}:S^1\rightarrow M$ denote the traverse of $\gamma$ in the direction opposite to that defined by its given orientation. Then $\mathfrak{h}_{A,\gamma^{-1}}(p)=(\mathfrak{h}_{A,\gamma}(p))^{-1}$.
+\end{prop}
+\begin{prop}
+    Let $\mu:S^1\rightarrow M$ and $\nu:S^1\rightarrow M$ denote smooth, oriented maps such that $\mu(0)=\nu(0)$. Define the concatenation $\nu\cdot\mu$ by first traversing $\mu$ and then traversing $\nu$. The holonomy of the concatenated loop is given by $\mathfrak{h}_{A,\nu\cdot\mu}(p)=\mathfrak{h}_{A,\nu}(p)\mathfrak{h}_{A,\mu}(p)$.
+\end{prop}
+\begin{prop}
+    The derivative at $s=0$ of $\mathfrak{m}$ is \[\left(\frac{\partial}{\partial s}\mathfrak{m}\right)|_{s=0}=-\int_0^{2\pi}(\gamma_A^*(F_A(f_s,f_t))|_{(t,p)}\;\textrm{d}t\]
+\end{prop}
+\subsection{Curvature polynomials and characteristic classes}
+\subsubsection{Characteristic classes: Part 2}
+\begin{theorem}(The Ad-Invariant Function Theorem).
+    The vector space of real analytic, ad-invariant functions that are homogeneous of a given positive degree $p$ is the $\mathbb{C}$-linear span of the set $\{\tr(\mathfrak{m}^{k_1})\cdots\tr(\mathfrak{m}^{k_4}):k_1+\cdots+k_q=p\}$.
+\end{theorem}
+\subsubsection{Examples of bundles with nonzero Chern classes}
+\begin{prop}
+    Suppose that $X$ is a compact, oriented, $n$-dimensional manifold and suppose that $M$ is another such manifold.
+    \begin{enumerate}
+        \item Suppose that $\psi:M\rightarrow X$ is a smooth map. There exists an integer $p$ with the following property: Let $\omega$ denote a $n$-form on $X$. Then $\int_M\psi^*\omega=p\int_X\omega$. This integer $p$ is said here to be the degree of $\psi$.
+        \item Homotopic maps from $M$ to $X$ have the same degree.
+    \end{enumerate}
+\end{prop}
+\begin{lemma}
+    Let $M$ denote a compact manifold and $\pi:E_{\mathbb{R}}\rightarrow M$ a real vector bundle with even dimensional fiber. Suppose that $t\rightarrow\mathfrak{j}_t$ is a smoothly varying, 1-parameter family of almost complex structures on $E_{\mathbb{R}}$, this parametrized by $t\in[0,1]$. For each such $t$, let $E^t$ denote the complex vector bundle that is defined from $E_{\mathbb{R}}$ via defined by $\mathfrak{j}_t$. Then each $t\in[0,1]$ version of $E^t$ is isomorphic to $E^0$ as a complex vector bundle. In particular, the Chern classes do not change as $t$ varies.
+\end{lemma}
+\begin{prop}
+    Let $M$ denote a compact, oriented, $n$-dimensional manifold. There is a well-defined notion of the integral of an $n$-form on $M$. An $n$-form that is not identically zero and defines the given orientation where it is nonzero has positive integral. On the other hand, the integral of the exterior derivative of an $(n-1)$-form is zero.
+\end{prop}
+\begin{corollary}
+    Let $M$ denote a compact, oriented, $n$-dimensional manifold. Then the De Rham cohomology in dimension $n$ has dimension at least 1. Indeed, any $n$-form whose integral is nonzero projects with nonzero image to $H_{\textrm{De Rham}}^n(M)$.
+\end{corollary}
+\begin{theorem}(The $n$-to-$n$ Sard's Theorem).
+    Given $\varepsilon>0$, there exists an open set $V_{\varepsilon}\subset X$ that contains $C_X$ and is such that $\int_{V_{\varepsilon}}\Omega_X$ is less than $\varepsilon$.
+\end{theorem}
+\begin{lemma}
+    Given $\delta>0$, there exists $\varepsilon$ such that $\int_{\psi^{-1}}(V_{\varepsilon})\psi^*\Omega_X<\delta$.
+\end{lemma}
+\subsection{Covariant derivatives and metrics}
+\subsubsection{The Levi-Civita connection/covariant derivative}
+\begin{theorem}(Levi-Civita).
+    There is one and only one connection on the orthonormal frame bundle that induces a torsion free covariant derivative on $T^*M$. Said differently, there is one and only one covariant derivative for sections of $T^*M$ that is both metric compatible and torsion free.
+\end{theorem}
+\subsubsection{A formula for the Levi-Civita connection}
+\begin{prop}
+    The Levi-Civita covariant derivative $\nabla$ is given by $\nabla\textrm{d}x^i=-\Gamma_{jk}^i\textrm{d}x^j\otimes\textrm{d}x^k$ where $\Gamma_{jk}^i=\frac{1}{2}g^{in}(\partial_jg_{nk}+\partial_kg_{nj}-\partial_ng_{jk})$.
+\end{prop}
+\subsection{The Riemann curvature tensor}
+\subsubsection{Manifolds of dimension 2: The Gauss-Bonnet formula}
+\begin{prop}
+    If $M$ is compact and oriented, then \[\int_MR\mu_M=8\pi(1-\genus(M))\]
+\end{prop}
+\subsubsection{Metrics on manifolds of dimension 2}
+\begin{theorem}
+    Let $M$ denote a compact oriented 2-dimensional manifold, and let $g$ denote a Riemannian metric on $M$. There exists a positive real function $f:M\rightarrow R$ and a diffeomorphism $\phi:M\rightarrow M$ such that
+    \begin{enumerate}
+        \item If $M=S^2$, then $f\phi^*g$ is the spherical metric that is obtained by viewing $S^2$ as the unit sphere in $\mathbb{R}^3$. The diffeomorphism $\phi$ is unique up to the action of the group $\Sl(2;\mathbb{C})$ on the unit sphere in $\mathbb{R}^3$. View $S^2$ as $\mathbb{CP}^1$, which is to say the space of complex lines in $\mathbb{C}^2$. The group $\Sl(2;\mathbb{C})$ acts as a group of $\mathbb{C}$-linear transformations of $\mathbb{C}^2$ by definition, and so it acts on the space of complex lines. The pull-back of the round metric by a diffeomorphism from $\Sl(2;\mathbb{C})$ is conformal to the round metric.
+        \item If $M=S^1\times S^1$, then $f\phi^*g$ is a metric with zero curvature, in fact, a metric as described above from the identification $S^1\times S^1\rightarrow\mathbb{T}_{\Lambda}$ for some lattice $\Lambda\subset\mathbb{R}^2$. The lattice $\Lambda$ is unique up to the action of $\Sl(2;\mathbb{Z})$ on $\mathbb{R}^2$.
+        \item If $M$ is a surface of genus greater than 1, then $f\phi^*g$ has constant curvature $R=-1$. In fact, $M$ is the quotient of the 2-dimensional hyperbolic space (with $\rho=1$) by the action of a discrete subgroup of the Lorentz group. The set of equivalence classes of such hyperbolic metrics can be given a topology such that the complement of a locally finite subspace is a smooth manifold with dimension $6(\genus(M)-1)$.
+    \end{enumerate}
+\end{theorem}
+\subsubsection{Sectional curvatures and universal covering spaces}
+\begin{theorem}
+    Suppose that the metric is such that all sectional curvatures are nonpositive everywhere on $M$. Then the universal cover of $M$ is diffeomorphic to $\mathbb{R}^n$.
+\end{theorem}
+\subsubsection{The Jacobi field equation}
+\begin{prop}
+    The set of solutions to the Jacobi equations is a vector space of dimension twice that of $M$. This vector space is isomorphic to $TM|_p\otimes TM|_p$ via the map that associates to a solution the vectors $(\eta|_{t=0},\nabla_t\eta|_{t=0})$.
+\end{prop}
+\begin{prop}
+    Let $v\in TM|_p$ denote a given vector with norm 1 and let $\gamma:\mathbb{R}\rightarrow M$ denote the geodesic with $\gamma|_{t=0}=p$ and with $\dot{\gamma}|_{t=0}=v$. Fix a vector $u\in TM|_p$ and let $\eta$ denote the solution to the Jacobi field along $\gamma$ with $\eta|_0=0$ and with $\left(\frac{\textrm{d}}{\textrm{d}t}\eta\right)|_{t=0}=u$. Suppose that $r$ is a given positive number. Then the differential of $\exp_p$ at $rv$ maps the vector $u\in TM|_p$ to $\eta|_{t=r}\in TM|_{\gamma(r)}$.
+\end{prop}
+\subsubsection{Constant sectional curvature and the Jacobi field equation}
+\begin{prop}
+    Suppose that $M$ has a Riemannian metric with everywhere zero curvature. Then the universal cover of $M$ is $\mathbb{R}^{\dim(M)}$ and $M$ is the quotient of this Euclidean space by a group of isometries of the Euclidean metric.
+\end{prop}
+\begin{prop}
+    Suppose that $M$ has a Riemannian metric with sectional curvatures given by $R_{abcd}=c(\delta_{ac}\delta_{bd}-\delta_{ad}\delta_{bc})$ with $c>0$. Then the universal cover of $M$ is $S^{\dim(M)}$ and $M$ is the quotient of the sphere of radius $c^{-1/2}$ by a group of isometries of its round metric. Suppose, on the other hand, that $M$ has a Riemannian metric with sectional curvatures given by $R_{abcd}=c(\delta_{ac}\delta_{bd}-\delta_{ad}\delta_{bc})$ with $c<0$. Then the universal cover of $M$ is $\mathbb{R}^{\dim(M)}$ and $M$ is the quotient of the $\mathbb{R}^n$ by the group of isometries of its hyperbolic metric.
+\end{prop}
+\subsubsection{The Riemannian curvature of a compact matrix group}
+\begin{lemma}(Schur's Lemma).
+    Suppose that $\rho$ is a representation of a compact group $G$ on either $\mathbb{R}^m$ or $\mathbb{C}^m$ that preserves the inner product. Suppose that $\mathfrak{m}$ is a symmetric $m\times m$ matrix in the first case and a Hermitian $m\times m$ matrix in the second; and suppose that $\rho(g)\mathfrak{m}\rho(g^{-1})=\mathfrak{m}$ for all $g\in G$. Then $\mathfrak{m}$ is a multiple of the identity matrix.
+\end{lemma}
+\subsection{Complex manifolds}
+\subsubsection{The Newlander-Nirenberg theorem}
+\begin{theorem}(Newlander-Nirenberg).
+    An almost complex structure on $M$ comes from a complex structure if and only if its Nijenhuis tensor is zero.
+\end{theorem}
+\begin{theorem}
+    Let $M$ denote an oriented manifold or dimension 2. Then every almost complex structure on $TM$ comes from a complex manifold structure.
+\end{theorem}
+\subsubsection{Kähler manifolds}
+\begin{prop}
+    If $\mathfrak{j}$ and a metric $g$ are compatible and $\mathfrak{j}$ is covariantly constant with respect to the Levi-Civita covariant derivative, then $\mathfrak{j}$'s Nijenhuis tensor is zero. As a consequence, $\mathfrak{j}$, comes from a complex manifold structure.
+\end{prop}
+\subsubsection{Complex manifolds with closed almost Kähler form}
+\begin{prop}
+    Suppose that $\mathfrak{j}$ comes from a complex manifold structure on $M$ and that $g$ is a compatible metric such that the associated almost Kähler form $\omega$ is closed. Then $\mathfrak{j}$ and $\omega$ are both covariantly constant.
+\end{prop}
+\begin{lemma}
+    The exponential map $\mathfrak{m}\rightarrow e^{\mathfrak{m}}$ restricts to $\Sym(m;\mathbb{R})$ as a diffeomorphism onto $\Sym^+(m;\mathbb{R})$.
+\end{lemma}
+\subsection{Holomorphic submanifolds, holomorphic sections and curvature}
+\subsubsection{Holomorphic submanifolds of a complex manifold}
+\begin{prop}
+    Let $N$ be a complex manifold and $M$ a holomorphic submanifold of real dimension at least 2. Then $M$ also has the structure of a complex manifold. Moreover, if $g$ is a Kähler metric for $N$, then the restriction of $g$ to the tangent space of $M$ defines a Kähler metric for $M$.
+\end{prop}
+\subsubsection{Holomorphic submanifolds of projective spaces}
+\begin{prop}
+    Suppose that $h$ is a homogeneous polynomial of the coordinates on $\mathbb{C}^{n+1}$ whose holomorphic differential is nowhere zero along $h^{-1}(0)\subset\mathbb{C}^{n+1}-\{0\}$. Then the image, $M_h\subset\mathbb{CP}^n$ of $h^{-1}(0)$ is a compact, complex submanifold of $\mathbb{CP}^n$ of real dimension $2n-2$. Moreover, the complex manifold structure coming from $\mathbb{CP}^n$ is such that the induced metric from the Fubini-Study metric on $\mathbb{CP}^n$ makes $M_h$ a Kähler manifold.
+\end{prop}
+\begin{lemma}
+    Let $U\subset\mathbb{C}^m$ denote an open set and let $f:U\rightarrow\mathbb{C}$ denote a holomorphic function. Then $f^{-1}(0)$ is a smooth, $(2m-2)$-real dimensional submanifold near any point of $f^{-1}(0)$ where $\partial f\neq0$.
+\end{lemma}
+\begin{lemma}
+    Let $U\subset\mathbb{C}^m$ denote an open set and let $f:U\rightarrow\mathbb{C}$ denote a holomorphic function. The point $0\in\mathbb{C}$ is a regular value of $f$ if and only if $\partial f\neq0$ along $f^{-1}(0)$.
+\end{lemma}
+\begin{corollary}
+    Let $U\subset\mathbb{C}^m$ denote an open set and let $f:U\rightarrow\mathbb{C}$ denote a holomorphic function. Then almost all values $c\in\mathbb{C}$ are regular values of $f$. As a consequence, $f^{-1}(c)$ is a holomorphic submanifold of $U$ for almost all values $c\in\mathbb{C}$.
+\end{corollary}
+\subsubsection{Proof of Proposition 18.2, about holomorphic submanifolds in $\mathbb{CP}^n$}
+\begin{prop}
+    Let $U\subset\mathbb{C}^n$ denote an open set and let $f:U\rightarrow\mathbb{C}$ denote a function that is holomorphic with respect to the coordinate functions of $\mathbb{C}^n$. The $f^{-1}(0)$ is a holomorphic submanifold of $\mathbb{C}^n$ on a neighborhood of any point where the holomorphic differential $\sum_{1\leq j\leq n}\frac{\partial f}{\partial w_j}\textrm{d}w_j$ is nonzero.
+\end{prop}
+\subsubsection{The curvature of a Kähler metric}
+\begin{prop}
+    The $(0,2)$ and $(2,0)$ components of $\mathcal{F}_{\nabla}$ are zero. Meanwhile, the trace of $\mathcal{F}_{\nabla}$ is determined by the Ricci tensor of the metric $g$ by \[\tr(\mathcal{F}_{\nabla})=\sum_{1\leq m\leq n}(F_{\nabla})^{mm}=-\frac{1}{4}\sum_{1\leq m,k\leq n}(\Ric_{(2m)(2k)})+(\Ric_{(2m-1)(2k-1)})v^m\wedge\overline{v}k\]
+\end{prop}
+\subsubsection{Curvature with no $(0,2)$ part}
+\begin{prop}
+    Suppose that $M$ is a complex manifold and $\pi:E\rightarrow M$ is a complex vector bundle of rank $q$ with covariant derivative, $\nabla$, whose curvature 2-form has no $(0,2)$ part. Then $E$ has the structure of a complex manifold with the property that each fiber of $\pi$ is a holomorphic submanifold, and as such a copy of $\mathbb{C}^n$ with its standard complex structure. In particular, addition of a given vector to other vectors in the same fiber, or multiplication of a vector by a complex number both define holomorphic maps from the fiber to itself.
+\end{prop}
+\subsubsection{Holomorphic sections}
+\begin{prop}
+    Suppose that $\mathfrak{s}$ is a holomorphic section of $E$ with the property that $\partial_{\nabla}\mathfrak{s}$ defines a surjective linear map from $T_{1,0}M$ to $E$ at each point in $\mathfrak{s}^{-1}(0)$. Then $\mathfrak{s}^{-1}(0)\subset M$ is a holomorphic submanifold.
+\end{prop}
+\subsection{The Hodge star}
+\subsubsection{Representatives of the De Rham cohomology}
+\begin{theorem}
+    Let $M$ denote a compact, oriented, Riemannian manifold. Fix $p\in\{0,\ldots,n\}$ and let $z\in H_{\textrm{De Rham}}^p(M)$ denote a given class. Then there exists a unique $p$-form $\omega$ that obeys both $\textrm{d}\omega=0$ and $\textrm{d}_*\omega=0$, and whose De Rham cohomology class is $z$.
+\end{theorem}
+\begin{corollary}
+    Let $M$ denote a compact, oriented $n$-dimensional manifold. Then each $p\in\{0,1,\ldots,n\}$ version of $H_{\textrm{De Rham}}^p(M)$ is isomorphic to $H_{\textrm{De Rham}}^{n-p}(M)$. In particular, there is an isomorphism with the following property: if $z\in H_{\textrm{De Rham}}^p(M)$ and $*z$ is its partner in $H_{\textrm{De Rham}}^{n-p}(M)$, then $\int_M\omega_z\wedge\omega_{*z}>0$ for any pair $\omega_z$ and $\omega_{*z}$ of representative forms.
+\end{corollary}
+\subsubsection{The Hodge theorem}
+\begin{theorem}(Hodge).
+    Let $M$ denote a compact oriented Riemannian manifold. Then there is an orthogonal (with respect to the $L^2$-inner product) decomposition $\Omega^*=\im(d)\oplus\im(d^{\dagger})\oplus\mathcal{H}^*$. This means the following: Let $p\in\{0,1,\ldots,n\}$ and let $\omega$ denote any given $p$-form. Then there is a unique triple $(\alpha,\beta,\gamma)$ of $(p-1)$-form $\alpha\in\im(d^{\dagger})$, of $(p+1)$-form $\beta\in\im(d)$, and harmonic $p$-form $\gamma$ such that $\omega=\textrm{d}\alpha+\textrm{d}^{\dagger}\beta+\gamma$.
+\end{theorem}
+
+\end{document}
